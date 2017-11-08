@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">10dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="shadow_width">10dp</dimen>
+    <dimen name="slidingmenu_offset">100dp</dimen>
+
+    <!-- Library dimensions -->
+    <dimen name="fvp_default_circle_radius">4dp</dimen>
+    <dimen name="fvp_default_circle_padding">12dp</dimen>
+
+    <!-- Folding TabBar -->
+    <dimen name="ftb_size_mini">50dp</dimen>
+    <dimen name="ftb_size_normal">50dp</dimen>
+    <dimen name="ftb_item_padding">10dp</dimen>
+    <dimen name="ftb_default_radius">40dp</dimen>
+</resources>

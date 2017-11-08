@@ -1,0 +1,112 @@
+<!--
+  Copyright 2011 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<resources>
+
+    <declare-styleable name="SlidingMenu">
+        <attr name="mode">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+        </attr>
+        <attr name="viewAbove" format="reference" />
+        <attr name="viewBehind" format="reference" />
+        <attr name="behindOffset" format="dimension" />
+        <attr name="behindWidth" format="dimension" />
+        <attr name="behindScrollScale" format="float" />
+        <attr name="touchModeAbove">
+            <enum name="margin" value="0" />
+            <enum name="fullscreen" value="1" />
+        </attr>
+        <attr name="touchModeBehind">
+            <enum name="margin" value="0" />
+            <enum name="fullscreen" value="1" />
+        </attr>
+        <attr name="shadowDrawable" format="reference" />
+        <attr name="shadowWidth" format="dimension" />
+        <attr name="fadeEnabled" format="boolean" />
+        <attr name="fadeDegree" format="float" />
+        <attr name="selectorEnabled" format="boolean" />
+        <attr name="selectorDrawable" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="ExtensiblePageIndicator">
+        <attr name="indicatorRadius" format="dimension" />
+        <attr name="indicatorPadding" format="dimension" />
+        <attr name="indicatorInactiveColor" format="color" />
+        <attr name="indicatorActiveColor" format="color" />
+        <attr name="android:gravity" />
+    </declare-styleable>
+
+    <declare-styleable name="WeatherView">
+        <attr name="startingWeather" format="enum">
+            <enum name="SUN" value="2" />
+            <enum name="RAIN" value="0" />
+            <enum name="SNOW" value="1" />
+        </attr>
+        <attr name="lifeTime" format="integer" />
+        <attr name="fadeOutTime" format="integer" />
+
+        <attr name="numParticles" format="integer" />
+        <attr name="fps" format="integer" />
+        <attr name="angle" format="integer" />
+        <attr name="orientationMode" format="enum">
+            <enum name="ENABLE" value="0" />
+            <enum name="DISABLE" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="FoldingTabBar">
+        <attr name="menu" format="reference" />
+        <attr name="itemPadding" format="dimension" />
+        <attr name="mainImage" format="reference" />
+        <attr name="selectionColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="ExpandableItemStyle">
+        <attr name="expandableItemStyle" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="ExpandableItem">
+        <attr name="duration" format="integer"/>
+        <attr name="layoutHeader" format="reference"/>
+        <attr name="layoutContent" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="StickySwitch">
+        <attr name="ss_leftIcon" format="reference" />
+        <attr name="ss_leftText" format="reference|string" />
+        <attr name="ss_rightIcon" format="reference" />
+        <attr name="ss_rightText" format="reference|string" />
+        <attr name="ss_iconSize" format="reference|dimension" />
+        <attr name="ss_iconPadding" format="reference|dimension" />
+        <attr name="ss_textSize" format="reference|dimension" />
+        <attr name="ss_selectedTextSize" format="reference|dimension" />
+        <attr name="ss_switchColor" format="reference|color" />
+        <attr name="ss_sliderBackgroundColor" format="reference|color" />
+        <attr name="ss_textColor" format="reference|color" />
+        <attr name="ss_animationDuration" format="reference|integer" />
+
+        <attr name="ss_animationType" format="enum">
+            <enum name="line" value="0"/>
+            <enum name="curved" value="1"/>
+        </attr>
+        <attr name="ss_textVisibility" format="enum">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
+            <enum name="gone" value="2" />
+        </attr>
+    </declare-styleable>
+</resources>

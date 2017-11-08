@@ -1,0 +1,52 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/viewgroup_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".MainActivity">
+
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vpWeatherView"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:background="@color/colorPrimaryDark" />
+
+        <include layout="@layout/toolbar" />
+
+        <com.quixom.apps.weatherstream.weatherview.WeatherView
+            android:id="@+id/weatherView"
+            android:layout_width="match_parent"
+            android:layout_height="380dp" />
+
+        <com.quixom.apps.weatherstream.utilities.ExtensiblePageIndicator
+            android:id="@+id/flexibleIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/vpWeatherView"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="5dp"
+            app:indicatorActiveColor="@color/frag1"
+            app:indicatorPadding="10dp"
+            app:indicatorRadius="3dp" />
+
+        <com.quixom.apps.weatherstream.expandablerecyclerview.ExpandableRecyclerView
+            android:id="@+id/recyclerViewDaysWeather"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/flexibleIndicator"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

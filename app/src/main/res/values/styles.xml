@@ -1,0 +1,40 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
+    <style name="SearchActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/colorPrimary_tras</item>
+        <item name="android:windowContentOverlay">@color/colorPrimary_tras</item>
+    </style>
+
+    <style name="LyTheme2" parent="LyTheme">
+        <item name="lyColor0">@color/colorAccent</item>
+        <item name="lyColor1">@color/colorYellow</item>
+        <item name="lyColor2">@color/colorGreen</item>
+        <item name="lyColor3">@color/colorAccent</item>
+        <item name="lyColorColon">@color/colorDarkBlue</item>
+        <item name="lyThickness">@integer/lyThickness_4</item>
+        <item name="lyColonThickness">@integer/lyThickness_1</item>
+    </style>
+
+</resources>

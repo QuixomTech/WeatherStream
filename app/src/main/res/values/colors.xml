@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2A3646</color>
+    <color name="colorPrimary_tras">#de2a3646</color>
+    <color name="colorPrimaryDark">#202C38</color>
+    <color name="colorAccent">#0166ED</color>
+    <color name="transparent_bg">#00ffffff</color>
+
+    <!-- Viewpager default indicator color -->
+    <color name="fpi_default_indicator_inactive_color">#80FFFFFF</color>
+    <color name="fpi_default_indicator_active_color">#FFFFFF</color>
+    <color name="dark_gray">#D2D2D2</color>
+    <color name="dark_gray_trans">#92d2d2d2</color>
+
+    <!-- ViewPager dummy colors -->
+    <color name="frag1">#1E88E5</color>
+    <color name="frag2">#FDD835</color>
+    <color name="frag3">#8E24AA</color>
+
+    <!-- Font color -->
+    <color name="font_white">#ffffff</color>
+
+    <!-- Search screen -->
+    <color name="colorOverlay">#78ffffff</color>
+    
+    <!-- Setting screen -->
+    <color name="voodoo">#463340</color>
+    <color name="light_gray">#D4D3D3</color>
+    <color name="azure">#F9FAFA</color>
+    <color name="fruit_salad">#4AAC4E</color>
+    <color name="lipstick">#95305B</color>
+    <color name="rich_blue">#5D5A9E</color>
+    <color name="lighting_yellow">#FFA539</color>
+    <color name="brink_pink">#F4697C</color>
+</resources>

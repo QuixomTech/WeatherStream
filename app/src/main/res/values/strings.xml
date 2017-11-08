@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">Weather Stream</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- dummy text -->
+    <!--<string name="dpi">\u0020dpi</string>-->
+    <string name="dummy_location_text">California, United States\n Sunday, December 22</string>
+    <string name="temperature_avg">25\u00B0</string>
+    <string name="temperature_low">25\u00B0low</string>
+    <string name="temperature_high">35\u00B0high</string>
+    <string name="temperature_min_max">25\u00B0/35\u00B0</string>
+    <string name="rain_perception">55%</string>
+    <string name="humidity">35%</string>
+    <string name="wind">7\u0020mph</string>
+    <string name="direction">SW</string>
+    <string name="precipitation">precipitation</string>
+    <string name="humidity_label">humidity</string>
+    <string name="wind_label">wind</string>
+    <string name="direction_label">direction</string>
+
+    <!-- Side menu text -->
+    <string name="location_search">Location Search</string>
+    <string name="speech_prompt">Weather Stream\n Try saying something</string>
+    <string name="speech_not_supported">Speech not supported</string>
+
+    <!-- Setting menu screen -->
+    <string name="unit_format">UNIT\u0026FORMAT</string>
+    <string name="temperature_label">Temperature</string>
+    <string name="speed_label">Speed</string>
+    <string name="air_pressure_label">Air Pressure</string>
+    <string name="distance_label">Distance</string>
+    <string name="time_format">Time Format</string>
+    <string name="date_format">Date Format</string>
+    <string name="rain_fall">Rain Fall</string>
+    <string name="on_going_notification">On-going Notification</string>
+    <string name="c_symbol">\u00B0C</string>
+    <string name="f_symbol">\u00B0F</string>
+    <string name="ms_speed">m/s</string>
+    <string name="kmh_speed">km/h</string>
+    <string name="mph_speed">MPH</string>
+    <string name="hpa_air_pressure">hPa</string>
+    <string name="mmhg_air_pressure">mm/Hg</string>
+    <string name="inhg_air_pressure">in/Hg</string>
+    <string name="km_distance">KM</string>
+    <string name="mi_distance">MI</string>
+    <string name="twelve_hour">12 Hour</string>
+    <string name="twenty_four_hour">24 Hour</string>
+    <string name="notification_on">On</string>
+    <string name="notification_off">Off</string>
+    <string name="date_dd_mm">DD/MM</string>
+    <string name="date_mm_dd">MM/DD</string>
+    <string name="advance_setting">ADVANCE SETTING</string>
+    <string name="about">ABOUT</string>
+</resources>
