@@ -31,5 +31,9 @@
     <color name="lipstick">#95305B</color>
     <color name="rich_blue">#5D5A9E</color>
     <color name="lighting_yellow">#FFA539</color>
+    <color name="orange">#f5490f</color>
     <color name="brink_pink">#F4697C</color>
+
+    <color name="notification_legacy_background_color">#ff1a1a1a</color>
+    <color name="notification_material_background_dimmed_color">#d4ffffff</color>
 </resources>

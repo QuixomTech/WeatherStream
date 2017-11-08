@@ -1,16 +1,19 @@
 package com.quixom.apps.weatherstream
 
+import android.annotation.TargetApi
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.view.WindowManager
 import android.widget.FrameLayout
 import com.quixom.apps.weatherstream.Methods.Companion.promptSpeechInput
 import com.quixom.apps.weatherstream.activity.SearchActivity
 import com.quixom.apps.weatherstream.fragments.MainFragment
 import com.quixom.apps.weatherstream.slidingmenu.SlidingMenu
 import com.quixom.apps.weatherstream.utilities.FragmentUtil
+import com.quixom.apps.weatherstream.utilities.LocalNotification
 import kotlinx.android.synthetic.main.leftmenu.*
 
 
@@ -21,12 +24,15 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
     private var fragmentContainer: FrameLayout? = null
     private var fragmentUtil: FragmentUtil? = null
 
+    @TargetApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val w = window
-        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+//        val w = window
+////        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+
+        this.window.navigationBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
 
         fragmentUtil = FragmentUtil(this@MainActivity)
         fragmentContainer = findViewById(R.id.fl_fragment_container)
@@ -41,6 +47,9 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         /** Launch Main Fragment */
         fragmentUtil!!.clearBackStackFragmets()
         fragmentUtil!!.replaceFragment(MainFragment(), false, false)
+
+        val localNotification = LocalNotification(this@MainActivity)
+        localNotification.showCustomLayoutHeadsUpNotification(this@MainActivity)
     }
 
     override fun onBackPressed() {
@@ -65,7 +74,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
 
         slidingMenuLeft = SlidingMenu(this)
         slidingMenuLeft?.mode = SlidingMenu.LEFT
-        slidingMenuLeft?.touchModeAbove = SlidingMenu.TOUCHMODE_NONE
+        slidingMenuLeft?.touchModeAbove = SlidingMenu.RIGHT
         slidingMenuLeft?.setShadowWidthRes(R.dimen.shadow_width)
         slidingMenuLeft?.setShadowDrawable(R.drawable.shadow)
         slidingMenuLeft?.setBehindOffsetRes(R.dimen.slidingmenu_offset)

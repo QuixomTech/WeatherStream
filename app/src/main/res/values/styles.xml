@@ -28,11 +28,11 @@
     </style>
 
     <style name="LyTheme2" parent="LyTheme">
-        <item name="lyColor0">@color/colorAccent</item>
-        <item name="lyColor1">@color/colorYellow</item>
-        <item name="lyColor2">@color/colorGreen</item>
+        <item name="lyColor0">@color/fruit_salad</item>
+        <item name="lyColor1">@color/lighting_yellow</item>
+        <item name="lyColor2">@color/fruit_salad</item>
         <item name="lyColor3">@color/colorAccent</item>
-        <item name="lyColorColon">@color/colorDarkBlue</item>
+        <item name="lyColorColon">@color/colorPrimary</item>
         <item name="lyThickness">@integer/lyThickness_4</item>
         <item name="lyColonThickness">@integer/lyThickness_1</item>
     </style>
