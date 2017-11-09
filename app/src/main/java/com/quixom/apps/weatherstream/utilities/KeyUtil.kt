@@ -6,20 +6,16 @@ package com.quixom.apps.weatherstream.utilities
  */
 
 object KeyUtil {
+
+    val BASE_URL_OPEN_WEATHER_MAP = "https://api.openweathermap.org/data/2.5/"
+    val BASE_URL_ACCUWEATHER = "ataservice.accuweather.com/locations/v1/cities/"
+    val KEY_OPEN_WEATHER_MAP_KEY = "63ce7b4d979b0eee4325513aa8b112e0"
+    val KEY_ACCUWEATHER_KEY = "V2TIBiq19pDWvICkFIL9OwWNuJG3anCw"
+
+    val WEATHER_FILE_NAME = "weather_data"
+
     val datePattern = "dd MMM yyyy HH:mm:ss z"
     val KEY_MODE = "key_mode"
 
-    /*** Sensor  */
-    val KEY_SENSOR_NAME = "key_sensor_name"
-    val KEY_SENSOR_TYPE = "key_sensor_type"
-    val KEY_SENSOR_ICON = "key_sensor_icon"
-
-    var KEY_LAST_KNOWN_HUMIDITY = 0f
-
-    val KEY_CAMERA_CODE = 101
-    val KEY_CALL_PERMISSION = 102
-    val IS_USER_COME_FROM_SYSTEM_APPS = 1
-    val IS_USER_COME_FROM_USER_APPS = 2
-
-    val REQ_CODE_SPEECH_INPUT = 103
+    val REQ_CODE_SPEECH_INPUT = 101
 }

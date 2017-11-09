@@ -6,23 +6,29 @@ import android.text.TextUtils.TruncateAt
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.github.matteobattilana.weather.PrecipType
-import com.github.matteobattilana.weather.WeatherData
+import com.github.matteobattilana.weather.WeatherDataAnim
 import com.github.matteobattilana.weather.WeatherViewSensorEventListener
 import com.quixom.apps.weatherstream.Methods
 import com.quixom.apps.weatherstream.R
 import com.quixom.apps.weatherstream.adapters.ItemAdapter
 import com.quixom.apps.weatherstream.adapters.WeatherTVFragmentAdapter
+import com.quixom.apps.weatherstream.model.WeatherData
+import com.quixom.apps.weatherstream.webservice.WeatherDataUpdator
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.toolbar_ui.*
 
 /**
  * A simple [BaseFragment] subclass.
  */
-class MainFragment : BaseFragment(), View.OnClickListener {
+class MainFragment : BaseFragment(), WeatherDataUpdator.View, View.OnClickListener {
 
     var weatherTVFragmentAdapter: WeatherTVFragmentAdapter? = null
     lateinit var weatherSensor: WeatherViewSensorEventListener
+
+    var mPresenter: WeatherDataUpdator.Presenter? = null
+
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -32,6 +38,11 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initToolbar()
+
+        mPresenter = WeatherPresenter()
+        mPresenter?.subscribe(this)
+
+        initViews()
 
         weatherSensor = WeatherViewSensorEventListener(mActivity, weatherView)
         weatherTVFragmentAdapter = WeatherTVFragmentAdapter(mActivity.supportFragmentManager)
@@ -53,7 +64,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         recyclerViewDaysWeather.adapter = ItemAdapter(layoutManager, recyclerViewDaysWeather, mActivity)
     }
 
-    private fun setWeatherData(weatherData: WeatherData) {
+    private fun setWeatherData(weatherData: WeatherDataAnim) {
         weatherView.setWeatherData(weatherData)
     }
 
@@ -82,6 +93,11 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         weatherSensor.onPause()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mPresenter?.unSubscribe()
+    }
+
     /***
      * Method for initialise Toolbar
      * */
@@ -104,4 +120,22 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         } catch (e: IllegalAccessException) {
         }
     }
+
+    private fun initViews() {
+        mPresenter?.refresh("London")
+    }
+
+    override fun getContextInstance() = mActivity
+
+    override fun onError() {
+        Toast.makeText(mActivity,"OnError", Toast.LENGTH_LONG).show()
+    }
+
+    override fun onStoredDataFetched(weatherData: WeatherData?) {
+        println("weather data = " + weatherData?.getName() +",->" + weatherData?.getClouds()?.getAll()+",->"+weatherData?.getWeather()?.get(0)?.getDescription())
+    }
+    override fun onDataFetched(weatherData: com.quixom.apps.weatherstream.model.WeatherData?) {
+    }
+
 }
+

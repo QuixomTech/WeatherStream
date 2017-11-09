@@ -7,7 +7,7 @@ import android.graphics.Rect
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import com.github.matteobattilana.weather.PrecipType
-import com.github.matteobattilana.weather.WeatherData
+import com.github.matteobattilana.weather.WeatherDataAnim
 import com.github.matteobattilana.weather.confetti.WeatherConfettoGenerator
 import com.quixom.apps.weatherstream.R
 import com.quixom.apps.weatherstream.weatherview.confetti.ConfettiManager
@@ -83,7 +83,7 @@ class WeatherView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
         setConfettiBoundsToSelf()
     }
 
-    fun setWeatherData(weatherData: WeatherData) {
+    fun setWeatherData(weatherData: WeatherDataAnim) {
         precipType = weatherData.precipType
         emissionRate = weatherData.emissionRate
         speed = weatherData.speed

@@ -19,11 +19,10 @@ import com.quixom.apps.weatherstream.R
 
 class LocalNotification(val mainActivity: MainActivity) {
 
+    /***
+     * Build local notification for showing weather
+     */
     @RequiresApi(Build.VERSION_CODES.N)
-            /***
-             * Build local notification
-             */
-
     fun showCustomLayoutHeadsUpNotification(context: Context) {
 
         val remoteViews = createRemoteViews(context, R.layout.notification_custom_content, R.drawable.ic_snow_storm_day_winter_weather, "Ahmedabad, India", "34 Sunny")
@@ -55,7 +54,6 @@ class LocalNotification(val mainActivity: MainActivity) {
         remoteViews.setImageViewResource(R.id.image_icon, iconResource)
         remoteViews.setTextViewText(R.id.text_title, title)
         remoteViews.setTextViewText(R.id.text_message, message)
-//        remoteViews.setImageViewResource(R.id.image_end, imageResource)
         return remoteViews
     }
 

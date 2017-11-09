@@ -3,7 +3,7 @@ package com.github.matteobattilana.weather
 /**
  * Created by Mitchell on 7/6/2017.
  */
-enum class PrecipType : WeatherData {
+enum class PrecipType : WeatherDataAnim {
     CLEAR {
         override val emissionRate: Float = 0f
         override val speed: Int = 0
