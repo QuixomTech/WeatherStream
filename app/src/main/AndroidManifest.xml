@@ -3,6 +3,7 @@
     package="com.quixom.apps.weatherstream">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".WeatherStreamApp"
@@ -25,6 +26,10 @@
             android:name=".activity.SearchActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SearchActivityTheme" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCqXcHW3xhlxSGugVQvXocM_40s1kVFELk" />
     </application>
 
 </manifest>

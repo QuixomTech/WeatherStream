@@ -52,4 +52,10 @@
     <string name="date_mm_dd">MM/DD</string>
     <string name="advance_setting">ADVANCE SETTING</string>
     <string name="about">ABOUT</string>
+
+    <!-- Api Error message -->
+    <string name="no_internet_connection">No Internet Connection.</string>
+    <string name="server_not_responding">Server not responding.</string>
+    <string name="server_timeout_error">Server timeout error.</string>
+    <string name="something_went_wrong">Something went wrong</string>
 </resources>

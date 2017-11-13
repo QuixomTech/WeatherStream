@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.quixom.apps.weatherstream.MainActivity
 import com.quixom.apps.weatherstream.Methods
+import com.quixom.apps.weatherstream.utilities.ConnectionChecker
 import com.quixom.apps.weatherstream.utilities.FragmentUtil
 
 /**
@@ -17,6 +18,8 @@ open class BaseFragment : Fragment() {
     lateinit var mActivity: MainActivity
     lateinit var fragmentUtil: FragmentUtil
     lateinit var mResources: Resources
+    lateinit var connectionChecker: ConnectionChecker
+    lateinit var errorHandler: com.quixom.apps.weatherstream.webservice.ErrorHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +27,8 @@ open class BaseFragment : Fragment() {
         mActivity = activity as MainActivity
         fragmentUtil = FragmentUtil(mActivity)
         mResources = mActivity.resources
+        connectionChecker = ConnectionChecker(mActivity)
+        errorHandler = com.quixom.apps.weatherstream.webservice.ErrorHandler(mActivity)
 
         Methods(mActivity)
     }

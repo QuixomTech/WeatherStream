@@ -8,6 +8,7 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.net.ConnectivityManager
 import android.speech.RecognizerIntent
+import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.text.SpannableString
@@ -17,6 +18,7 @@ import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
 import com.quixom.apps.weatherstream.utilities.KeyUtil
 import java.text.ParseException
@@ -233,6 +235,20 @@ class Methods(val mActivity: MainActivity) {
             } catch (a: ActivityNotFoundException) {
                 Toast.makeText(activity, activity.getString(R.string.speech_not_supported), Toast.LENGTH_SHORT).show()
             }
+        }
+
+        /***
+         * Method for show SnackBar layout
+         * */
+        fun showSnackBar(view: View, message: String, color: Int, mActivity: MainActivity) {
+            val snackbar = Snackbar.make(view , message , Snackbar.LENGTH_LONG)
+
+            // Changing action button text color
+            val sbView = snackbar.view
+            sbView.setBackgroundColor(color)
+            val textView = sbView.findViewById<View>(android.support.design.R.id.snackbar_text) as TextView
+            textView.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
+            snackbar.show()
         }
     }
 }

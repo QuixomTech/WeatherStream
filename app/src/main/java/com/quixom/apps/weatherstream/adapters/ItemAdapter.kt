@@ -47,7 +47,7 @@ class ItemAdapter(layout: LinearLayoutManager, recyclerView: ExpandableRecyclerV
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemAdapter.ViewHolder {
         context = parent.context
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.view_row, parent, false), mActivity!!)
+        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.row_view, parent, false), mActivity!!)
     }
 
     override fun onBindViewHolder(holder: ItemAdapter.ViewHolder, position: Int) {

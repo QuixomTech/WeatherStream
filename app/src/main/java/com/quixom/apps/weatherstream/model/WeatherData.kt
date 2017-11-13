@@ -1,400 +1,94 @@
 package com.quixom.apps.weatherstream.model
 
 import com.google.gson.annotations.Expose
+import com.quixom.apps.weatherstream.dbconfig.WeatherStreamDB
+import com.raizlabs.android.dbflow.annotation.Column
+import com.raizlabs.android.dbflow.annotation.PrimaryKey
+import com.raizlabs.android.dbflow.annotation.Table
+import com.raizlabs.android.dbflow.structure.BaseModel
 
 /**
-* Created by akif on 11/9/17.
-*/
-/*
-data class WeatherData(
-        val id: Long,
-        val dt: Long,
-        val clouds: Clouds,
-        val coord: Coord,
-        val wind: Wind,
-        val cod: Long,
-        val visibility: Long,
-        val sys: Sys,
-        val name: String,
-        val base: String,
-        val weather: Weather,
-        val main: Main
-) : Serializable
+ * Created by akif on 11/9/17.
+ */
 
-data class Clouds(
-        val all: String
-) : Serializable
+@Table(name = WeatherData.TABLE_NAME, database = WeatherStreamDB::class)
+class WeatherData(@Column @PrimaryKey @Expose var id: String? = null,
+                  @Column @Expose var dt: String? = null,
+                  @Expose var clouds: Clouds? = null,
+                  @Expose var coord: Coord? = null,
+                  @Expose var wind: Wind? = null,
+                  @Column @Expose var cod: Int? = null,
+                  @Column @Expose var visibility: String? = null,
+                  @Expose var sys: Sys? = null,
+                  @Column @Expose var name: String? = null,
+                  @Column @Expose var base: String? = null,
+                  @Expose var weather: Array<Weather>? = null,
+                  @Expose var main: Main? = null) : BaseModel() {
 
-data class Coord(
-        val lon: Double,
-        val lat: Double
-) : Serializable
-
-data class Wind(
-        val speed: Double,
-        val deg: Int
-) : Serializable
-
-data class Sys(
-        val message: String,
-        val id: Long,
-        val sunrise: Long,
-        val sunset: Long,
-        val type: Int,
-        val country: String
-) : Serializable
-
-data class Weather(
-        val id: Long,
-        val icon: String,
-        val description: String,
-        val main: String
-) : Serializable
-
-data class Main(
-        val humidity: Long,
-        val pressure: Long,
-        val temp_max: Double,
-        val temp_min: Double,
-        val temp: Double
-) : Serializable*/
-class WeatherData {
-
-    @Expose
-    private var id: String? = null
-    @Expose
-    private var dt: String? = null
-    @Expose
-    private var clouds: Clouds? = null
-    @Expose
-    private var coord: Coord? = null
-    @Expose
-    private var wind: Wind? = null
-    @Expose
-    private var cod: String? = null
-    @Expose
-    private var visibility: String? = null
-    @Expose
-    private var sys: Sys? = null
-    @Expose
-    private var name: String? = null
-    @Expose
-    private var base: String? = null
-    @Expose
-    private var weather: Array<Weather>? = null
-    @Expose
-    private var main: Main? = null
-
-    fun getId(): String? {
-        return id
+    companion object {
+        const val TABLE_NAME = "WeatherDetail"
     }
 
-    fun setId(id: String) {
-        this.id = id
-    }
-
-    fun getDt(): String? {
-        return dt
-    }
-
-    fun setDt(dt: String) {
-        this.dt = dt
-    }
-
-    fun getClouds(): Clouds? {
-        return clouds
-    }
-
-    fun setClouds(clouds: Clouds) {
-        this.clouds = clouds
-    }
-
-    fun getCoord(): Coord? {
-        return coord
-    }
-
-    fun setCoord(coord: Coord) {
-        this.coord = coord
-    }
-
-    fun getWind(): Wind? {
-        return wind
-    }
-
-    fun setWind(wind: Wind) {
-        this.wind = wind
-    }
-
-    fun getCod(): String? {
-        return cod
-    }
-
-    fun setCod(cod: String) {
-        this.cod = cod
-    }
-
-    fun getVisibility(): String? {
-        return visibility
-    }
-
-    fun setVisibility(visibility: String) {
-        this.visibility = visibility
-    }
-
-    fun getSys(): Sys? {
-        return sys
-    }
-
-    fun setSys(sys: Sys) {
-        this.sys = sys
-    }
-
-    fun getName(): String? {
-        return name
-    }
-
-    fun setName(name: String) {
-        this.name = name
-    }
-
-    fun getBase(): String? {
-        return base
-    }
-
-    fun setBase(base: String) {
-        this.base = base
-    }
-
-    fun getWeather(): Array<Weather>? {
-        return weather
-    }
-
-    fun setWeather(weather: Array<Weather>) {
-        this.weather = weather
-    }
-
-    fun getMain(): Main? {
-        return main
-    }
-
-    fun setMain(main: Main) {
-        this.main = main
-    }
-
-    class Clouds {
-        private var all: String? = null
-
-        fun getAll(): String? {
-            return all
-        }
-
-        fun setAll(all: String) {
-            this.all = all
+    @Table(name = Clouds.TABLE_NAME, database = WeatherStreamDB::class)
+    class Clouds(@Column @PrimaryKey(autoincrement = true) var id: Int? = null,
+                 @Column @Expose var all: String? = null) : BaseModel() {
+        companion object {
+            const val TABLE_NAME = "CloudsWeather"
         }
     }
 
-    class Coord {
-        @Expose
-        private var lon: String? = null
-        @Expose
-        private var lat: String? = null
-
-        fun getLon(): String? {
-            return lon
-        }
-
-        fun setLon(lon: String) {
-            this.lon = lon
-        }
-
-        fun getLat(): String? {
-            return lat
-        }
-
-        fun setLat(lat: String) {
-            this.lat = lat
+    @Table(name = Coord.TABLE_NAME, database = WeatherStreamDB::class)
+    class Coord(@Column @PrimaryKey(autoincrement = true) @Expose var id: Int? = null,
+                @Column @Expose var lon: String? = null,
+                @Column @Expose var lat: String? = null) : BaseModel() {
+        companion object {
+            const val TABLE_NAME = "CoordWeather"
         }
     }
 
-    class Wind {
-        @Expose
-        private var speed: String? = null
-        @Expose
-        private var deg: String? = null
-
-        fun getSpeed(): String? {
-            return speed
-        }
-
-        fun setSpeed(speed: String) {
-            this.speed = speed
-        }
-
-        fun getDeg(): String? {
-            return deg
-        }
-
-        fun setDeg(deg: String) {
-            this.deg = deg
+    @Table(name = Wind.TABLE_NAME, database = WeatherStreamDB::class)
+    class Wind(@Column @PrimaryKey(autoincrement = true) @Expose var id: Int? = null,
+               @Column @Expose var speed: String? = null,
+               @Column @Expose var deg: String? = null) : BaseModel() {
+        companion object {
+            const val TABLE_NAME = "WindWeather"
         }
     }
 
-    class Sys {
-        @Expose
-        private var message: String? = null
-        @Expose
-        private var id: String? = null
-        @Expose
-        private var sunset: String? = null
-        @Expose
-        private var sunrise: String? = null
-        @Expose
-        private var type: String? = null
-
-        private var country: String? = null
-
-        fun getMessage(): String? {
-            return message
-        }
-
-        fun setMessage(message: String) {
-            this.message = message
-        }
-
-        fun getId(): String? {
-            return id
-        }
-
-        fun setId(id: String) {
-            this.id = id
-        }
-
-        fun getSunset(): String? {
-            return sunset
-        }
-
-        fun setSunset(sunset: String) {
-            this.sunset = sunset
-        }
-
-        fun getSunrise(): String? {
-            return sunrise
-        }
-
-        fun setSunrise(sunrise: String) {
-            this.sunrise = sunrise
-        }
-
-        fun getType(): String? {
-            return type
-        }
-
-        fun setType(type: String) {
-            this.type = type
-        }
-
-        fun getCountry(): String? {
-            return country
-        }
-
-        fun setCountry(country: String) {
-            this.country = country
+    @Table(name = Sys.TABLE_NAME, database = WeatherStreamDB::class)
+    class Sys(
+            @Column @PrimaryKey(autoincrement = true) @Expose var sysId: Int? = null,
+            @Column @Expose var message: String? = null,
+            @Column @Expose var id: Int? = null,
+            @Column @Expose var sunset: Long? = null,
+            @Column @Expose var sunrise: Long? = null,
+            @Column @Expose var type: Int? = null,
+            @Column @Expose var country: String? = null) : BaseModel() {
+        companion object {
+            const val TABLE_NAME = "SysWeather"
         }
     }
 
-    class Weather {
-        @Expose
-        private var id: String? = null
-        @Expose
-        private var icon: String? = null
-        @Expose
-        private var description: String? = null
-        @Expose
-        private var main: String? = null
+    @Table(name = Weather.TABLE_NAME, database = WeatherStreamDB::class)
+    class Weather(@Column @PrimaryKey @Expose var id: Int? = null,
+                  @Column @Expose var icon: String? = null,
+                  @Column @Expose var description: String? = null,
+                  @Column @Expose var main: String? = null) : BaseModel() {
 
-        fun getId(): String? {
-            return id
-        }
-
-        fun setId(id: String) {
-            this.id = id
-        }
-
-        fun getIcon(): String? {
-            return icon
-        }
-
-        fun setIcon(icon: String) {
-            this.icon = icon
-        }
-
-        fun getDescription(): String? {
-            return description
-        }
-
-        fun setDescription(description: String) {
-            this.description = description
-        }
-
-        fun getMain(): String? {
-            return main
-        }
-
-        fun setMain(main: String) {
-            this.main = main
+        companion object {
+            const val TABLE_NAME = "WeatherDescription"
         }
     }
 
-    class Main {
-        @Expose
-        private var humidity: String? = null
-        @Expose
-        private var pressure: String? = null
-        @Expose
-        private var temp_max: String? = null
-        @Expose
-        private var temp_min: String? = null
-        @Expose
-        private var temp: String? = null
-
-        fun getHumidity(): String? {
-            return humidity
-        }
-
-        fun setHumidity(humidity: String) {
-            this.humidity = humidity
-        }
-
-        fun getPressure(): String? {
-            return pressure
-        }
-
-        fun setPressure(pressure: String) {
-            this.pressure = pressure
-        }
-
-        fun getTemp_max(): String? {
-            return temp_max
-        }
-
-        fun setTemp_max(temp_max: String) {
-            this.temp_max = temp_max
-        }
-
-        fun getTemp_min(): String? {
-            return temp_min
-        }
-
-        fun setTemp_min(temp_min: String) {
-            this.temp_min = temp_min
-        }
-
-        fun getTemp(): String? {
-            return temp
-        }
-
-        fun setTemp(temp: String) {
-            this.temp = temp
+    @Table(name = Main.TABLE_NAME, database = WeatherStreamDB::class)
+    class Main(@Column @PrimaryKey(autoincrement = true) @Expose var id: Int? = null,
+               @Column @Expose var humidity: String? = null,
+               @Column @Expose var pressure: String? = null,
+               @Column @Expose var temp_max: String? = null,
+               @Column @Expose var temp_min: String? = null,
+               @Column @Expose var temp: String? = null) : BaseModel() {
+        companion object {
+            const val TABLE_NAME = "MainWeather"
         }
     }
 }

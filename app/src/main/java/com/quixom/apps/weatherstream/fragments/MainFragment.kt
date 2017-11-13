@@ -1,12 +1,12 @@
 package com.quixom.apps.weatherstream.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils.TruncateAt
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.github.matteobattilana.weather.PrecipType
 import com.github.matteobattilana.weather.WeatherDataAnim
 import com.github.matteobattilana.weather.WeatherViewSensorEventListener
@@ -14,20 +14,16 @@ import com.quixom.apps.weatherstream.Methods
 import com.quixom.apps.weatherstream.R
 import com.quixom.apps.weatherstream.adapters.ItemAdapter
 import com.quixom.apps.weatherstream.adapters.WeatherTVFragmentAdapter
-import com.quixom.apps.weatherstream.model.WeatherData
-import com.quixom.apps.weatherstream.webservice.WeatherDataUpdator
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.toolbar_ui.*
 
 /**
  * A simple [BaseFragment] subclass.
  */
-class MainFragment : BaseFragment(), WeatherDataUpdator.View, View.OnClickListener {
+class MainFragment : BaseFragment(), View.OnClickListener {
 
     var weatherTVFragmentAdapter: WeatherTVFragmentAdapter? = null
     lateinit var weatherSensor: WeatherViewSensorEventListener
-
-    var mPresenter: WeatherDataUpdator.Presenter? = null
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -38,11 +34,6 @@ class MainFragment : BaseFragment(), WeatherDataUpdator.View, View.OnClickListen
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initToolbar()
-
-        mPresenter = WeatherPresenter()
-        mPresenter?.subscribe(this)
-
-        initViews()
 
         weatherSensor = WeatherViewSensorEventListener(mActivity, weatherView)
         weatherTVFragmentAdapter = WeatherTVFragmentAdapter(mActivity.supportFragmentManager)
@@ -93,14 +84,10 @@ class MainFragment : BaseFragment(), WeatherDataUpdator.View, View.OnClickListen
         weatherSensor.onPause()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        mPresenter?.unSubscribe()
-    }
-
     /***
      * Method for initialise Toolbar
      * */
+    @SuppressLint("SetTextI18n")
     private fun initToolbar() {
         tvToolbarTitle.text = "California"
         toggleMenu.setOnClickListener(this)
@@ -121,21 +108,6 @@ class MainFragment : BaseFragment(), WeatherDataUpdator.View, View.OnClickListen
         }
     }
 
-    private fun initViews() {
-        mPresenter?.refresh("London")
-    }
-
-    override fun getContextInstance() = mActivity
-
-    override fun onError() {
-        Toast.makeText(mActivity,"OnError", Toast.LENGTH_LONG).show()
-    }
-
-    override fun onStoredDataFetched(weatherData: WeatherData?) {
-        println("weather data = " + weatherData?.getName() +",->" + weatherData?.getClouds()?.getAll()+",->"+weatherData?.getWeather()?.get(0)?.getDescription())
-    }
-    override fun onDataFetched(weatherData: com.quixom.apps.weatherstream.model.WeatherData?) {
-    }
 
 }
 

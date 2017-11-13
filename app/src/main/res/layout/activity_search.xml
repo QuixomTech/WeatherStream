@@ -1,59 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/place_autocomplete_fragment"
+    android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-
-    android:orientation="vertical"
-    tools:context=".activity.SearchActivity">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@drawable/search_view_bg_white"
-        android:orientation="horizontal"
-        android:paddingBottom="5dp"
-        android:paddingEnd="10dp"
-        android:paddingStart="10dp"
-        android:paddingTop="5dp"
-        android:weightSum="2">
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="18dp"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0.2"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_search"
-            android:tint="@color/colorPrimary" />
-
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_weight="1.6"
-            android:gravity="center_vertical"
-            android:hint="@string/location_search"
-            android:focusable="true"
-            android:background="@android:color/transparent"
-            android:textColor="@color/colorPrimary" />
-
-        <ImageView
-            android:id="@+id/ivTextToSpeech"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_mic_black_24dp"
-            android:tint="@color/colorPrimary" />
-
-    </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-</LinearLayout>
-
+    android:layout_height="wrap_content" />
