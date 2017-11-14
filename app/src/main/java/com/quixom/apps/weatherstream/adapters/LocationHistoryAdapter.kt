@@ -1,14 +1,17 @@
 package com.quixom.apps.weatherstream.adapters
 
+import android.annotation.SuppressLint
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.quixom.apps.weatherstream.MainActivity
 import com.quixom.apps.weatherstream.R
 import com.quixom.apps.weatherstream.model.LocationSearchHistory
+import java.util.*
 
 /**
 * Created by akif on 11/3/17.
@@ -22,12 +25,19 @@ class LocationHistoryAdapter(internal var appslist: ArrayList<LocationSearchHist
 
     override fun onBindViewHolder(holder: LocationHistoryAdapter.LocationVH?, position: Int) {
         holder?.bindData(appslist[position])
+
+        holder?.itemView?.setOnClickListener(View.OnClickListener {
+            Toast.makeText(sActivity, "Hello", Toast.LENGTH_SHORT).show()
+            sActivity.callSearchLocationApi(appslist[position].cityName!!)
+            sActivity.toggleSlideMenuLeft()
+        })
     }
 
     override fun getItemCount(): Int = appslist.size
 
 
     inner class LocationVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        @SuppressLint("SetTextI18n")
         fun bindData(locationSearchData: LocationSearchHistory) {
 
             val ivWeatherType: ImageView = itemView.findViewById(R.id.ivWeatherTypeMV)
@@ -36,8 +46,9 @@ class LocationHistoryAdapter(internal var appslist: ArrayList<LocationSearchHist
             val tvTemperature: TextView = itemView.findViewById(R.id.tvTemperatureMV)
 
             tvCityName.text = locationSearchData.cityName
-            tvCountryName.text = locationSearchData.countyName
-            tvTemperature.text = locationSearchData.temperature.toString()
+            val loc = Locale("", locationSearchData.countyName)
+            tvCountryName.text = loc.displayCountry
+            tvTemperature.text = Math.round(locationSearchData.temperature!!).toString().plus(sActivity.resources.getString(R.string.c_symbol))
         }
     }
 }

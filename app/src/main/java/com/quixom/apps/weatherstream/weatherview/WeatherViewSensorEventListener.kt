@@ -10,8 +10,8 @@ import com.quixom.apps.weatherstream.weatherview.WeatherView
 
 
 /**
- * Created by Mitchell on 7/7/2017.
- */
+* Created by akif on 14/11/2017.
+*/
 
 class WeatherViewSensorEventListener(val context: Context, val weatherView: WeatherView) : SensorEventListener {
     private val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager

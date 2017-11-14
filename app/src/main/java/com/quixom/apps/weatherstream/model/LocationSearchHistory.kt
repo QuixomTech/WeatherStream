@@ -13,7 +13,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel
 */
 
 @Table(name = LocationSearchHistory.TABLE_NAME, database = WeatherStreamDB::class)
-class LocationSearchHistory(@Column @PrimaryKey @Expose var id: Int? = null,
+class LocationSearchHistory(@Column @PrimaryKey @Expose var id: Long? = null,
                             @Column @Expose var cityName: String? = null,
                             @Column @Expose var countyName: String? = null,
                             @Column @Expose var weatherType: String? = null,
@@ -21,8 +21,6 @@ class LocationSearchHistory(@Column @PrimaryKey @Expose var id: Int? = null,
     companion object {
         const val TABLE_NAME = "LocationSearchHistory"
 
-        fun getSearchedLocationList(): List<LocationSearchHistory> {
-            return SQLite.select().distinct().from<LocationSearchHistory>(LocationSearchHistory::class.java).queryList()
-        }
+        fun getSearchedLocationList(): List<LocationSearchHistory> = SQLite.select().distinct().from<LocationSearchHistory>(LocationSearchHistory::class.java).queryList()
     }
 }

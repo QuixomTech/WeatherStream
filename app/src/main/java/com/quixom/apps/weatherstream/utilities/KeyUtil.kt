@@ -2,8 +2,8 @@ package com.quixom.apps.weatherstream.utilities
 
 
 /**
- * Created by mind on 30/03/17.
- */
+* Created by akif on 14/11/17.
+*/
 
 object KeyUtil {
     val datePattern = "dd MMM yyyy HH:mm:ss z"
@@ -13,4 +13,8 @@ object KeyUtil {
     val REQ_CODE_SPEECH_INPUT = 101
     val PLACE_AUTOCOMPLETE_REQUEST_CODE: Int = 102
 
+    /*** Weather Map api Units */
+    val UNITS_STANDARD = "Standard"
+    val UNITS_METRIC = "metric"
+    val UNITS_IMPERIAL = "imperial"
 }

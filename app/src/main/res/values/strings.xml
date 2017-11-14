@@ -5,11 +5,12 @@
 
     <!-- dummy text -->
     <!--<string name="dpi">\u0020dpi</string>-->
-    <string name="dummy_location_text">California, United States\n Sunday, December 22</string>
+    <string name="dummy_location_text">Sunday, December 22</string>
     <string name="temperature_avg">25\u00B0</string>
-    <string name="temperature_low">25\u00B0low</string>
-    <string name="temperature_high">35\u00B0high</string>
+    <string name="temperature_low">\u00B0low</string>
+    <string name="temperature_high">\u00B0high</string>
     <string name="temperature_min_max">25\u00B0/35\u00B0</string>
+    <string name="temp_degree_sign">\u00B0</string>
     <string name="rain_perception">55%</string>
     <string name="humidity">35%</string>
     <string name="wind">7\u0020mph</string>
@@ -58,4 +59,23 @@
     <string name="server_not_responding">Server not responding.</string>
     <string name="server_timeout_error">Server timeout error.</string>
     <string name="something_went_wrong">Something went wrong</string>
+
+    <!-- Wind Direction -->
+    <string name="n">N</string>
+    <string name="nne">NNE</string>
+    <string name="ne">NE</string>
+    <string name="ene">ENE</string>
+    <string name="e">E</string>
+    <string name="ese">ESE</string>
+    <string name="se">SE</string>
+    <string name="sse">SSE</string>
+    <string name="s">S</string>
+    <string name="ssw">SSW</string>
+    <string name="sw">SW</string>
+    <string name="wsw">WSW</string>
+    <string name="w">W</string>
+    <string name="wnw">WNW</string>
+    <string name="nw">NW</string>
+    <string name="nnw">NNW</string>
+
 </resources>

@@ -12,14 +12,13 @@ object APIParameters {
     val KEY_OPEN_WEATHER_MAP_KEY = "63ce7b4d979b0eee4325513aa8b112e0"
     const val KEY_AUTH = "x-api-key"
 
-    fun getParam(): HashMap<String, String> {
-        return HashMap()
-    }
+    fun getParam(): HashMap<String, String> = HashMap()
 
     class LocationSearch {
         companion object {
             val apiKey = "apikey"
             val queryParam = "q"
+            val units = "units"
         }
     }
 }

@@ -13,7 +13,6 @@
         android:layout_centerVertical="true"
         android:maxLines="1"
         android:layout_marginStart="5dp"
-        android:text="New York"
         android:layout_toEndOf="@id/toggleMenu"
         android:textColor="@color/font_white"
         android:textSize="25sp" />

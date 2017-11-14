@@ -13,50 +13,45 @@ import com.github.matteobattilana.weather.WeatherViewSensorEventListener
 import com.quixom.apps.weatherstream.Methods
 import com.quixom.apps.weatherstream.R
 import com.quixom.apps.weatherstream.adapters.ItemAdapter
-import com.quixom.apps.weatherstream.adapters.WeatherTVFragmentAdapter
+import com.quixom.apps.weatherstream.model.WeatherData
+import com.quixom.apps.weatherstream.utilities.DateUtil
+import com.quixom.apps.weatherstream.utilities.DegreeToWindDirection
+import com.quixom.apps.weatherstream.utilities.WeatherStreamCallback
+import com.quixom.apps.weatherstream.utilities.WeatherStreamCallbackManager
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.fragment_weather_location_view.*
 import kotlinx.android.synthetic.main.toolbar_ui.*
+import java.util.*
 
 /**
  * A simple [BaseFragment] subclass.
  */
 class MainFragment : BaseFragment(), View.OnClickListener {
 
-    var weatherTVFragmentAdapter: WeatherTVFragmentAdapter? = null
     lateinit var weatherSensor: WeatherViewSensorEventListener
 
-
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater!!.inflate(R.layout.fragment_main, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater!!.inflate(R.layout.fragment_main, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        initToolbar()
-
         weatherSensor = WeatherViewSensorEventListener(mActivity, weatherView)
-        weatherTVFragmentAdapter = WeatherTVFragmentAdapter(mActivity.supportFragmentManager)
 
-        weatherTVFragmentAdapter!!.addFragment(WeatherTVFragment.newInstance(R.color.frag1))
-        weatherTVFragmentAdapter!!.addFragment(WeatherTVFragment.newInstance(R.color.frag2))
-        weatherTVFragmentAdapter!!.addFragment(WeatherTVFragment.newInstance(R.color.frag3))
+        WeatherStreamCallbackManager.addWishCallBack(addWeatherStreamCallBack)
 
-        vpWeatherView.adapter = weatherTVFragmentAdapter
-        flexibleIndicator.initViewPager(vpWeatherView)
-
-        setWeatherData(PrecipType.SNOW)
-        weatherView.emissionRate = 30f
-        weatherView.fadeOutPercent = 1f
-        weatherView.angle = 20
+        setWeatherDetails()
 
         val layoutManager = LinearLayoutManager(mActivity)
         recyclerViewDaysWeather.layoutManager = layoutManager
         recyclerViewDaysWeather.adapter = ItemAdapter(layoutManager, recyclerViewDaysWeather, mActivity)
     }
 
-    private fun setWeatherData(weatherData: WeatherDataAnim) {
-        weatherView.setWeatherData(weatherData)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        WeatherStreamCallbackManager.removeWishCallBack(addWeatherStreamCallBack)
+    }
+
+    private fun setWeatherData(weatherDataAnim: WeatherDataAnim) {
+        weatherView.setWeatherData(weatherDataAnim)
     }
 
     override fun onClick(v: View?) {
@@ -88,8 +83,8 @@ class MainFragment : BaseFragment(), View.OnClickListener {
      * Method for initialise Toolbar
      * */
     @SuppressLint("SetTextI18n")
-    private fun initToolbar() {
-        tvToolbarTitle.text = "California"
+    private fun initToolbar(header: String) {
+        tvToolbarTitle.text = header
         toggleMenu.setOnClickListener(this)
         ivSetting.setOnClickListener(this)
         toggleMenu.tag = 0
@@ -108,6 +103,44 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
+    fun setWeatherDetails () {
+        val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
+        val sysWeatherData: WeatherData.Sys? = WeatherData.Sys.getSysWeatherDetails()
+        val mainWeatherData: WeatherData.Main? = WeatherData.Main.getMainWeatherDetails()
+        val cloudWeatherData: WeatherData.Clouds? = WeatherData.Clouds.getCloudWeatherDetails()
+        val inWeatherData: WeatherData.Weather? = WeatherData.Weather.getInnerWeatherDetails()
+        val windWeatherData: WeatherData.Wind? = WeatherData.Wind.getWindWeatherDetails()
 
+        if (weatherData != null && sysWeatherData != null && inWeatherData != null) {
+            initToolbar(weatherData.name!!)
+            val loc = Locale("", sysWeatherData.country)
+            tvCountryAdd?.text = loc.displayCountry
+            tvAverageTemperatureView?.text = Math.round(mainWeatherData?.temp?.toDouble()!!).toString().plus(mResources.getString(R.string.temp_degree_sign))
+            tvWeatherTypeView?.text = inWeatherData.description
+            tvTemperatureMinV?.text = Math.round(mainWeatherData.temp_min?.toDouble()!!).toString().plus(mResources.getString(R.string.temperature_low))
+            tvTemperatureMaxV?.text = Math.round(mainWeatherData.temp_max?.toDouble()!!).toString().plus(mResources.getString(R.string.temperature_high))
+            tvDateTime?.text = DateUtil.getDateFromMillis(weatherData.dt, DateUtil.dateDisplayFormat1)
+
+            tvHumidityView?.text = mainWeatherData.humidity?.plus("%")
+            tvRainPrecipitationView?.text = cloudWeatherData?.all.toString().plus("%")
+            tvWindView?.text = windWeatherData?.speed?.plus(" m/s")
+            tvDirectionView?.text = DegreeToWindDirection.getWindDirection(mActivity, windWeatherData?.deg?.toDouble()!!)
+            setWeatherViewType(weatherData)
+        }
+    }
+
+    fun setWeatherViewType(weatherData: WeatherData) {
+        setWeatherData(PrecipType.SNOW)
+        weatherView.emissionRate = 30f
+        weatherView.fadeOutPercent = 1f
+        weatherView.angle = 20
+    }
+
+    private var addWeatherStreamCallBack: WeatherStreamCallback = object : WeatherStreamCallback {
+        override fun onSearchLocationAction() {
+            setWeatherDetails()
+        }
+
+    }
 }
 

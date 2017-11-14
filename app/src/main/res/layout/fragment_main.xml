@@ -14,29 +14,14 @@
         android:orientation="vertical"
         tools:context=".MainActivity">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vpWeatherView"
-            android:layout_width="match_parent"
-            android:layout_height="320dp"
-            android:background="@color/colorPrimaryDark" />
+        <include android:id="@+id/weatherTopView" layout="@layout/fragment_weather_location_view"/>
 
         <include layout="@layout/toolbar" />
 
         <com.quixom.apps.weatherstream.weatherview.WeatherView
             android:id="@+id/weatherView"
             android:layout_width="match_parent"
-            android:layout_height="380dp" />
-
-        <com.quixom.apps.weatherstream.utilities.ExtensiblePageIndicator
-            android:id="@+id/flexibleIndicator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/vpWeatherView"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="5dp"
-            app:indicatorActiveColor="@color/frag1"
-            app:indicatorPadding="10dp"
-            app:indicatorRadius="3dp" />
+            android:layout_height="300dp" />
 
         <com.quixom.apps.weatherstream.expandablerecyclerview.ExpandableRecyclerView
             android:id="@+id/recyclerViewDaysWeather"
@@ -44,7 +29,7 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:layout_marginTop="5dp"
-            android:layout_below="@id/flexibleIndicator"
+            android:layout_below="@id/weatherTopView"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     </RelativeLayout>

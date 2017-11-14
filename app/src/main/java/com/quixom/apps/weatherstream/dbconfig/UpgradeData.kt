@@ -12,6 +12,12 @@ object UpgradeData {
 
     fun clearApplicationData() {
         Delete.table(WeatherData::class.java)
+        Delete.table(WeatherData.Sys::class.java)
+        Delete.table(WeatherData.Weather::class.java)
+        Delete.table(WeatherData.Wind::class.java)
+        Delete.table(WeatherData.Coord::class.java)
+        Delete.table(WeatherData.Clouds::class.java)
+        Delete.table(WeatherData.Main::class.java)
     }
 
     fun clearSearchHistory() {
