@@ -27,7 +27,7 @@
         android:layout_marginStart="50dp"
         android:maxLines="3"
         android:textAlignment="center"
-        android:textAllCaps="true"
+        android:textAllCaps="false"
         android:textColor="@color/font_white"
         android:textSize="10sp"
         tools:ignore="SmallSp" />

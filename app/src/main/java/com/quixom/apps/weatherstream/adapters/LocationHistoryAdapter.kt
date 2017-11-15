@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.quixom.apps.weatherstream.MainActivity
 import com.quixom.apps.weatherstream.R
 import com.quixom.apps.weatherstream.model.LocationSearchHistory
@@ -27,7 +26,6 @@ class LocationHistoryAdapter(internal var appslist: ArrayList<LocationSearchHist
         holder?.bindData(appslist[position])
 
         holder?.itemView?.setOnClickListener(View.OnClickListener {
-            Toast.makeText(sActivity, "Hello", Toast.LENGTH_SHORT).show()
             sActivity.callSearchLocationApi(appslist[position].cityName!!)
             sActivity.toggleSlideMenuLeft()
         })

@@ -2,6 +2,7 @@ package com.quixom.apps.weatherstream.dbconfig
 
 import com.quixom.apps.weatherstream.model.LocationSearchHistory
 import com.quixom.apps.weatherstream.model.WeatherData
+import com.quixom.apps.weatherstream.model.WeatherForecastData
 import com.raizlabs.android.dbflow.sql.language.Delete
 
 /**
@@ -18,6 +19,9 @@ object UpgradeData {
         Delete.table(WeatherData.Coord::class.java)
         Delete.table(WeatherData.Clouds::class.java)
         Delete.table(WeatherData.Main::class.java)
+        Delete.table(WeatherForecastData::class.java)
+        Delete.table(WeatherForecastData.Rain::class.java)
+        Delete.table(WeatherForecastData.ForecastList::class.java)
     }
 
     fun clearSearchHistory() {

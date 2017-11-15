@@ -68,15 +68,18 @@ class WeatherData(@Column @PrimaryKey @Expose var id: Long? = null,
             @Column @Expose var sunset: Long? = null,
             @Column @Expose var sunrise: Long? = null,
             @Column @Expose var type: Int? = null,
-            @Column @Expose var country: String? = null) : BaseModel() {
+            @Column @Expose var country: String? = null,
+            @Column @Expose var pod: String? = null) : BaseModel() {
         companion object {
             const val TABLE_NAME = "SysWeather"
             fun getSysWeatherDetails(): Sys? = SQLite.select().distinct().from<Sys>(Sys::class.java).querySingle()
+            fun getSysListDetails(): List<Sys> ? = SQLite.select().distinct().from<Sys>(Sys::class.java).queryList()
         }
     }
 
     @Table(name = Weather.TABLE_NAME, database = WeatherStreamDB::class)
-    class Weather(@Column @PrimaryKey @Expose var id: Int? = null,
+    class Weather(@Column @PrimaryKey (autoincrement = true) @Expose var wId: Int ? = null,
+                  @Column @Expose var id: Int? = null,
                   @Column @Expose var icon: String? = null,
                   @Column @Expose var description: String? = null,
                   @Column @Expose var main: String? = null) : BaseModel() {
@@ -93,7 +96,10 @@ class WeatherData(@Column @PrimaryKey @Expose var id: Long? = null,
                @Column @Expose var pressure: String? = null,
                @Column @Expose var temp_max: String? = null,
                @Column @Expose var temp_min: String? = null,
-               @Column @Expose var temp: String? = null) : BaseModel() {
+               @Column @Expose var temp: String? = null,
+               @Column @Expose var sea_level: Double? = null,
+               @Column @Expose var grnd_level: Double? = null,
+               @Column @Expose var temp_kf: Double? = null) : BaseModel() {
         companion object {
             const val TABLE_NAME = "MainWeather"
             fun getMainWeatherDetails(): Main? = SQLite.select().distinct().from<Main>(Main::class.java).querySingle()

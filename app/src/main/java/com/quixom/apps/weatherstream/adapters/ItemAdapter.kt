@@ -19,31 +19,18 @@ import com.quixom.apps.weatherstream.MainActivity
 import com.quixom.apps.weatherstream.R
 import com.quixom.apps.weatherstream.expandablerecyclerview.ExpandableItem
 import com.quixom.apps.weatherstream.expandablerecyclerview.ExpandableRecyclerView
+import com.quixom.apps.weatherstream.model.WeatherForecastData
 import com.quixom.apps.weatherstream.model.WeatherViewItem
 import java.util.*
 
 
 /**
- * Created by akif on 11/3/17.
- */
-class ItemAdapter(layout: LinearLayoutManager, recyclerView: ExpandableRecyclerView, mainActivity: MainActivity) : ExpandableRecyclerView.Adapter<ItemAdapter.ViewHolder>(layout) {
+* Created by akif on 11/3/17.
+*/
+class ItemAdapter(private var daysForecastList: List<WeatherForecastData.ForecastList>, layout: LinearLayoutManager, mainActivity: MainActivity) : ExpandableRecyclerView.Adapter<ItemAdapter.ViewHolder>(layout) {
 
     private var context: Context? = null
     private var mActivity: MainActivity? = mainActivity
-    private val items = arrayOf(
-            WeatherViewItem(R.drawable.honey_dew, "14 Easy Weekend Getaways"),
-            WeatherViewItem(R.drawable.honey_dew, "Why We Travel"),
-            WeatherViewItem(R.drawable.honey_dew, "A Paris Farewell"),
-            WeatherViewItem(R.drawable.honey_dew, "14 Easy Weekend Getaways"),
-            WeatherViewItem(R.drawable.honey_dew, "Why We Travel"),
-            WeatherViewItem(R.drawable.honey_dew, "A Paris Farewell"),
-            WeatherViewItem(R.drawable.honey_dew, "14 Easy Weekend Getaways"),
-            WeatherViewItem(R.drawable.honey_dew, "Why We Travel"),
-            WeatherViewItem(R.drawable.honey_dew, "A Paris Farewell"),
-            WeatherViewItem(R.drawable.honey_dew, "14 Easy Weekend Getaways"),
-            WeatherViewItem(R.drawable.honey_dew, "Why We Travel"),
-            WeatherViewItem(R.drawable.honey_dew, "A Paris Farewell")
-    )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemAdapter.ViewHolder {
         context = parent.context
@@ -52,19 +39,18 @@ class ItemAdapter(layout: LinearLayoutManager, recyclerView: ExpandableRecyclerV
 
     override fun onBindViewHolder(holder: ItemAdapter.ViewHolder, position: Int) {
         super.onBindViewHolder(holder, position)
-        val drawable = items[position].drawable
-        val title = items[position].title
+        val drawable = R.drawable.honey_dew
+        val title = daysForecastList[position].dt
 
+        println("items == " + daysForecastList[position].dt)
 
         setData(10, 100f, holder.temperatureGraph)
 
         dummyWeatherPredictionData(holder, mActivity!!)
-        holder.textView.text = title
+        holder.textView.text = title.toString()
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount(): Int = daysForecastList.size
 
     class ViewHolder(itemView: View, mActivity: MainActivity) : RecyclerView.ViewHolder(itemView) {
         val item: ExpandableItem = itemView.findViewById(R.id.row)

@@ -16,7 +16,7 @@ object DateUtil {
     val timeFormat24Hour = "kk:mm"
     val timeHourFormat = "hh aa"
     val dateDisplayFormat = "dd MMM, yyyy"
-    val dateDisplayFormat1 = "MMMM dd, yyyy"
+    val dateDisplayFormat1 = "EEEE MMMM dd, yyyy"
     val dateDisplayFormat2 = "MMM dd, yyyy"
     val dateDisplayFormatWithTime = dateDisplayFormat + " " + timeFormat
     val dateDisplayFormatWithTime2 = dateDisplayFormat2 + " " + timeFormat

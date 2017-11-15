@@ -21,4 +21,13 @@ object APIParameters {
             val units = "units"
         }
     }
+
+    class  ForecastingWeather {
+        companion object {
+            val apiKey = "apikey"
+            val queryParam = "q"
+            val units = "units"
+            val type = "type"
+        }
+    }
 }

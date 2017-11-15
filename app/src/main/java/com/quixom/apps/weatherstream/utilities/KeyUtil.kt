@@ -17,4 +17,8 @@ object KeyUtil {
     val UNITS_STANDARD = "Standard"
     val UNITS_METRIC = "metric"
     val UNITS_IMPERIAL = "imperial"
+
+    /*** Weather Map api accuracy types */
+    val TYPES_ACCURATE = "accurate"
+    val TYPES_LIKE = "like"
 }

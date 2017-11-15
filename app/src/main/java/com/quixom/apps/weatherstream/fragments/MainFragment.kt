@@ -13,6 +13,7 @@ import com.quixom.apps.weatherstream.Methods
 import com.quixom.apps.weatherstream.R
 import com.quixom.apps.weatherstream.adapters.ItemAdapter
 import com.quixom.apps.weatherstream.model.WeatherData
+import com.quixom.apps.weatherstream.model.WeatherForecastData
 import com.quixom.apps.weatherstream.utilities.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_weather_location_view.*
@@ -38,7 +39,9 @@ class MainFragment : BaseFragment(), View.OnClickListener {
 
         val layoutManager = LinearLayoutManager(mActivity)
         recyclerViewDaysWeather.layoutManager = layoutManager
-        recyclerViewDaysWeather.adapter = ItemAdapter(layoutManager, recyclerViewDaysWeather, mActivity)
+        val lists: List<WeatherForecastData.ForecastList>? = WeatherForecastData.ForecastList.getForecastList()
+        println("lists == " +lists?.size)
+        recyclerViewDaysWeather.adapter = ItemAdapter(lists!!, layoutManager, mActivity)
     }
 
     override fun onDestroyView() {
@@ -102,6 +105,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     fun setWeatherDetails() {
         val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
         val sysWeatherData: WeatherData.Sys? = WeatherData.Sys.getSysWeatherDetails()
+
         val mainWeatherData: WeatherData.Main? = WeatherData.Main.getMainWeatherDetails()
         val cloudWeatherData: WeatherData.Clouds? = WeatherData.Clouds.getCloudWeatherDetails()
         val inWeatherData: WeatherData.Weather? = WeatherData.Weather.getInnerWeatherDetails()
@@ -109,6 +113,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
 
         if (weatherData != null && sysWeatherData != null && inWeatherData != null) {
             initToolbar(weatherData.name!!)
+
             val loc = Locale("", sysWeatherData.country)
             tvCountryAdd?.text = loc.displayCountry
             tvAverageTemperatureView?.text = Math.round(mainWeatherData?.temp?.toDouble()!!).toString().plus(mResources.getString(R.string.temp_degree_sign))

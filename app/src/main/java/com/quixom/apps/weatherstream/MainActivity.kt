@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.Toast
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.google.android.gms.common.GooglePlayServicesRepairableException
 import com.google.android.gms.location.places.ui.PlaceAutocomplete
@@ -22,6 +21,7 @@ import com.quixom.apps.weatherstream.dbconfig.UpgradeData
 import com.quixom.apps.weatherstream.fragments.MainFragment
 import com.quixom.apps.weatherstream.model.LocationSearchHistory
 import com.quixom.apps.weatherstream.model.WeatherData
+import com.quixom.apps.weatherstream.model.WeatherForecastData
 import com.quixom.apps.weatherstream.slidingmenu.SlidingMenu
 import com.quixom.apps.weatherstream.utilities.FragmentUtil
 import com.quixom.apps.weatherstream.utilities.KeyUtil
@@ -173,9 +173,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         }
     }
 
-    override fun onLongClick(p0: View?): Boolean {
-        return false
-    }
+    override fun onLongClick(p0: View?): Boolean = false
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -189,14 +187,14 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             }
 
             KeyUtil.PLACE_AUTOCOMPLETE_REQUEST_CODE -> {
-                if (resultCode === Activity.RESULT_OK) {
+                if (resultCode == Activity.RESULT_OK) {
                     val place = PlaceAutocomplete.getPlace(this, data)
+                    println("place.address_" + place.address)
                     callSearchLocationApi(place.name.toString())
-                    Toast.makeText(this@MainActivity, place.name, Toast.LENGTH_SHORT).show()
-                } else if (resultCode === PlaceAutocomplete.RESULT_ERROR) {
-                    val status = PlaceAutocomplete.getStatus(this, data)
 
-                } else if (resultCode === Activity.RESULT_CANCELED) {
+                } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                    val status = PlaceAutocomplete.getStatus(this, data)
+                } else if (resultCode == Activity.RESULT_CANCELED) {
                     // The user canceled the operation.
                 }
             }
@@ -214,7 +212,6 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             e.printStackTrace()
         }
     }
-
 
     /***
      * API Method for get the weather information of specific location
@@ -238,12 +235,10 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                     if (response.isSuccessful) {
                         if (response.body() != null) {
                             if (response.body()?.cod == 200) {
-
                                 Methods.hideKeyboard(this@MainActivity)
-                                Toast.makeText(this@MainActivity, response.body()?.name, Toast.LENGTH_SHORT).show()
-                                Methods.showSnackBar(coordinatorLayoutMain, response.code().toString(), ContextCompat.getColor(this@MainActivity, R.color.fruit_salad), this@MainActivity)
 
                                 UpgradeData.clearApplicationData()
+
                                 val weatherDetail: WeatherData = response.body()!!
                                 val innerWeatherDetail: Array<WeatherData.Weather>? = response.body()!!.weather
                                 val sysWeatherDetail: WeatherData.Sys = response.body()!!.sys!!
@@ -265,10 +260,14 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                                 cloudsWeatherDetail.save()
 
                                 for (inWeatherDt in innerWeatherDetail!!) {
+                                    inWeatherDt.wId = 0
                                     inWeatherDt.save()
                                 }
 
                                 WeatherStreamCallbackManager.updateHomeScreenData()
+
+                                /** called here location weather forecasting api */
+                                callWeatherForecasting(locationName)
 
                                 if (weatherDetail != null) {
                                     val searchedLocation: List<LocationSearchHistory> = LocationSearchHistory.getSearchedLocationList()
@@ -301,13 +300,103 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         Methods.showSnackBar(coordinatorLayoutMain, resources.getString(R.string.no_internet_connection), ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
     }
 
+    /***
+     * API Method for get the weather information of specific location
+     * */
+    var weatherForecastingCall: Call<WeatherForecastData>? = null
+
+    fun callWeatherForecasting(locationName: String) = if (isNetworkConnected(this@MainActivity)) {
+
+        val hashMap = APIParameters.getParam()
+        hashMap.put(APIParameters.ForecastingWeather.queryParam, "" + locationName)
+        hashMap.put(APIParameters.ForecastingWeather.units, "" + KeyUtil.UNITS_METRIC)
+        hashMap.put(APIParameters.ForecastingWeather.type, "" + KeyUtil.TYPES_ACCURATE)
+
+        weatherForecastingCall = NetworkConfig.getWebApis().getWeatherForecasting(APIParameters.KEY_OPEN_WEATHER_MAP_KEY, hashMap)
+        weatherForecastingCall!!.enqueue(object : Callback<WeatherForecastData> {
+
+            override fun onResponse(call: Call<WeatherForecastData>, response: Response<WeatherForecastData>) {
+                if (call.isCanceled)
+                    return
+
+                if (response != null) {
+                    if (response.isSuccessful) {
+                        if (response.body() != null) {
+                            if (response.body()?.cod == "200") {
+                                Methods.hideKeyboard(this@MainActivity)
+
+                                val weatherForecastData: WeatherForecastData = response.body()!!
+                                weatherForecastData.id = 0
+                                weatherForecastData.save()
+
+                                val forecastingList: Array<WeatherForecastData.ForecastList> = response.body()?.list!!
+                                if (forecastingList != null && forecastingList.isNotEmpty()) {
+
+                                    for (hourlyWeatherData in forecastingList) {
+                                        hourlyWeatherData.id = 0
+                                        hourlyWeatherData.save()
+
+                                        val sysWeatherDetail: WeatherData.Sys = hourlyWeatherData.sys!!
+                                        sysWeatherDetail.sysId = 0
+                                        sysWeatherDetail.save()
+
+                                        val mainWeatherDetail: WeatherData.Main = hourlyWeatherData.main!!
+                                        mainWeatherDetail.id = 0
+                                        mainWeatherDetail.save()
+
+                                        val windWeatherDetail: WeatherData.Wind = hourlyWeatherData.wind!!
+                                        windWeatherDetail.id = 0
+                                        windWeatherDetail.save()
+
+                                        val cloudsWeatherDetail: WeatherData.Clouds = hourlyWeatherData.clouds!!
+                                        cloudsWeatherDetail.id = 0
+                                        cloudsWeatherDetail.save()
+
+                                        if (hourlyWeatherData.rain != null) {
+                                            val rainData: WeatherForecastData.Rain = hourlyWeatherData.rain!!
+                                            rainData.id = 0
+                                            rainData.save()
+                                        }
+
+                                        val innerWeatherDetail: Array<WeatherData.Weather>? = hourlyWeatherData.weather
+                                        if (innerWeatherDetail != null) {
+                                            for (innerWDetail in innerWeatherDetail) {
+                                                innerWDetail.wId = 0
+                                                innerWDetail.save()
+                                            }
+                                        }
+                                    }
+                                }
+                                Methods.showSnackBar(coordinatorLayoutMain, response.code().toString(), ContextCompat.getColor(this@MainActivity, R.color.fruit_salad), this@MainActivity)
+                            }
+                        } else {
+                            Methods.showSnackBar(coordinatorLayoutMain, response.message(), ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
+                        }
+                    } else {
+                        Methods.showSnackBar(coordinatorLayoutMain, response.message(), ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
+                    }
+                } else {
+                    Methods.showSnackBar(coordinatorLayoutMain, errorHandler.parseError(response).message(), ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
+                }
+            }
+
+            override fun onFailure(call: Call<WeatherForecastData>?, t: Throwable?) {
+                if (call!!.isCanceled)
+                    return
+                errorHandler.setExceptionMessage(t)
+            }
+        })
+    } else {
+        Methods.showSnackBar(coordinatorLayoutMain, resources.getString(R.string.no_internet_connection), ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
+    }
+
     fun setSideMenuSearchEntry(weatherDetail: WeatherData) {
         val locationSearch = LocationSearchHistory()
 
         locationSearch.id = weatherDetail.id
         locationSearch.cityName = weatherDetail.name
         locationSearch.countyName = weatherDetail.sys?.country
-        locationSearch.temperature = weatherDetail.main?.temp_max?.toDouble()
+        locationSearch.temperature = weatherDetail.main?.temp?.toDouble()
         locationSearch.weatherType = weatherDetail.weather?.get(0)?.main
         locationSearch.save()
 
