@@ -7,17 +7,13 @@ import android.text.TextUtils.TruncateAt
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.github.matteobattilana.weather.PrecipType
 import com.github.matteobattilana.weather.WeatherDataAnim
 import com.github.matteobattilana.weather.WeatherViewSensorEventListener
 import com.quixom.apps.weatherstream.Methods
 import com.quixom.apps.weatherstream.R
 import com.quixom.apps.weatherstream.adapters.ItemAdapter
 import com.quixom.apps.weatherstream.model.WeatherData
-import com.quixom.apps.weatherstream.utilities.DateUtil
-import com.quixom.apps.weatherstream.utilities.DegreeToWindDirection
-import com.quixom.apps.weatherstream.utilities.WeatherStreamCallback
-import com.quixom.apps.weatherstream.utilities.WeatherStreamCallbackManager
+import com.quixom.apps.weatherstream.utilities.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_weather_location_view.*
 import kotlinx.android.synthetic.main.toolbar_ui.*
@@ -50,7 +46,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         WeatherStreamCallbackManager.removeWishCallBack(addWeatherStreamCallBack)
     }
 
-    private fun setWeatherData(weatherDataAnim: WeatherDataAnim) {
+    fun setWeatherData(weatherDataAnim: WeatherDataAnim) {
         weatherView.setWeatherData(weatherDataAnim)
     }
 
@@ -103,7 +99,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-    fun setWeatherDetails () {
+    fun setWeatherDetails() {
         val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
         val sysWeatherData: WeatherData.Sys? = WeatherData.Sys.getSysWeatherDetails()
         val mainWeatherData: WeatherData.Main? = WeatherData.Main.getMainWeatherDetails()
@@ -122,25 +118,24 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             tvDateTime?.text = DateUtil.getDateFromMillis(weatherData.dt, DateUtil.dateDisplayFormat1)
 
             tvHumidityView?.text = mainWeatherData.humidity?.plus("%")
-            tvRainPrecipitationView?.text = cloudWeatherData?.all.toString().plus("%")
-            tvWindView?.text = windWeatherData?.speed?.plus(" m/s")
-            tvDirectionView?.text = DegreeToWindDirection.getWindDirection(mActivity, windWeatherData?.deg?.toDouble()!!)
-            setWeatherViewType(weatherData)
-        }
-    }
+            if (cloudWeatherData?.all != null) {
+                tvRainPrecipitationView?.text = cloudWeatherData.all.toString().plus("%")
+            }
+            if (windWeatherData?.speed != null) {
+                tvWindView?.text = windWeatherData.speed?.plus(" m/s")
+            }
+            if (windWeatherData?.deg != null) {
+                tvDirectionView?.text = DegreeToWindDirection.getWindDirection(mActivity, windWeatherData.deg?.toDouble()!!)
+            }
 
-    fun setWeatherViewType(weatherData: WeatherData) {
-        setWeatherData(PrecipType.SNOW)
-        weatherView.emissionRate = 30f
-        weatherView.fadeOutPercent = 1f
-        weatherView.angle = 20
+            WeatherToImage.getWeatherTypeConditionCode(this@MainFragment, weatherView, inWeatherData.id?.toString()!!)
+        }
     }
 
     private var addWeatherStreamCallBack: WeatherStreamCallback = object : WeatherStreamCallback {
         override fun onSearchLocationAction() {
             setWeatherDetails()
         }
-
     }
 }
 
