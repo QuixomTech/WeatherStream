@@ -1,5 +1,6 @@
 package com.quixom.apps.weatherstream.utilities
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
 import android.net.ParseException
@@ -7,9 +8,12 @@ import android.widget.TextView
 import java.text.SimpleDateFormat
 import java.util.*
 
+
+
 /**
  * Created by akif on 14/101/15.
  */
+
 object DateUtil {
 
     val timeFormat = "hh:mm aa"
@@ -18,6 +22,8 @@ object DateUtil {
     val dateDisplayFormat = "dd MMM, yyyy"
     val dateDisplayFormat1 = "EEEE MMMM dd, yyyy"
     val dateDisplayFormat2 = "MMM dd, yyyy"
+    var dateDisplayFormat3 = "EEE"
+    var dateDisplayFormat4 = "yyyy-MM-dd"
     val dateDisplayFormatWithTime = dateDisplayFormat + " " + timeFormat
     val dateDisplayFormatWithTime2 = dateDisplayFormat2 + " " + timeFormat
     val dateDisplayFormatWithTime3 = "EEEE, dd MMM " + timeFormat
@@ -34,37 +40,13 @@ object DateUtil {
     val currentDate: String
         get() = Calendar.getInstance().time.toString()
 
-    /*
-    public static int getCurrentDay()
-    {
-        Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DAY_OF_WEEK);
-
-        return day;
-
-    }
-
-    public static int timeIn24Hour(final String time, final String timeFormat)
-    {
-        if (Validation.isRequiredField(time))
-        {
-            String t = getChangedDateFormate(time, timeFormat, "kk");
-
-            if (Validation.getIntFromString(t)!=0)
-            {
-                return Integer.parseInt(t);
-            }
-        }
-
-        return 0;
-    }
-*/
+    @SuppressLint("SimpleDateFormat")
     fun getDateFromMillis(mDateInMillis: Long?, mDateFormat: String): String {
         var miliis: Long = 0
 
         if (mDateInMillis != null) {
             try {
-                miliis = mDateInMillis  * 1000L
+                miliis = mDateInMillis * 1000L
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -72,7 +54,6 @@ object DateUtil {
         }
         // Create a DateFormatter object for displaying date in specified format.
         val formatter = SimpleDateFormat(mDateFormat)
-
         // Create a calendar object that will convert the date and time value in milliseconds to date.
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = miliis
@@ -235,33 +216,6 @@ object DateUtil {
 
         return ""
     }
-    /*public static String getChangedDateFormateGMTToLocal(final String mDate, final String mOldDateFormat, final String newDateFormate)
-    {
-        SimpleDateFormat inputFormat = new SimpleDateFormat(mOldDateFormat);
-        SimpleDateFormat outputFormat = new SimpleDateFormat(newDateFormate);
-
-        Date date = null;
-        String str = null;
-
-        try {
-            inputFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-            date = inputFormat.parse(mDate);
-            outputFormat.setTimeZone(TimeZone.getDefault());
-            str = outputFormat.format(date);
-
-            return str;
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (java.text.ParseException e) {
-            e.printStackTrace();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        return "";
-    }*/
 
     fun dateLessthenCurrentDate(strDateToCompare: String, format: String): Boolean {
         val c = Calendar.getInstance()
@@ -311,9 +265,7 @@ object DateUtil {
 
         return if (yearCurrent - yearSelected >= 18) {
             if (yearCurrent - yearSelected == 18 && monthSelected <= monthCurrent) {
-                if (monthSelected == monthCurrent && daySelected <= dayCurrent) {
-                    true
-                } else false
+                monthSelected == monthCurrent && daySelected <= dayCurrent
 
             } else true
 
@@ -343,11 +295,11 @@ object DateUtil {
         c.timeInMillis = System.currentTimeMillis()
 
 
-            val l = getMillFromDate(tvDate.text.toString(), dateFormat)
+        val l = getMillFromDate(tvDate.text.toString(), dateFormat)
 
-            if (l != 0L) {
-                c.timeInMillis = l
-            }
+        if (l != 0L) {
+            c.timeInMillis = l
+        }
 
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
@@ -366,113 +318,6 @@ object DateUtil {
         datePickerDialog.show()
     }
 
-
-    //    public static void showDateTimePickerDialog(Context context,final TextView tvDateTime,final String mDateTimeFormatmDateTimeFormat)
-    //    {
-    //        final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-    //        View view = LayoutInflater.from(context).inflate(R.layout.dialog_date_time, null);
-    //        alertDialog.setView(view);
-    //
-    //        final TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
-    //        final DatePicker datePicker = (DatePicker) view.findViewById(R.id.datePicker);
-    //        final TimePicker timePicker = (TimePicker) view.findViewById(R.id.timePicker);
-    //        final Button btn_ok = (Button) view.findViewById(R.id.btn_ok);
-    //        final Button btn_cancel = (Button) view.findViewById(R.id.btn_cancel);
-    //
-    //        tabLayout.addTab(tabLayout.newTab().setText("Date"));
-    //        tabLayout.addTab(tabLayout.newTab().setText("Time"));
-    //
-    //        tabLayout.getTabAt(0).select();
-    //        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-    //            @Override
-    //            public void onTabSelected(TabLayout.Tab tab) {
-    //                if (tab.getPosition()==0)
-    //                {
-    //                    datePicker.setVisibility(View.VISIBLE);
-    //                    timePicker.setVisibility(View.INVISIBLE);
-    //                }
-    //                else {
-    //                    datePicker.setVisibility(View.INVISIBLE);
-    //                    timePicker.setVisibility(View.VISIBLE);
-    //                }
-    //            }
-    //
-    //            @Override
-    //            public void onTabUnselected(TabLayout.Tab tab) {
-    //
-    //            }
-    //
-    //            @Override
-    //            public void onTabReselected(TabLayout.Tab tab) {
-    //
-    //            }
-    //        });
-    //
-    //        final Calendar calendar = Calendar.getInstance();
-    //        if (ValidationUtil.isRequiredField(tvDateTime.getText().toString()))
-    //        {
-    //            long l = DateUtil.getMillFromDate(tvDateTime.getText().toString(), mDateTimeFormatmDateTimeFormat);
-    //
-    //            if (l != 0)
-    //            {
-    //                calendar.setTimeInMillis(l);
-    //            }
-    //
-    //        }
-    //
-    //        datePicker.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-    //        timePicker.setIs24HourView(false);
-    //        timePicker.setCurrentHour(calendar.get(Calendar.HOUR_OF_DAY));
-    //        timePicker.setCurrentMinute(calendar.get(Calendar.MINUTE));
-    //
-    //        btn_cancel.setOnClickListener(new View.OnClickListener() {
-    //            @Override
-    //            public void onClick(View v) {
-    //                alertDialog.dismiss();
-    //            }
-    //        });
-    //
-    //        btn_ok.setOnClickListener(new View.OnClickListener() {
-    //            @Override
-    //            public void onClick(View v) {
-    //
-    //                if (tabLayout.getSelectedTabPosition()==0)
-    //                {
-    //                    tabLayout.getTabAt(1).select();
-    //                }
-    //                else {
-    //
-    //                    calendar.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(), timePicker.getCurrentHour(), timePicker.getCurrentMinute());
-    //
-    //                    tvDateTime.setText(DateUtil.getDateFromMillis("" + calendar.getTime().getTime(), mDateTimeFormatmDateTimeFormat));
-    //                    Methods.syso("" + calendar.getTime().toString());
-    //
-    //                    alertDialog.dismiss();
-    //                }
-    //
-    //            }
-    //        });
-    //
-    // /*
-    //        builder.setPositiveButton(context.getResources().getString(android.R.string.ok), new DialogInterface.OnClickListener() {
-    //            @Override
-    //            public void onClick(DialogInterface dialog, int which) {
-    //
-    //
-    //                calendar.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(), timePicker.getCurrentHour(), timePicker.getCurrentMinute());
-    //
-    //                tvDateTime.setText(DateUtil.getDateFromMillis("" + calendar.getTime().getTime(), mDateTimeFormatmDateTimeFormat));
-    //                Methods.syso("" + calendar.getTime().toString());
-    //
-    //            }
-    //        });*/
-    //
-    //
-    //
-    //        alertDialog.show();
-    //    }
-
-
     fun getTimeAgo(time: Long): String {
         var time = time
         if (time < 1000000000000L) {
@@ -488,21 +333,12 @@ object DateUtil {
 
         val years = calendarCurrent.get(Calendar.YEAR) - calendar.get(Calendar.YEAR)
         val months = calendarCurrent.get(Calendar.MONTH) - calendar.get(Calendar.MONTH)
-        //        int weeks    = calendarCurrent.get(Calendar.WEEK_OF_YEAR) - calendar.get(Calendar.WEEK_OF_YEAR);
         val days = calendarCurrent.get(Calendar.DAY_OF_MONTH) - calendar.get(Calendar.DAY_OF_MONTH)
         val hours = calendarCurrent.get(Calendar.HOUR) - calendar.get(Calendar.HOUR)
         val minutes = calendarCurrent.get(Calendar.MINUTE) - calendar.get(Calendar.MINUTE)
         val seconds = calendarCurrent.get(Calendar.SECOND) - calendar.get(Calendar.SECOND)
 
-        /*   int days     = calendar.get(Calendar.DAY_OF_MONTH);
-        int months   = calendar.get(Calendar.MONTH);
-        int years    = calendar.get(Calendar.YEAR);
-        int hours    = calendar.get(Calendar.HOUR);
-        int minutes  = calendar.get(Calendar.MINUTE);
-        int seconds  = calendar.get(Calendar.SECOND);*/
-
         var duration = ""
-
         if (years == 1) {
             duration = years.toString() + " YEAR AGO"//[NSString stringWithFormat:@"%ld y",(long)years];
         } else if (years > 1) {
@@ -535,13 +371,32 @@ object DateUtil {
             }
         }
         return duration
-
     }
 
-    //1 minute = 60 seconds
-    //1 hour = 60 x 60 = 3600
-    //1 day = 3600 x 24 = 86400
-    //    public int  dateDifferentInDays(Date startDate, Date endDate){
+    @SuppressLint("SimpleDateFormat")
+    fun convertTime(time: String): String {
+        val splitString = time.split(" ")
+        try {
+            val sdf = SimpleDateFormat("H:mm")
+            val dateObj = sdf.parse(splitString[1])
+            System.out.println(dateObj)
+            val convertedTime: String = SimpleDateFormat("kk a").format(dateObj)
+            return convertedTime
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+        return ""
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun getCurrentDateTime(time: String): Boolean {
+        val splitString = time.split(" ")
+        val curDate = Date()
+        val format = SimpleDateFormat(dateDisplayFormat4)
+        val dateToStr = format.format(curDate)
+        return dateToStr == splitString[0]
+    }
+
     fun dateDifferentInDays(startDate1: Long, endDate1: Long): Int {
 
         val calendar1 = Calendar.getInstance()

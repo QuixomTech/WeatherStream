@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="320dp"
+    android:layout_height="match_parent"
     android:background="@color/colorAccent"
     android:orientation="vertical"
     android:paddingEnd="@dimen/activity_horizontal_margin">
@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="45dp"
         android:layout_marginTop="40dp"
         android:maxLines="3"
         android:textAlignment="center"
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="45dp"
         android:maxLines="3"
         android:textAlignment="center"
         android:textAllCaps="false"
@@ -115,139 +115,5 @@
             app:ss_sliderBackgroundColor="@color/frag1"
             app:ss_switchColor="@color/frag2"
             app:ss_textVisibility="gone" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
-        android:clipToPadding="false"
-        android:gravity="start"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvRainPrecipitationView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:drawableStart="@drawable/ic_rain_perception"
-                android:gravity="center_vertical"
-                android:includeFontPadding="true"
-                android:text="@string/rain_perception"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                android:tint="@color/colorPrimary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:includeFontPadding="false"
-                android:text="@string/precipitation"
-                android:textAllCaps="true"
-                android:textSize="10sp"
-                tools:ignore="SmallSp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvHumidityView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:drawablePadding="2dp"
-                android:drawableStart="@drawable/ic_humidity"
-                android:gravity="center_vertical"
-                android:includeFontPadding="true"
-                android:text="@string/humidity"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                android:tint="@color/colorPrimary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:includeFontPadding="false"
-                android:text="@string/humidity_label"
-                android:textAllCaps="true"
-                android:textSize="10sp"
-                tools:ignore="SmallSp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvWindView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:drawablePadding="2dp"
-                android:drawableStart="@drawable/ic_wind_sock"
-                android:gravity="center_vertical"
-                android:includeFontPadding="true"
-                android:text="@string/wind"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                android:tint="@color/colorPrimary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:includeFontPadding="false"
-                android:text="@string/wind_label"
-                android:textAllCaps="true"
-                android:textSize="10sp"
-                tools:ignore="SmallSp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvDirectionView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:drawablePadding="2dp"
-                android:drawableStart="@drawable/ic_compass_west_north"
-                android:gravity="center"
-                android:includeFontPadding="true"
-                android:text="@string/direction"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp"
-                android:tint="@color/colorPrimary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:includeFontPadding="false"
-                android:text="@string/direction_label"
-                android:textAllCaps="true"
-                android:textSize="10sp"
-                tools:ignore="SmallSp" />
-        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

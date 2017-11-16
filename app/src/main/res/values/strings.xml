@@ -13,7 +13,7 @@
     <string name="temp_degree_sign">\u00B0</string>
     <string name="rain_perception">55%</string>
     <string name="humidity">35%</string>
-    <string name="wind">7\u0020mph</string>
+    <string name="wind">\u0020m/s</string>
     <string name="direction">SW</string>
     <string name="precipitation">precipitation</string>
     <string name="humidity_label">humidity</string>

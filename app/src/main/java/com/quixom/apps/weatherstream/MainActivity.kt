@@ -193,8 +193,10 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                     callSearchLocationApi(place.name.toString())
 
                 } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                    Methods.hideKeyboard(this@MainActivity)
                     val status = PlaceAutocomplete.getStatus(this, data)
                 } else if (resultCode == Activity.RESULT_CANCELED) {
+                    Methods.hideKeyboard(this@MainActivity)
                     // The user canceled the operation.
                 }
             }
@@ -264,7 +266,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                                     inWeatherDt.save()
                                 }
 
-                                WeatherStreamCallbackManager.updateHomeScreenData()
+                                WeatherStreamCallbackManager.updateHomeScreenData(1)
 
                                 /** called here location weather forecasting api */
                                 callWeatherForecasting(locationName)
@@ -366,6 +368,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                                             }
                                         }
                                     }
+                                    WeatherStreamCallbackManager.updateHomeScreenData(2)
                                 }
                                 Methods.showSnackBar(coordinatorLayoutMain, response.code().toString(), ContextCompat.getColor(this@MainActivity, R.color.fruit_salad), this@MainActivity)
                             }

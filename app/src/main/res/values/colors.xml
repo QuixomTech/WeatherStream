@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2A3646</color>
-    <color name="colorPrimary_tras">#de2a3646</color>
-    <color name="colorPrimaryDark">#202C38</color>
-    <color name="colorAccent">#0166ED</color>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#0E9C80</color>
+    <color name="colorPrimary_tras">#0E9C80</color>
+    <color name="colorAccent">#0E9C80</color>
+    <color name="colorAccent_trans">#00ffffff</color>
     <color name="transparent_bg">#00ffffff</color>
 
     <!-- Viewpager default indicator color -->
@@ -17,8 +18,19 @@
     <color name="frag2">#FDD835</color>
     <color name="frag3">#8E24AA</color>
 
+    <!-- new color -->
+    <color name="cornflower_blue">#6C83D9</color>
+    <color name="fire_bush">#E99E3E</color>
+    <color name="persian_green">#0CB298</color>
+    <color name="malibu">#52C0F8</color>
+    <color name="aquamarine">#0E9C80</color>
+    <color name="summer_sky">#48ABEC</color>
+
     <!-- Font color -->
     <color name="font_white">#ffffff</color>
+    <color name="font_primary">#37474F</color>
+    <color name="font_secondary">#616161</color>
+    <color name="font_thirdly">#757575</color>
 
     <!-- Search screen -->
     <color name="colorOverlay">#78ffffff</color>

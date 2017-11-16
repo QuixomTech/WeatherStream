@@ -11,7 +11,7 @@ import com.github.matteobattilana.weather.WeatherDataAnim
 import com.github.matteobattilana.weather.WeatherViewSensorEventListener
 import com.quixom.apps.weatherstream.Methods
 import com.quixom.apps.weatherstream.R
-import com.quixom.apps.weatherstream.adapters.ItemAdapter
+import com.quixom.apps.weatherstream.adapters.ForecastItemAdapter
 import com.quixom.apps.weatherstream.model.WeatherData
 import com.quixom.apps.weatherstream.model.WeatherForecastData
 import com.quixom.apps.weatherstream.utilities.*
@@ -34,14 +34,13 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         weatherSensor = WeatherViewSensorEventListener(mActivity, weatherView)
 
         WeatherStreamCallbackManager.addWishCallBack(addWeatherStreamCallBack)
-
-        setWeatherDetails()
-
-        val layoutManager = LinearLayoutManager(mActivity)
+        recyclerViewDaysWeather.setHasFixedSize(true)
+        val layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewDaysWeather.layoutManager = layoutManager
         val lists: List<WeatherForecastData.ForecastList>? = WeatherForecastData.ForecastList.getForecastList()
-        println("lists == " +lists?.size)
-        recyclerViewDaysWeather.adapter = ItemAdapter(lists!!, layoutManager, mActivity)
+        recyclerViewDaysWeather.adapter = ForecastItemAdapter(lists!!, mActivity)
+
+        setWeatherDetails()
     }
 
     override fun onDestroyView() {
@@ -138,8 +137,14 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     }
 
     private var addWeatherStreamCallBack: WeatherStreamCallback = object : WeatherStreamCallback {
-        override fun onSearchLocationAction() {
-            setWeatherDetails()
+        override fun onSearchLocationAction(type: Int) {
+            if (type == 1) {
+                setWeatherDetails()
+            }
+
+            if (type == 2){
+                recyclerViewDaysWeather?.adapter?.notifyDataSetChanged()
+            }
         }
     }
 }

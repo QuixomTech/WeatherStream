@@ -32,8 +32,7 @@
             android:layout_marginStart="10dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="Mumbai"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/font_primary"
             android:textSize="16sp" />
 
         <TextView
@@ -41,9 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="India"
             android:textAllCaps="true"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/font_secondary"
             android:textSize="10sp" />
     </LinearLayout>
 
@@ -54,10 +52,9 @@
         android:layout_gravity="center"
         android:layout_weight="0.5"
         android:gravity="center"
-        android:text="3"
         android:maxLines="1"
         android:ellipsize="end"
         android:maxEms="1"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="22sp" />
 </LinearLayout>

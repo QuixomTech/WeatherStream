@@ -23,11 +23,11 @@ class WeatherStreamCallbackManager: WeatherStreamCallback {
             }
         }
 
-        fun updateHomeScreenData () {
+        fun updateHomeScreenData (type: Int) {
             if (weatherStreamCallbacks == null || weatherStreamCallbacks!!.isEmpty()) return
 
             for (i in weatherStreamCallbacks!!) {
-                i.onSearchLocationAction()
+                i.onSearchLocationAction(type)
             }
         }
         private fun initList() {
@@ -37,6 +37,6 @@ class WeatherStreamCallbackManager: WeatherStreamCallback {
         }
     }
 
-    override fun onSearchLocationAction() {
+    override fun onSearchLocationAction(type: Int) {
     }
 }

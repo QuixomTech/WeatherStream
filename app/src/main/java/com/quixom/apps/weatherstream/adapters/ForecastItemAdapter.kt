@@ -3,7 +3,6 @@ package com.quixom.apps.weatherstream.adapters
 import android.content.Context
 import android.graphics.DashPathEffect
 import android.support.v4.content.ContextCompat
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -17,69 +16,72 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.quixom.apps.weatherstream.MainActivity
 import com.quixom.apps.weatherstream.R
-import com.quixom.apps.weatherstream.expandablerecyclerview.ExpandableItem
-import com.quixom.apps.weatherstream.expandablerecyclerview.ExpandableRecyclerView
+import com.quixom.apps.weatherstream.model.WeatherData
 import com.quixom.apps.weatherstream.model.WeatherForecastData
-import com.quixom.apps.weatherstream.model.WeatherViewItem
+import com.quixom.apps.weatherstream.utilities.DateUtil
 import java.util.*
 
 
 /**
 * Created by akif on 11/3/17.
 */
-class ItemAdapter(private var daysForecastList: List<WeatherForecastData.ForecastList>, layout: LinearLayoutManager, mainActivity: MainActivity) : ExpandableRecyclerView.Adapter<ItemAdapter.ViewHolder>(layout) {
+class ForecastItemAdapter(private var daysForecastList: List<WeatherForecastData.ForecastList>, mainActivity: MainActivity) : RecyclerView.Adapter<ForecastItemAdapter.ViewHolder>() {
 
     private var context: Context? = null
     private var mActivity: MainActivity? = mainActivity
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ForecastItemAdapter.ViewHolder {
         context = parent.context
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.row_view, parent, false), mActivity!!)
+        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.row_forecast_item_view, parent, false), mActivity!!)
     }
 
-    override fun onBindViewHolder(holder: ItemAdapter.ViewHolder, position: Int) {
-        super.onBindViewHolder(holder, position)
+    override fun onBindViewHolder(holder: ForecastItemAdapter.ViewHolder, position: Int) {
         val drawable = R.drawable.honey_dew
-        val title = daysForecastList[position].dt
+        val dateTime = daysForecastList[position].dt_txt
+        val dateValue = daysForecastList[position].dt
 
-        println("items == " + daysForecastList[position].dt)
+        holder.tvDayTime.text = DateUtil.getDateFromMillis(dateValue, DateUtil.dateDisplayFormat3).plus(" ").plus(DateUtil.convertTime(dateTime!!))
 
-        setData(10, 100f, holder.temperatureGraph)
+        if (DateUtil.getCurrentDateTime(dateTime)) {
+            holder.tvDayTime.background = ContextCompat.getDrawable(mActivity, R.drawable.day_status_active)
+        } else {
+            holder.tvDayTime.background = ContextCompat.getDrawable(mActivity, R.drawable.day_status_pendding)
+        }
 
-        dummyWeatherPredictionData(holder, mActivity!!)
-        holder.textView.text = title.toString()
+        val mainWeatherData: List<WeatherData.Main>? = WeatherData.Main.getMainWeatherList()
+        if (mainWeatherData != null) {
+            val avgTemp = mainWeatherData[position+1].temp
+            val minTemp = mainWeatherData[position+1].temp_min
+            val maxTemp = mainWeatherData[position+1].temp_max
+            var humidity = mainWeatherData[position+1].humidity
+
+            if (avgTemp != null && minTemp != null && maxTemp != null) {
+                holder.tvAvgTemperature.text = Math.round(avgTemp.toDouble()).toString().plus(mActivity?.resources?.getString(R.string.temp_degree_sign))
+                holder.tvMinMaxTempExpand.text = Math.round(minTemp.toDouble()).toString().plus(mActivity?.resources?.getString(R.string.temp_degree_sign)).
+                        plus("/").plus(Math.round(maxTemp.toDouble()).toString()).plus(mActivity?.resources?.getString(R.string.temp_degree_sign))
+            }
+        }
     }
 
     override fun getItemCount(): Int = daysForecastList.size
 
     class ViewHolder(itemView: View, mActivity: MainActivity) : RecyclerView.ViewHolder(itemView) {
-        val item: ExpandableItem = itemView.findViewById(R.id.row)
-        val textView: TextView = item.headerLayout.findViewById(R.id.textView)
-        val rvDaysPredictionList: RecyclerView = item.findViewById(R.id.rvDaysPredictionList)
-        val temperatureGraph: LineChart = item.findViewById(R.id.temperature_graph)
-    }
 
-    fun dummyWeatherPredictionData(holder: ItemAdapter.ViewHolder, mainActivity: MainActivity) {
-        val lists = ArrayList<WeatherViewItem>()
-        for (i in 1..8) {
-            lists.add(WeatherViewItem(R.drawable.ic_snow_storm_day_winter_weather, "10 AM"))
-        }
-        val layoutManager = LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, true)
-        holder.rvDaysPredictionList.layoutManager = layoutManager
-        holder.rvDaysPredictionList.adapter = WeatherPredictionAdapter(lists, mainActivity)
-        holder.rvDaysPredictionList.scrollToPosition(0)
+        val tvDayTime: TextView = itemView.findViewById(R.id.tvDayTime)
+        val tvMinMaxTempExpand: TextView = itemView.findViewById(R.id.tvMinMaxTempExpand)
+        val tvAvgTemperature: TextView = itemView.findViewById(R.id.tvAvgTemperature)
     }
 
     /***
      * Method for set temperature data on Graph
      * */
-    private fun setData(count: Int, range: Float, mChart: LineChart) {
+    private fun setGraphData(count: Int, range: Float, mChart: LineChart) {
 
         val values = ArrayList<Entry>()
 
         for (i in 0 until count) {
 
-            val `val` = (Math.random() * range).toFloat() + 3
+            val `val` = (Math.random() * range).toFloat()
             values.add(Entry(i.toFloat(), `val`))
         }
 
