@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:textAllCaps="true"
-            android:textColor="@color/font_secondary"
+            android:textColor="@color/voodoo"
             android:textSize="10sp" />
     </LinearLayout>
 

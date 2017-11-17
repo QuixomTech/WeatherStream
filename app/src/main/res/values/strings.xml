@@ -24,6 +24,7 @@
     <string name="location_search">Location Search</string>
     <string name="speech_prompt">Weather Stream\n Try saying something</string>
     <string name="speech_not_supported">Speech not supported</string>
+    <string name="recent_search">Recent search</string>
 
     <!-- Setting menu screen -->
     <string name="unit_format">UNIT\u0026FORMAT</string>

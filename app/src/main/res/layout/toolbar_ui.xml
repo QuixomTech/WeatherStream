@@ -3,25 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/transparent_bg"
+    android:background="@color/colorPrimaryDark"
     android:orientation="horizontal">
 
     <TextView
         android:id="@+id/tvToolbarTitle"
-        android:layout_width="230dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:gravity="center_horizontal"
+        android:paddingEnd="15dp"
         android:maxLines="1"
-        android:layout_marginStart="5dp"
-        android:layout_toEndOf="@id/toggleMenu"
         android:textColor="@color/font_white"
-        android:textSize="25sp" />
+        android:textSize="24sp" />
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/toggleMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:padding="5dp"
         android:tint="@color/font_white"
         app:srcCompat="@drawable/ic_menu_black_24dp" />
 
@@ -29,11 +31,12 @@
         android:id="@+id/ivSetting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:tint="@color/font_white"
-        android:layout_marginStart="5dp"
         android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
         android:layout_marginEnd="10dp"
+        android:layout_marginStart="5dp"
+        android:padding="5dp"
+        android:tint="@color/font_white"
         app:srcCompat="@drawable/ic_settings" />
 
 </RelativeLayout>

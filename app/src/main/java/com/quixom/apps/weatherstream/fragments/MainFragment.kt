@@ -16,7 +16,6 @@ import com.quixom.apps.weatherstream.model.WeatherData
 import com.quixom.apps.weatherstream.model.WeatherForecastData
 import com.quixom.apps.weatherstream.utilities.*
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.fragment_weather_location_view.*
 import kotlinx.android.synthetic.main.toolbar_ui.*
 import java.util.*
 
@@ -34,6 +33,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         weatherSensor = WeatherViewSensorEventListener(mActivity, weatherView)
 
         WeatherStreamCallbackManager.addWishCallBack(addWeatherStreamCallBack)
+
         recyclerViewDaysWeather.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewDaysWeather.layoutManager = layoutManager
@@ -53,12 +53,12 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        when (v?.id) {
-            toggleMenu.id -> {
+        when (v) {
+            toggleMenu -> {
                 Methods.avoidDoubleClicks(toggleMenu)
                 mActivity.toggleSlideMenuLeft()
             }
-            ivSetting.id -> {
+            ivSetting -> {
                 Methods.avoidDoubleClicks(ivSetting)
                 mActivity.toggleSlideMenuRight()
             }
@@ -143,6 +143,8 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             }
 
             if (type == 2){
+                val lists: List<WeatherForecastData.ForecastList>? = WeatherForecastData.ForecastList.getForecastList()
+                recyclerViewDaysWeather.adapter = ForecastItemAdapter(lists!!, mActivity)
                 recyclerViewDaysWeather?.adapter?.notifyDataSetChanged()
             }
         }

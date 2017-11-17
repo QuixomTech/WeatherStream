@@ -280,6 +280,9 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                                         setSideMenuSearchEntry(weatherDetail)
                                     }
                                 }
+                                if (slidingMenuLeft?.isMenuShowing!!) {
+                                    slidingMenuLeft?.toggle()
+                                }
                             }
                         } else {
                             Methods.showSnackBar(coordinatorLayoutMain, response.message(), ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
@@ -370,7 +373,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                                     }
                                     WeatherStreamCallbackManager.updateHomeScreenData(2)
                                 }
-                                Methods.showSnackBar(coordinatorLayoutMain, response.code().toString(), ContextCompat.getColor(this@MainActivity, R.color.fruit_salad), this@MainActivity)
+//                                Methods.showSnackBar(coordinatorLayoutMain, response.code().toString(), ContextCompat.getColor(this@MainActivity, R.color.fruit_salad), this@MainActivity)
                             }
                         } else {
                             Methods.showSnackBar(coordinatorLayoutMain, response.message(), ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)

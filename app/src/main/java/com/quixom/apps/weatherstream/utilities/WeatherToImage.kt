@@ -10,7 +10,9 @@ import com.quixom.apps.weatherstream.weatherview.WeatherView
  */
 object WeatherToImage {
 
-    fun getWeatherTypeConditionCode(mainFragment: MainFragment, weatherView: WeatherView, code: String): Int = when (code) {
+    fun getWeatherTypeConditionCode(mainFragment: MainFragment, weatherView: WeatherView, code: String): Int =
+
+            when (code) {
 
     /*** Thunderstorm **/
         "200" -> {

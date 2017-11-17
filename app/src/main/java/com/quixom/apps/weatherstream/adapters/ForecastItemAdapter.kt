@@ -1,7 +1,9 @@
 package com.quixom.apps.weatherstream.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.DashPathEffect
+import android.support.design.widget.BottomSheetDialog
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -15,11 +17,16 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.quixom.apps.weatherstream.MainActivity
+import com.quixom.apps.weatherstream.Methods
 import com.quixom.apps.weatherstream.R
 import com.quixom.apps.weatherstream.model.WeatherData
 import com.quixom.apps.weatherstream.model.WeatherForecastData
 import com.quixom.apps.weatherstream.utilities.DateUtil
 import java.util.*
+
+
+
+
 
 
 /**
@@ -35,6 +42,7 @@ class ForecastItemAdapter(private var daysForecastList: List<WeatherForecastData
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.row_forecast_item_view, parent, false), mActivity!!)
     }
 
+    @SuppressLint("InflateParams")
     override fun onBindViewHolder(holder: ForecastItemAdapter.ViewHolder, position: Int) {
         val drawable = R.drawable.honey_dew
         val dateTime = daysForecastList[position].dt_txt
@@ -61,6 +69,18 @@ class ForecastItemAdapter(private var daysForecastList: List<WeatherForecastData
                         plus("/").plus(Math.round(maxTemp.toDouble()).toString()).plus(mActivity?.resources?.getString(R.string.temp_degree_sign))
             }
         }
+
+        holder.itemView.setOnClickListener(View.OnClickListener {
+            Methods.avoidDoubleClicks(holder.itemView)
+            val mBottomSheetDialog = BottomSheetDialog(context!!)
+            val sheetView = mActivity?.layoutInflater?.inflate(R.layout.bottomsheet_weather_details, null)
+            mBottomSheetDialog.setContentView(sheetView)
+            mBottomSheetDialog.show()
+        })
+
+      /*  mBottomSheetDialog.setOnDismissListener {
+            Toast.makeText(mActivity, "test", Toast.LENGTH_SHORT).show()
+        }*/
     }
 
     override fun getItemCount(): Int = daysForecastList.size

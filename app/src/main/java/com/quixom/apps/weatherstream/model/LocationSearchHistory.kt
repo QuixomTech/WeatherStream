@@ -21,6 +21,11 @@ class LocationSearchHistory(@Column @PrimaryKey @Expose var id: Long? = null,
     companion object {
         const val TABLE_NAME = "LocationSearchHistory"
 
-        fun getSearchedLocationList(): List<LocationSearchHistory> = SQLite.select().distinct().from<LocationSearchHistory>(LocationSearchHistory::class.java).queryList()
+        fun getSearchedLocationList(): List<LocationSearchHistory> = SQLite.select()
+                .distinct()
+                .from<LocationSearchHistory>(LocationSearchHistory::class.java)
+                .where()
+                .orderBy(LocationSearchHistory_Table.cityName, false)
+                .queryList()
     }
 }
