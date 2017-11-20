@@ -11,27 +11,30 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@android:color/transparent</item>
     </style>
 
     <style name="SearchActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/font_white</item>
+        <item name="colorPrimaryDark">@color/font_white</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowFullscreen">true</item>
         <item name="android:backgroundDimEnabled">false</item>
-        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:windowIsTranslucent">false</item>
-        <item name="android:windowBackground">@color/colorPrimary_tras</item>
-        <item name="android:windowContentOverlay">@color/colorPrimary_tras</item>
+        <item name="android:navigationBarColor">@color/font_white</item>
+        <item name="android:windowBackground">@color/font_white</item>
+        <item name="android:windowContentOverlay">@color/font_white</item>
     </style>
 
     <style name="LyTheme2" parent="LyTheme">
         <item name="lyColor0">@color/fruit_salad</item>
         <item name="lyColor1">@color/lighting_yellow</item>
         <item name="lyColor2">@color/fruit_salad</item>
-        <item name="lyColor3">@color/colorAccent</item>
+        <item name="lyColor3">@color/frag1</item>
         <item name="lyColorColon">@color/colorPrimary</item>
         <item name="lyThickness">@integer/lyThickness_4</item>
         <item name="lyColonThickness">@integer/lyThickness_1</item>

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Weather Stream</string>
+    <string name="app_tag_line">Get weather info with superior accuracy</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -79,4 +80,9 @@
     <string name="nw">NW</string>
     <string name="nnw">NNW</string>
 
+    <string name="pressure_label">Pressure</string>
+    <string name="sealevel_label">Sea-Level</string>
+    <string name="ground_level">Ground-Level</string>
+    <string name="rain_volume">Rain volume</string>
+    <string name="system_pod">System pod</string>
 </resources>

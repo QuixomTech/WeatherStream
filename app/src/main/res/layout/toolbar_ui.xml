@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/colorPrimary"
     android:orientation="horizontal">
 
     <TextView
@@ -14,6 +14,7 @@
         android:layout_centerVertical="true"
         android:gravity="center_horizontal"
         android:paddingEnd="15dp"
+        android:fontFamily="@font/lato_bold"
         android:maxLines="1"
         android:textColor="@color/font_white"
         android:textSize="24sp" />

@@ -13,5 +13,6 @@
     <dimen name="ftb_size_mini">50dp</dimen>
     <dimen name="ftb_size_normal">50dp</dimen>
     <dimen name="ftb_item_padding">10dp</dimen>
-    <dimen name="ftb_default_radius">40dp</dimen>
+    <dimen name="ftb_default_radius">10dp</dimen>
+    <dimen name="ftb_default2_radius">20dp</dimen>
 </resources>

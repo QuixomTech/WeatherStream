@@ -1,155 +1,370 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_history_menu_bottom"
+    android:id="@+id/llTopView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/tvCityBL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/lato_regular"
+        android:maxLines="3"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/summer_sky"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tvCountryBL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/lato_black"
+        android:maxLines="3"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/font_secondary"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvDateTimeBL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/day_status_active"
+        android:backgroundTint="@color/summer_sky"
+        android:fontFamily="@font/lato_regular"
+        android:maxLines="3"
+        android:paddingBottom="5dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp"
+        android:text="Friday, 9 PM"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/font_white"
+        android:textSize="10sp"
+        tools:ignore="SmallSp" />
+
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".MainActivity">
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="10dp">
 
-        <LinearLayout
-            android:id="@+id/llTopView"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_below="@id/toolbar"
-            android:background="@color/summer_sky"
-            android:orientation="vertical">
+        <TableRow
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp">
 
-            <TextView
-                android:id="@+id/tvCountryAdd"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:maxLines="3"
-                android:text="AUSTRALIA"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@color/font_white"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tvDateTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:maxLines="3"
-                android:text="Friday November 17,  2017"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textColor="@color/font_white"
-                android:textSize="10sp"
-                tools:ignore="SmallSp" />
-
-            <ImageView
-                android:id="@+id/iv_weather_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginStart="15sp"
-                android:layout_marginTop="40dp"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_snow_storm_day_winter_weather"
-                android:tint="@color/colorPrimary" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:paddingStart="20dp">
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvWeatherTypeView"
+                    android:id="@+id/tvHumidityBL"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="broken clouds"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="15sp"
-                    tools:ignore="RelativeOverlap" />
-
-                <TextView
-                    android:id="@+id/tvAverageTemperatureView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tvWeatherTypeView"
-                    android:layout_marginTop="5dp"
-                    android:includeFontPadding="false"
-                    android:maxLines="1"
-                    android:text="24"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="70sp" />
-
-                <View
-                    android:id="@+id/viewDivider"
-                    android:layout_width="1dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_toEndOf="@id/tvAverageTemperatureView"
-                    android:background="@color/font_white" />
-
-                <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/llTempView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="25dp"
-                    android:layout_toEndOf="@id/viewDivider"
+                    android:layout_gravity="center_horizontal"
+                    android:backgroundTint="@color/fire_bush"
+                    android:drawableStart="@drawable/ic_humidity"
+                    android:fontFamily="@font/lato_bold"
                     android:gravity="center_vertical"
-                    android:orientation="vertical">
+                    android:includeFontPadding="true"
+                    android:textColor="@color/font_primary"
+                    android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/tvTemperatureMinV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_arrow_drop_down_black_24dp"
-                        android:gravity="center_vertical"
-                        android:includeFontPadding="false"
-                        android:maxLines="1"
-                        android:text="@string/temperature_low"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tvTemperatureMaxV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_arrow_drop_up_black_24dp"
-                        android:gravity="center_vertical"
-                        android:includeFontPadding="false"
-                        android:maxLines="1"
-                        android:text="@string/temperature_high"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <com.quixom.apps.weatherstream.widgets.StickySwitch
-                    android:id="@+id/sticky_switch"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="5dp"
-                    app:ss_animationDuration="600"
-                    app:ss_animationType="line"
-                    app:ss_iconPadding="7dp"
-                    app:ss_iconSize="10dp"
-                    app:ss_leftIcon="@drawable/ic_celsius_scale"
-                    app:ss_rightIcon="@drawable/ic_fahrenheit_degree"
-                    app:ss_selectedTextSize="14sp"
-                    app:ss_sliderBackgroundColor="@color/frag1"
-                    app:ss_switchColor="@color/frag2"
-                    app:ss_textVisibility="gone" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:includeFontPadding="false"
+                    android:text="@string/humidity_label"
+                    android:textAllCaps="true"
+                    android:textColor="@color/font_thirdly"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
 
-            </RelativeLayout>
+            </LinearLayout>
 
-        </LinearLayout>
-    </RelativeLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvPressureBL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:backgroundTint="@color/fire_bush"
+                    android:drawableStart="@drawable/ic_touch_app_black_24dp"
+                    android:fontFamily="@font/lato_bold"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="true"
+                    android:textColor="@color/font_primary"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:includeFontPadding="false"
+                    android:text="@string/pressure_label"
+                    android:textAllCaps="true"
+                    android:textColor="@color/font_thirdly"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvSystemPodBL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:backgroundTint="@color/fire_bush"
+                    android:drawableStart="@drawable/ic_rain_perception"
+                    android:fontFamily="@font/lato_bold"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="true"
+                    android:textAllCaps="true"
+                    android:textColor="@color/font_primary"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:includeFontPadding="false"
+                    android:text="@string/system_pod"
+                    android:textAllCaps="true"
+                    android:textColor="@color/font_thirdly"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvRainVolumeBL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:backgroundTint="@color/fire_bush"
+                    android:drawableStart="@drawable/ic_grain_black_24dp"
+                    android:fontFamily="@font/lato_bold"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="true"
+                    android:textColor="@color/font_primary"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:includeFontPadding="false"
+                    android:text="@string/rain_volume"
+                    android:textAllCaps="true"
+                    android:textColor="@color/font_thirdly"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvRainPrecipitationBL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:backgroundTint="@color/fire_bush"
+                    android:drawableStart="@drawable/ic_rain_perception"
+                    android:fontFamily="@font/lato_bold"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="true"
+                    android:textColor="@color/font_primary"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:includeFontPadding="false"
+                    android:text="@string/precipitation"
+                    android:textAllCaps="true"
+                    android:textColor="@color/font_thirdly"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvWindViewBL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:backgroundTint="@color/fire_bush"
+                    android:drawableStart="@drawable/ic_wind_sock"
+                    android:fontFamily="@font/lato_bold"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="true"
+                    android:textColor="@color/font_primary"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:includeFontPadding="false"
+                    android:text="@string/wind_label"
+                    android:textAllCaps="true"
+                    android:textColor="@color/font_thirdly"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvGroundLevelBL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:backgroundTint="@color/fire_bush"
+                    android:drawableStart="@drawable/ic_golf_course_black_24dp"
+                    android:fontFamily="@font/lato_bold"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="true"
+                    android:textColor="@color/font_primary"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:includeFontPadding="false"
+                    android:text="@string/ground_level"
+                    android:textAllCaps="true"
+                    android:textColor="@color/font_thirdly"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvSeaLevelBL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:backgroundTint="@color/fire_bush"
+                    android:drawableStart="@drawable/ic_pool_black_24dp"
+                    android:fontFamily="@font/lato_bold"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="true"
+                    android:textColor="@color/font_primary"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:includeFontPadding="false"
+                    android:text="@string/sealevel_label"
+                    android:textAllCaps="true"
+                    android:textColor="@color/font_thirdly"
+                    android:textSize="10sp"
+                    tools:ignore="SmallSp" />
+
+            </LinearLayout>
+
+        </TableRow>
+    </TableLayout>
+
 </LinearLayout>

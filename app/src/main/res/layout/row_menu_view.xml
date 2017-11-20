@@ -32,6 +32,7 @@
             android:layout_marginStart="10dp"
             android:ellipsize="end"
             android:maxLines="2"
+            android:fontFamily="@font/lato_bold"
             android:textColor="@color/font_primary"
             android:textSize="16sp" />
 
@@ -41,6 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:textAllCaps="true"
+            android:fontFamily="@font/lato_regular"
             android:textColor="@color/voodoo"
             android:textSize="10sp" />
     </LinearLayout>
@@ -54,6 +56,7 @@
         android:gravity="center"
         android:maxLines="1"
         android:ellipsize="end"
+        android:fontFamily="@font/lato_black"
         android:maxEms="1"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="22sp" />

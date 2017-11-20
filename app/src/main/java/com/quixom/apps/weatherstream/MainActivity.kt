@@ -28,6 +28,7 @@ import com.quixom.apps.weatherstream.utilities.KeyUtil
 import com.quixom.apps.weatherstream.utilities.WeatherStreamCallbackManager
 import com.quixom.apps.weatherstream.webservice.APIParameters
 import com.quixom.apps.weatherstream.webservice.NetworkConfig
+import com.raizlabs.android.dbflow.sql.language.Delete
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.leftmenu.*
 import retrofit2.Call
@@ -82,10 +83,6 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             rvMenuLocationList.adapter = LocationHistoryAdapter(lists, this@MainActivity)
         }
 
-        val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
-        if (weatherData != null) {
-            callSearchLocationApi(weatherData.name!!)
-        }
         /*** Weather notification */
         /*val localNotification = LocalNotification(this@MainActivity)
         localNotification.showCustomLayoutHeadsUpNotification(this@MainActivity)*/
@@ -342,8 +339,10 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                                         hourlyWeatherData.save()
 
                                         val sysWeatherDetail: WeatherData.Sys = hourlyWeatherData.sys!!
-                                        sysWeatherDetail.sysId = 0
-                                        sysWeatherDetail.save()
+                                        if (sysWeatherDetail != null) {
+                                            sysWeatherDetail.sysId = 0
+                                            sysWeatherDetail.save()
+                                        }
 
                                         val mainWeatherDetail: WeatherData.Main = hourlyWeatherData.main!!
                                         mainWeatherDetail.id = 0
@@ -361,6 +360,8 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                                             val rainData: WeatherForecastData.Rain = hourlyWeatherData.rain!!
                                             rainData.id = 0
                                             rainData.save()
+                                        } else {
+                                            Delete.table(WeatherForecastData.Rain::class.java)
                                         }
 
                                         val innerWeatherDetail: Array<WeatherData.Weather>? = hourlyWeatherData.weather

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:orientation="horizontal"
-        android:paddingStart="20dp">
+        android:paddingStart="10dp">
 
         <ImageView
             android:layout_width="80dp"
@@ -31,14 +31,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/app_name"
-                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/lato_black"
+                android:textColor="@color/font_primary"
                 android:textSize="17sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Get weather info with accuracy"
-                android:textColor="@color/colorPrimary"
+                android:text="@string/app_tag_line"
+                android:textColor="@color/font_secondary"
+                android:fontFamily="@font/lato_regular"
                 android:textSize="10sp"
                 tools:ignore="SmallSp" />
 
@@ -66,7 +68,7 @@
             android:layout_height="18dp"
             android:layout_gravity="center_vertical"
             android:contentDescription="@null"
-            android:tint="@color/colorPrimary"
+            android:tint="@color/font_primary"
             android:src="@drawable/ic_search"/>
 
         <TextView
@@ -76,7 +78,8 @@
             android:layout_marginStart="5dp"
             android:layout_height="match_parent"
             android:text="@string/location_search"
-            android:textColor="@color/colorPrimary"
+            android:fontFamily="@font/lato_regular"
+            android:textColor="@color/font_primary"
             android:gravity="center_vertical" />
 
         <ImageView
@@ -85,7 +88,7 @@
             android:layout_weight="0.2"
             android:contentDescription="@null"
             android:layout_height="wrap_content"
-            android:tint="@color/colorPrimary"
+            android:tint="@color/font_primary"
             android:src="@drawable/ic_mic_black_24dp"/>
 
     </LinearLayout>
@@ -96,7 +99,8 @@
         android:text="@string/recent_search"
         android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
-        android:textSize="14sp"
+        android:fontFamily="@font/lato_italic"
+        android:textSize="12sp"
         android:textColor="@color/font_thirdly"/>
 
     <android.support.v7.widget.RecyclerView
@@ -106,19 +110,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:scrollbars="vertical"
         android:background="@drawable/selector_row"/>
-
-    <client.yalantis.com.foldingtabbar.FoldingTabBar
-        android:id="@+id/folding_tab_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="50dp"
-        android:layout_marginEnd="10dp"
-        android:gravity="center_horizontal"
-        android:visibility="gone"
-        app:menu="@menu/menu_tab_bar" />
 
 </LinearLayout>
 

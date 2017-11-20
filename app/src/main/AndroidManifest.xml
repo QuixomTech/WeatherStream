@@ -16,20 +16,20 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCqXcHW3xhlxSGugVQvXocM_40s1kVFELk" />
+
+        <activity android:name=".activity.SplashActivity"
+             android:theme="@style/SearchActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.SearchActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/SearchActivityTheme" />
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCqXcHW3xhlxSGugVQvXocM_40s1kVFELk" />
     </application>
 
 </manifest>

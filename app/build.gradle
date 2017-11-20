@@ -36,7 +36,6 @@ dependencies {
     androidTestCompile 'com.android.support.test:runner:1.0.1'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     compile 'com.github.lypeer:GoogleClock:1.0.0'
     compile 'info.hoang8f:android-segmented:1.0.6'
 

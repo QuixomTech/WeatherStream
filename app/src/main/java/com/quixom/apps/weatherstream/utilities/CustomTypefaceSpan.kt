@@ -7,8 +7,8 @@ import android.text.TextPaint
 import android.text.style.TypefaceSpan
 
 /**
- * Created by mind on 7/4/17.
- */
+* Created by mind on 7/4/17.
+*/
 
 @SuppressLint("ParcelCreator")
 class CustomTypefaceSpan(family: String, private val newType: Typeface) : TypefaceSpan(family) {

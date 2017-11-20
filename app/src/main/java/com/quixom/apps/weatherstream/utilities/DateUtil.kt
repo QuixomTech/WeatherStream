@@ -379,8 +379,7 @@ object DateUtil {
         try {
             val sdf = SimpleDateFormat("H:mm")
             val dateObj = sdf.parse(splitString[1])
-            System.out.println(dateObj)
-            val convertedTime: String = SimpleDateFormat("kk a").format(dateObj)
+            val convertedTime: String = SimpleDateFormat("K a").format(dateObj)
             return convertedTime
         } catch (e: ParseException) {
             e.printStackTrace()

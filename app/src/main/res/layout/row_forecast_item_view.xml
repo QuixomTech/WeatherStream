@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="80dp"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
+    android:background="@color/font_white"
     android:foreground="?selectableItemBackground"
     android:gravity="center_vertical|center_horizontal"
     android:orientation="vertical"
@@ -17,7 +17,7 @@
         android:textSize="14sp"
         android:gravity="center_horizontal"
         android:layout_marginStart="3dp"
-        android:text="20"
+        android:fontFamily="@font/lato_black"
         android:textColor="@color/font_primary" />
 
     <ImageView
@@ -35,19 +35,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:textSize="12sp"
-        android:text="20/30"
+        android:fontFamily="@font/lato_regular"
         android:textColor="@color/font_secondary" />
 
     <TextView
         android:id="@+id/tvDayTime"
-        android:layout_width="60dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:layout_gravity="center_horizontal"
         android:textSize="10sp"
         android:textAllCaps="true"
         android:layout_marginTop="2dp"
-        android:text="Thu, 20 PM"
         android:padding="3dp"
         android:background="@drawable/day_status_pendding"
         android:textColor="@color/font_white"

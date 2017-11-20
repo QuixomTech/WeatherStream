@@ -38,7 +38,10 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         val layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewDaysWeather.layoutManager = layoutManager
         val lists: List<WeatherForecastData.ForecastList>? = WeatherForecastData.ForecastList.getForecastList()
-        recyclerViewDaysWeather.adapter = ForecastItemAdapter(lists!!, mActivity)
+        val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
+        if (weatherData != null) {
+            recyclerViewDaysWeather.adapter = ForecastItemAdapter(weatherData.name!!, lists!!, mActivity)
+        }
 
         setWeatherDetails()
     }
@@ -117,7 +120,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             tvCountryAdd?.text = loc.displayCountry
             tvAverageTemperatureView?.text = Math.round(mainWeatherData?.temp?.toDouble()!!).toString().plus(mResources.getString(R.string.temp_degree_sign))
             tvWeatherTypeView?.text = inWeatherData.description
-            tvTemperatureMinV?.text = Math.round(mainWeatherData.temp_min?.toDouble()!!).toString().plus(mResources.getString(R.string.temperature_low))
+            tvTemperatureMinV?.text = Methods.getSpannableStringHeight(mActivity, Math.round(mainWeatherData.temp_min?.toDouble()!!).toString().plus(mResources.getString(R.string.temperature_low)))
             tvTemperatureMaxV?.text = Math.round(mainWeatherData.temp_max?.toDouble()!!).toString().plus(mResources.getString(R.string.temperature_high))
             tvDateTime?.text = DateUtil.getDateFromMillis(weatherData.dt, DateUtil.dateDisplayFormat1)
 
@@ -143,9 +146,12 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             }
 
             if (type == 2){
-                val lists: List<WeatherForecastData.ForecastList>? = WeatherForecastData.ForecastList.getForecastList()
-                recyclerViewDaysWeather.adapter = ForecastItemAdapter(lists!!, mActivity)
-                recyclerViewDaysWeather?.adapter?.notifyDataSetChanged()
+                val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
+                if (weatherData != null) {
+                    val lists: List<WeatherForecastData.ForecastList>? = WeatherForecastData.ForecastList.getForecastList()
+                    recyclerViewDaysWeather.adapter = ForecastItemAdapter(weatherData.name!!, lists!!, mActivity)
+                    recyclerViewDaysWeather?.adapter?.notifyDataSetChanged()
+                }
             }
         }
     }

@@ -4,6 +4,7 @@
     android:id="@+id/coordinatorLayoutMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/font_white"
     tools:context=".MainActivity">
 
     <RelativeLayout
@@ -21,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_below="@id/toolbar"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorPrimary"
             android:orientation="vertical">
 
             <TextView
@@ -29,6 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:fontFamily="@font/lato_regular"
                 android:maxLines="3"
                 android:textAlignment="center"
                 android:textAllCaps="true"
@@ -41,29 +43,31 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvCountryAdd"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/lato_light_italic"
                 android:maxLines="3"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/font_white"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 tools:ignore="SmallSp" />
 
             <ImageView
                 android:id="@+id/iv_weather_type"
-                android:layout_below="@id/tvDateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/tvDateTime"
                 android:layout_marginBottom="10dp"
                 android:layout_marginStart="15sp"
                 android:layout_marginTop="40dp"
                 android:contentDescription="@null"
                 android:src="@drawable/ic_snow_storm_day_winter_weather"
-                android:tint="@color/colorPrimary" />
+                android:tint="@color/font_white" />
 
             <RelativeLayout
-                android:layout_below="@id/iv_weather_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/iv_weather_type"
                 android:layout_marginBottom="10dp"
                 android:paddingStart="20dp">
 
@@ -71,8 +75,9 @@
                     android:id="@+id/tvWeatherTypeView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato_italic"
                     android:text="broken clouds"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/font_white"
                     android:textSize="15sp"
                     tools:ignore="RelativeOverlap" />
 
@@ -82,10 +87,10 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvWeatherTypeView"
                     android:layout_marginTop="5dp"
+                    android:fontFamily="@font/lato_bold"
                     android:includeFontPadding="false"
                     android:maxLines="1"
-                    android:text="24"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/font_white"
                     android:textSize="70sp" />
 
                 <View
@@ -112,11 +117,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_arrow_drop_down_black_24dp"
+                        android:fontFamily="@font/lato_regular"
                         android:gravity="center_vertical"
                         android:includeFontPadding="false"
                         android:maxLines="1"
                         android:text="@string/temperature_low"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/font_white"
                         android:textSize="14sp" />
 
                     <TextView
@@ -124,11 +130,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_arrow_drop_up_black_24dp"
+                        android:fontFamily="@font/lato_regular"
                         android:gravity="center_vertical"
                         android:includeFontPadding="false"
                         android:maxLines="1"
                         android:text="@string/temperature_high"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/font_white"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -136,19 +143,20 @@
                     android:id="@+id/sticky_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
                     android:layout_marginStart="5dp"
+                    android:fontFamily="@font/lato_black"
                     app:ss_animationDuration="600"
                     app:ss_animationType="line"
                     app:ss_iconPadding="7dp"
                     app:ss_iconSize="10dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="20dp"
                     app:ss_leftIcon="@drawable/ic_celsius_scale"
                     app:ss_rightIcon="@drawable/ic_fahrenheit_degree"
                     app:ss_selectedTextSize="14sp"
-                    app:ss_sliderBackgroundColor="@color/frag1"
-                    app:ss_switchColor="@color/frag2"
+                    app:ss_sliderBackgroundColor="@color/colorPrimary"
+                    app:ss_switchColor="@color/colorPrimaryDark"
                     app:ss_textVisibility="gone" />
             </RelativeLayout>
 
@@ -190,9 +198,9 @@
                         android:layout_gravity="center_horizontal"
                         android:backgroundTint="@color/fire_bush"
                         android:drawableStart="@drawable/ic_rain_perception"
+                        android:fontFamily="@font/lato_bold"
                         android:gravity="center_vertical"
                         android:includeFontPadding="true"
-                        android:text="@string/rain_perception"
                         android:textColor="@color/font_primary"
                         android:textSize="14sp" />
 
@@ -201,6 +209,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="2dp"
+                        android:fontFamily="@font/lato_regular"
                         android:includeFontPadding="false"
                         android:text="@string/precipitation"
                         android:textAllCaps="true"
@@ -224,6 +233,7 @@
                         android:layout_gravity="center_horizontal"
                         android:drawablePadding="2dp"
                         android:drawableStart="@drawable/ic_humidity"
+                        android:fontFamily="@font/lato_bold"
                         android:gravity="center_vertical"
                         android:includeFontPadding="true"
                         android:text="@string/humidity"
@@ -236,6 +246,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="2dp"
+                        android:fontFamily="@font/lato_regular"
                         android:includeFontPadding="false"
                         android:text="@string/humidity_label"
                         android:textAllCaps="true"
@@ -260,6 +271,7 @@
                         android:layout_gravity="center_horizontal"
                         android:drawablePadding="2dp"
                         android:drawableStart="@drawable/ic_wind_sock"
+                        android:fontFamily="@font/lato_bold"
                         android:gravity="center_vertical"
                         android:includeFontPadding="true"
                         android:text="@string/wind"
@@ -271,6 +283,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="2dp"
+                        android:fontFamily="@font/lato_regular"
                         android:includeFontPadding="false"
                         android:text="@string/wind_label"
                         android:textAllCaps="true"
@@ -294,6 +307,7 @@
                         android:layout_gravity="center_horizontal"
                         android:drawablePadding="2dp"
                         android:drawableStart="@drawable/ic_compass_west_north"
+                        android:fontFamily="@font/lato_bold"
                         android:gravity="center"
                         android:includeFontPadding="true"
                         android:text="@string/direction"
@@ -306,6 +320,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="2dp"
+                        android:fontFamily="@font/lato_regular"
                         android:includeFontPadding="false"
                         android:text="@string/direction_label"
                         android:textAllCaps="true"

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ffffff</color>
-    <color name="colorPrimaryDark">#0E9C80</color>
-    <color name="colorPrimary_tras">#0E9C80</color>
-    <color name="colorAccent">#0E9C80</color>
+    <color name="colorPrimary">#FF9800</color>
+    <color name="colorPrimaryDark">#F57C00</color>
+    <color name="colorPrimary_tras">#d8ecae52</color>
+    <color name="colorAccent">#FFE0B2</color>
     <color name="colorAccent_trans">#00ffffff</color>
     <color name="transparent_bg">#00ffffff</color>
 
@@ -37,7 +37,7 @@
     
     <!-- Setting screen -->
     <color name="voodoo">#463340</color>
-    <color name="light_gray">#D4D3D3</color>
+    <color name="light_gray">#dbefeeee</color>
     <color name="azure">#F9FAFA</color>
     <color name="fruit_salad">#4AAC4E</color>
     <color name="lipstick">#95305B</color>

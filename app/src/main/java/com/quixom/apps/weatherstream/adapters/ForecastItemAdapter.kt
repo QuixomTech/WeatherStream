@@ -2,7 +2,6 @@ package com.quixom.apps.weatherstream.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.DashPathEffect
 import android.support.design.widget.BottomSheetDialog
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
@@ -10,12 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.quixom.apps.weatherstream.MainActivity
 import com.quixom.apps.weatherstream.Methods
 import com.quixom.apps.weatherstream.R
@@ -25,14 +18,10 @@ import com.quixom.apps.weatherstream.utilities.DateUtil
 import java.util.*
 
 
-
-
-
-
 /**
 * Created by akif on 11/3/17.
 */
-class ForecastItemAdapter(private var daysForecastList: List<WeatherForecastData.ForecastList>, mainActivity: MainActivity) : RecyclerView.Adapter<ForecastItemAdapter.ViewHolder>() {
+class ForecastItemAdapter(private var cityname : String, private var daysForecastList: List<WeatherForecastData.ForecastList>, mainActivity: MainActivity) : RecyclerView.Adapter<ForecastItemAdapter.ViewHolder>() {
 
     private var context: Context? = null
     private var mActivity: MainActivity? = mainActivity
@@ -58,10 +47,9 @@ class ForecastItemAdapter(private var daysForecastList: List<WeatherForecastData
 
         val mainWeatherData: List<WeatherData.Main>? = WeatherData.Main.getMainWeatherList()
         if (mainWeatherData != null) {
-            val avgTemp = mainWeatherData[position+1].temp
-            val minTemp = mainWeatherData[position+1].temp_min
-            val maxTemp = mainWeatherData[position+1].temp_max
-            var humidity = mainWeatherData[position+1].humidity
+            val avgTemp = mainWeatherData[position + 1].temp
+            val minTemp = mainWeatherData[position + 1].temp_min
+            val maxTemp = mainWeatherData[position + 1].temp_max
 
             if (avgTemp != null && minTemp != null && maxTemp != null) {
                 holder.tvAvgTemperature.text = Math.round(avgTemp.toDouble()).toString().plus(mActivity?.resources?.getString(R.string.temp_degree_sign))
@@ -73,14 +61,64 @@ class ForecastItemAdapter(private var daysForecastList: List<WeatherForecastData
         holder.itemView.setOnClickListener(View.OnClickListener {
             Methods.avoidDoubleClicks(holder.itemView)
             val mBottomSheetDialog = BottomSheetDialog(context!!)
-            val sheetView = mActivity?.layoutInflater?.inflate(R.layout.bottomsheet_weather_details, null)
+            val sheetView = mActivity?.layoutInflater?.inflate(R.layout.bottomsheet_weather_details, null) as View
+
+            val tvHumidityBL = sheetView.findViewById<TextView>(R.id.tvHumidityBL)
+            val tvPressureBL = sheetView.findViewById<TextView>(R.id.tvPressureBL)
+            val tvSeaLevelBL = sheetView.findViewById<TextView>(R.id.tvSeaLevelBL)
+            val tvGroundLevelBL = sheetView.findViewById<TextView>(R.id.tvGroundLevelBL)
+            val tvSystemPodBL = sheetView.findViewById<TextView>(R.id.tvSystemPodBL)
+            val tvRainVolumeBL = sheetView.findViewById<TextView>(R.id.tvRainVolumeBL)
+            val tvRainPrecipitationBL = sheetView.findViewById<TextView>(R.id.tvRainPrecipitationBL)
+            val tvWindViewBL = sheetView.findViewById<TextView>(R.id.tvWindViewBL)
+            val tvCityBL = sheetView.findViewById<TextView>(R.id.tvCityBL)
+            val tvCountryBL = sheetView.findViewById<TextView>(R.id.tvCountryBL)
+            val tvDateTimeBL = sheetView.findViewById<TextView>(R.id.tvDateTimeBL)
+
+            if (mainWeatherData != null && mainWeatherData.isNotEmpty()) {
+                val humidity = mainWeatherData[position + 1].humidity
+                val pressure = mainWeatherData[position + 1].pressure
+                val seaLevel = mainWeatherData[position + 1].sea_level
+                val groundLevel = mainWeatherData[position + 1].grnd_level
+
+                val sysWeatherData: WeatherData.Sys? = WeatherData.Sys.getSysWeatherDetails()
+                val sysWeatherList: List<WeatherData.Sys>? = WeatherData.Sys.getSysListDetails()
+                val rainData: List<WeatherForecastData.Rain>? = WeatherForecastData.Rain.getRainData()
+                val cloudsData: WeatherData.Clouds? = WeatherData.Clouds.getCloudWeatherDetails()
+                val windData: WeatherData.Wind? = WeatherData.Wind.getWindWeatherDetails()
+
+                if (sysWeatherList != null && sysWeatherList.isNotEmpty() && sysWeatherList[position + 1].pod != null) {
+                    tvSystemPodBL.text = sysWeatherList[position + 1].pod
+                }
+
+                val loc = Locale("", sysWeatherData?.country)
+                tvCountryBL.text = loc.displayCountry
+
+                if (rainData != null && rainData.isNotEmpty() && rainData[position].rainCount != null) {
+                    tvRainVolumeBL.text = rainData[position].rainCount.toString().plus(" mm")
+                } else {
+                    tvRainVolumeBL.text = ("-")
+                }
+
+                if (cloudsData != null) {
+                    tvRainPrecipitationBL.text = cloudsData.all.toString().plus("%")
+                }
+
+                if (windData != null) {
+                    tvWindViewBL.text = windData.speed.toString().plus(" m/s")
+                }
+
+                tvDateTimeBL.text = DateUtil.getDateFromMillis(dateValue, DateUtil.dateDisplayFormat3).plus(" ").plus(DateUtil.convertTime(dateTime))
+                tvCityBL.text = cityname
+                tvHumidityBL.text = humidity.plus("%")
+                tvPressureBL.text = pressure.plus(" hPa")
+                tvSeaLevelBL.text = seaLevel.toString().plus(" hPa")
+                tvGroundLevelBL.text = groundLevel.toString().plus(" hPa")
+
+            }
             mBottomSheetDialog.setContentView(sheetView)
             mBottomSheetDialog.show()
         })
-
-      /*  mBottomSheetDialog.setOnDismissListener {
-            Toast.makeText(mActivity, "test", Toast.LENGTH_SHORT).show()
-        }*/
     }
 
     override fun getItemCount(): Int = daysForecastList.size
@@ -90,82 +128,5 @@ class ForecastItemAdapter(private var daysForecastList: List<WeatherForecastData
         val tvDayTime: TextView = itemView.findViewById(R.id.tvDayTime)
         val tvMinMaxTempExpand: TextView = itemView.findViewById(R.id.tvMinMaxTempExpand)
         val tvAvgTemperature: TextView = itemView.findViewById(R.id.tvAvgTemperature)
-    }
-
-    /***
-     * Method for set temperature data on Graph
-     * */
-    private fun setGraphData(count: Int, range: Float, mChart: LineChart) {
-
-        val values = ArrayList<Entry>()
-
-        for (i in 0 until count) {
-
-            val `val` = (Math.random() * range).toFloat()
-            values.add(Entry(i.toFloat(), `val`))
-        }
-
-        val set1: LineDataSet
-
-        if (mChart.data != null && mChart.data.dataSetCount > 0) {
-            set1 = mChart.data.getDataSetByIndex(0) as LineDataSet
-            set1.values = values
-            mChart.data.notifyDataChanged()
-            mChart.notifyDataSetChanged()
-        } else {
-            // create a dataset and give it a type
-            set1 = LineDataSet(values, "")
-
-            set1.setDrawIcons(false)
-            set1.isDrawCirclesEnabled
-
-            // set the line to be drawn like this "- - - - - -"
-            set1.enableDashedLine(10f, 5f, 0f)
-            set1.enableDashedHighlightLine(10f, 5f, 0f)
-            set1.color = ContextCompat.getColor(mActivity, R.color.frag2)
-            set1.mode = LineDataSet.Mode.CUBIC_BEZIER
-            set1.setCircleColor(ContextCompat.getColor(mActivity, R.color.colorAccent))
-            set1.lineWidth = 1f
-            set1.circleRadius = 3f
-            set1.setDrawCircleHole(false)
-            set1.valueTextSize = 9f
-            set1.setDrawFilled(true)
-            set1.disableDashedLine()
-            set1.valueTextColor = ContextCompat.getColor(mActivity, R.color.font_white)
-            set1.isHighlightEnabled = false
-            set1.formLineWidth = 1f
-            set1.formLineDashEffect = DashPathEffect(floatArrayOf(10f, 5f), 0f)
-            set1.formSize = 15f
-
-            set1.isHighlightEnabled = false
-            set1.fillDrawable = ContextCompat.getDrawable(mActivity, R.drawable.honey_dew)
-
-            val dataSets = ArrayList<ILineDataSet>()
-            dataSets.add(set1) // add the datasets
-
-            // create a data object with the datasets
-            val data = LineData(dataSets)
-
-            // set data
-            mChart.data = data
-            mChart.setPinchZoom(false)
-            mChart.isVerticalFadingEdgeEnabled = false
-            mChart.axisLeft.setDrawGridLines(false)
-            mChart.axisRight.setDrawGridLines(false)
-            mChart.xAxis.setDrawGridLines(false)
-            mChart.xAxis.textColor = ContextCompat.getColor(mActivity, R.color.font_white)
-            mChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
-            mChart.xAxis.textSize
-            mChart.legend.isEnabled = false
-            mChart.description.isEnabled = false
-            mChart.xAxis.setDrawAxisLine(false)
-            mChart.xAxis.mLabelHeight = 50
-            mChart.axisLeft.setDrawLabels(false)
-            mChart.axisRight.setDrawLabels(false)
-            mChart.axisRight.setDrawAxisLine(false)
-            mChart.axisLeft.setDrawAxisLine(false)
-            mChart.xAxis.gridColor = ContextCompat.getColor(mActivity, R.color.transparent_bg)
-            mChart.isClickable = false
-        }
     }
 }
