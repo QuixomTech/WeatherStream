@@ -73,6 +73,15 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         val layoutManager = LinearLayoutManager(this@MainActivity)
         rvMenuLocationList.layoutManager = layoutManager
 
+        val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
+        if (weatherData == null) {
+            val latitude = intent.extras.getDouble(KeyUtil.LATITUDE_VALUE)
+            val longitude = intent.extras.getDouble(KeyUtil.LONGITUDE_VALUE)
+            if (latitude != 0.0 && longitude != 0.0) {
+                    callSearchLocationApi(latitude, longitude)
+            }
+        }
+
         // Fetch searched location list from database.
         val searchedLocation: List<LocationSearchHistory> = LocationSearchHistory.getSearchedLocationList()
         if (searchedLocation.isNotEmpty()) {
@@ -124,9 +133,9 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
     /***
      * Method for Open/Close slide menu drawer */
     fun toggleSlideMenuLeft() {
-        if (slidingMenuRight?.isMenuShowing!!) {
-            slidingMenuRight?.toggle()
-        }
+        /*if (slidingMenuRight?.isMenuShowing!!) {
+            slidingMenuRight?.toggle(true)
+        }*/
         slidingMenuLeft?.toggle()
     }
 
@@ -186,9 +195,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             KeyUtil.PLACE_AUTOCOMPLETE_REQUEST_CODE -> {
                 if (resultCode == Activity.RESULT_OK) {
                     val place = PlaceAutocomplete.getPlace(this, data)
-                    println("place.address_" + place.address)
-                    callSearchLocationApi(place.name.toString())
-
+                    callSearchLocationApi(place.latLng.latitude, place.latLng.longitude)
                 } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                     Methods.hideKeyboard(this@MainActivity)
                     val status = PlaceAutocomplete.getStatus(this, data)
@@ -203,7 +210,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
     fun showGoogleAutoLocationSearch(locationName: String) {
         try {
             val intent = PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).build(this)
-            intent.putExtra(KeyUtil.KEY_LOCATION, locationName)
+            intent.putExtra("initial_query", locationName)
             startActivityForResult(intent, KeyUtil.PLACE_AUTOCOMPLETE_REQUEST_CODE)
         } catch (e: GooglePlayServicesRepairableException) {
             e.printStackTrace()
@@ -217,10 +224,12 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
      * */
     var locationSearchCall: Call<WeatherData>? = null
 
-    fun callSearchLocationApi(locationName: String) = if (isNetworkConnected(this@MainActivity)) {
+    fun callSearchLocationApi(lat: Double, lon: Double) = if (isNetworkConnected(this@MainActivity)) {
 
         val hashMap = APIParameters.getParam()
-        hashMap.put(APIParameters.LocationSearch.queryParam, "" + locationName)
+        hashMap.put(APIParameters.LocationSearch.lat, "" + lat)
+        hashMap.put(APIParameters.LocationSearch.lon, "" + lon)
+        hashMap.put(APIParameters.LocationSearch.type, KeyUtil.TYPES_ACCURATE)
         hashMap.put(APIParameters.LocationSearch.units, "" + KeyUtil.UNITS_METRIC)
 
         locationSearchCall = NetworkConfig.getWebApis().getWeatherDetail(APIParameters.KEY_OPEN_WEATHER_MAP_KEY, hashMap)
@@ -241,10 +250,14 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                                 val weatherDetail: WeatherData = response.body()!!
                                 val innerWeatherDetail: Array<WeatherData.Weather>? = response.body()!!.weather
                                 val sysWeatherDetail: WeatherData.Sys = response.body()!!.sys!!
+                                val coordDetail: WeatherData.Coord = response.body()!!.coord!!
                                 val mainWeatherDetail: WeatherData.Main = response.body()!!.main!!
                                 val windWeatherDetail: WeatherData.Wind = response.body()!!.wind!!
                                 val cloudsWeatherDetail: WeatherData.Clouds = response.body()!!.clouds!!
                                 weatherDetail.save()
+
+                                coordDetail.id = 0
+                                coordDetail.save()
 
                                 sysWeatherDetail.sysId = 0
                                 sysWeatherDetail.save()
@@ -266,7 +279,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                                 WeatherStreamCallbackManager.updateHomeScreenData(1)
 
                                 /** called here location weather forecasting api */
-                                callWeatherForecasting(locationName)
+                                callWeatherForecasting(lat, lon)
 
                                 if (weatherDetail != null) {
                                     val searchedLocation: List<LocationSearchHistory> = LocationSearchHistory.getSearchedLocationList()
@@ -307,10 +320,11 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
      * */
     var weatherForecastingCall: Call<WeatherForecastData>? = null
 
-    fun callWeatherForecasting(locationName: String) = if (isNetworkConnected(this@MainActivity)) {
+    fun callWeatherForecasting(lat: Double, lon: Double) = if (isNetworkConnected(this@MainActivity)) {
 
         val hashMap = APIParameters.getParam()
-        hashMap.put(APIParameters.ForecastingWeather.queryParam, "" + locationName)
+        hashMap.put(APIParameters.ForecastingWeather.lat, "" + lat)
+        hashMap.put(APIParameters.ForecastingWeather.lon, "" + lon)
         hashMap.put(APIParameters.ForecastingWeather.units, "" + KeyUtil.UNITS_METRIC)
         hashMap.put(APIParameters.ForecastingWeather.type, "" + KeyUtil.TYPES_ACCURATE)
 
@@ -405,6 +419,8 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         locationSearch.countyName = weatherDetail.sys?.country
         locationSearch.temperature = weatherDetail.main?.temp?.toDouble()
         locationSearch.weatherType = weatherDetail.weather?.get(0)?.main
+        locationSearch.lat = weatherDetail.coord?.lat
+        locationSearch.lon = weatherDetail.coord?.lon
         locationSearch.save()
 
         lists.add(LocationSearchHistory(locationSearch.id, locationSearch.cityName, locationSearch.countyName, locationSearch.weatherType, locationSearch.temperature))

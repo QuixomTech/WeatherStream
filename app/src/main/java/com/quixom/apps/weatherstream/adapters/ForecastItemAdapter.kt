@@ -62,7 +62,6 @@ class ForecastItemAdapter(private var cityname : String, private var daysForecas
             Methods.avoidDoubleClicks(holder.itemView)
             val mBottomSheetDialog = BottomSheetDialog(context!!)
             val sheetView = mActivity?.layoutInflater?.inflate(R.layout.bottomsheet_weather_details, null) as View
-
             val tvHumidityBL = sheetView.findViewById<TextView>(R.id.tvHumidityBL)
             val tvPressureBL = sheetView.findViewById<TextView>(R.id.tvPressureBL)
             val tvSeaLevelBL = sheetView.findViewById<TextView>(R.id.tvSeaLevelBL)

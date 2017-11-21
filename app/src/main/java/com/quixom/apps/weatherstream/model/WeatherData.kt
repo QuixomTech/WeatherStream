@@ -43,10 +43,11 @@ class WeatherData(@Column @PrimaryKey @Expose var id: Long? = null,
 
     @Table(name = Coord.TABLE_NAME, database = WeatherStreamDB::class)
     class Coord(@Column @PrimaryKey(autoincrement = true) @Expose var id: Int? = null,
-                @Column @Expose var lon: String? = null,
-                @Column @Expose var lat: String? = null) : BaseModel() {
+                @Column @Expose var lon: Double? = null,
+                @Column @Expose var lat: Double? = null) : BaseModel() {
         companion object {
             const val TABLE_NAME = "CoordWeather"
+            fun getCoordinateDetails(): Coord? = SQLite.select().distinct().from<Coord>(Coord::class.java).querySingle()
         }
     }
 

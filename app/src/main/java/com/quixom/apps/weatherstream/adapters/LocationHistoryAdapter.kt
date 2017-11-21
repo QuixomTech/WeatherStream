@@ -24,10 +24,13 @@ class LocationHistoryAdapter(internal var appslist: ArrayList<LocationSearchHist
 
     override fun onBindViewHolder(holder: LocationHistoryAdapter.LocationVH?, position: Int) {
         holder?.bindData(appslist[position])
+        val locationDataList: LocationSearchHistory = LocationSearchHistory.getLocationInfo(appslist[position].cityName!!, appslist[position].countyName!!)
 
         holder?.itemView?.setOnClickListener(View.OnClickListener {
-            sActivity.callSearchLocationApi(appslist[position].cityName!!)
-            sActivity.toggleSlideMenuLeft()
+            if (locationDataList  != null) {
+                sActivity.toggleSlideMenuLeft()
+                sActivity.callSearchLocationApi(locationDataList.lat!!, locationDataList.lon!!)
+            }
         })
     }
 

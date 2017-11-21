@@ -9,15 +9,17 @@ import com.raizlabs.android.dbflow.sql.language.SQLite
 import com.raizlabs.android.dbflow.structure.BaseModel
 
 /**
-* Created by akif on 11/13/17.
-*/
+ * Created by akif on 11/13/17.
+ */
 
 @Table(name = LocationSearchHistory.TABLE_NAME, database = WeatherStreamDB::class)
 class LocationSearchHistory(@Column @PrimaryKey @Expose var id: Long? = null,
                             @Column @Expose var cityName: String? = null,
                             @Column @Expose var countyName: String? = null,
                             @Column @Expose var weatherType: String? = null,
-                            @Column @Expose var temperature: Double? = null): BaseModel() {
+                            @Column @Expose var temperature: Double? = null,
+                            @Column @Expose var lat: Double? = null,
+                            @Column @Expose var lon: Double? = null) : BaseModel() {
     companion object {
         const val TABLE_NAME = "LocationSearchHistory"
 
@@ -27,5 +29,9 @@ class LocationSearchHistory(@Column @PrimaryKey @Expose var id: Long? = null,
                 .where()
                 .orderBy(LocationSearchHistory_Table.cityName, false)
                 .queryList()
+
+        fun getLocationInfo (cityName: String, countryName: String): LocationSearchHistory =
+                SQLite.select().distinct().from<LocationSearchHistory>(LocationSearchHistory::class.java)
+                        .where(LocationSearchHistory_Table.cityName.eq(cityName)).and(LocationSearchHistory_Table.countyName.eq(countryName)).querySingle()!!
     }
 }

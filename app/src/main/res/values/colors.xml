@@ -3,7 +3,7 @@
     <color name="colorPrimary">#FF9800</color>
     <color name="colorPrimaryDark">#F57C00</color>
     <color name="colorPrimary_tras">#d8ecae52</color>
-    <color name="colorAccent">#FFE0B2</color>
+    <color name="colorAccent">#FF9800</color>
     <color name="colorAccent_trans">#00ffffff</color>
     <color name="transparent_bg">#00ffffff</color>
 

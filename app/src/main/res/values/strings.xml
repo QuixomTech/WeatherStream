@@ -20,6 +20,8 @@
     <string name="humidity_label">humidity</string>
     <string name="wind_label">wind</string>
     <string name="direction_label">direction</string>
+    <string name="direction_abbreviations_label">Direction abbreviations</string>
+    <string name="Location_enable_label">Direction abbreviations</string>
 
     <!-- Side menu text -->
     <string name="location_search">Location Search</string>
@@ -64,25 +66,47 @@
 
     <!-- Wind Direction -->
     <string name="n">N</string>
+    <string name="n_desc">- North direction</string>
     <string name="nne">NNE</string>
+    <string name="nne_desc">- North North-East direction</string>
     <string name="ne">NE</string>
+    <string name="ne_desc">- North-East direction</string>
     <string name="ene">ENE</string>
+    <string name="ene_desc">- East North-East direction</string>
     <string name="e">E</string>
+    <string name="e_desc">- East direction</string>
     <string name="ese">ESE</string>
+    <string name="ese_desc">- East South-East direction</string>
     <string name="se">SE</string>
+    <string name="se_desc">- South-East direction</string>
     <string name="sse">SSE</string>
+    <string name="sse_desc">- South South-East direction</string>
     <string name="s">S</string>
+    <string name="s_desc">- South direction</string>
     <string name="ssw">SSW</string>
+    <string name="ssw_desc">- South South-West direction</string>
     <string name="sw">SW</string>
+    <string name="sw_desc">- South-West direction</string>
     <string name="wsw">WSW</string>
+    <string name="wsw_desc">- West South-West direction</string>
     <string name="w">W</string>
+    <string name="w_desc">- West direction</string>
     <string name="wnw">WNW</string>
+    <string name="wnw_desc">- West North-West direction</string>
     <string name="nw">NW</string>
+    <string name="nw_desc">- North-West direction</string>
     <string name="nnw">NNW</string>
+    <string name="nnw_desc">- North North-West direction</string>
+    <string name="direction_desc">Here, you know about abbreviations of direction label.</string>
 
     <string name="pressure_label">Pressure</string>
     <string name="sealevel_label">Sea-Level</string>
     <string name="ground_level">Ground-Level</string>
     <string name="rain_volume">Rain volume</string>
     <string name="system_pod">System pod</string>
+    <string name="close">Close</string>
+
+    <!-- Location alert dialog -->
+    <string name="gps_alert_title">GPS is not enabled</string>
+    <string name="gps_alert_message">This app required GPS to get the weather information. Do you want to enable GPS?</string>
 </resources>

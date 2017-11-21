@@ -12,6 +12,8 @@ object KeyUtil {
 
     val REQ_CODE_SPEECH_INPUT = 101
     val PLACE_AUTOCOMPLETE_REQUEST_CODE: Int = 102
+    val RC_ENABLE_LOCATION = 103
+    val RC_LOCATION_PERMISSION = 104
 
     /*** Weather Map api Units */
     val UNITS_STANDARD = "Standard"
@@ -21,4 +23,7 @@ object KeyUtil {
     /*** Weather Map api accuracy types */
     val TYPES_ACCURATE = "accurate"
     val TYPES_LIKE = "like"
+
+    val LATITUDE_VALUE = "LATITUDE"
+    val LONGITUDE_VALUE = "LONGITUDE"
 }

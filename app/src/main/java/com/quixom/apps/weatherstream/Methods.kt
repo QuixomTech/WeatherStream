@@ -11,17 +11,16 @@ import android.speech.RecognizerIntent
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
-import android.text.style.RelativeSizeSpan
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
+import com.quixom.apps.weatherstream.model.WeatherData
 import com.quixom.apps.weatherstream.utilities.KeyUtil
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -205,28 +204,6 @@ class Methods(val mActivity: MainActivity) {
             return builder
         }
 
-        /**
-         * Set string with spannable.
-         *
-         * @param first:  string
-         * @param second: string
-         * @return: string with two different color
-         */
-        fun getSpannableStringHeight(context: Context, first: String): SpannableStringBuilder {
-
-                val splitString = first.split("\u00B0")
-                val builder = SpannableStringBuilder()
-
-                val dkgraySpannable = SpannableString(splitString[0] + "°")
-
-                builder.append(dkgraySpannable)
-
-                val blackSpannable = SpannableString(splitString[1])
-                dkgraySpannable.setSpan(RelativeSizeSpan(0.1f), 0,splitString[1].length, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
-                builder.append(blackSpannable)
-                return builder
-        }
-
         /***
          * Method for check network connection
          *
@@ -273,6 +250,14 @@ class Methods(val mActivity: MainActivity) {
             val textView = sbView.findViewById<View>(android.support.design.R.id.snackbar_text) as TextView
             textView.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
             snackbar.show()
+        }
+
+        /***
+         * Method for check history
+         * **/
+        fun checkHistory():Boolean {
+            val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
+            return weatherData == null
         }
     }
 }

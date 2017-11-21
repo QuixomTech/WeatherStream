@@ -17,7 +17,9 @@ object APIParameters {
     class LocationSearch {
         companion object {
             val apiKey = "apikey"
-            val queryParam = "q"
+            val lat = "lat"
+            val lon = "lon"
+            val type = "type"
             val units = "units"
         }
     }
@@ -25,7 +27,8 @@ object APIParameters {
     class  ForecastingWeather {
         companion object {
             val apiKey = "apikey"
-            val queryParam = "q"
+            val lat = "lat"
+            val lon = "lon"
             val units = "units"
             val type = "type"
         }

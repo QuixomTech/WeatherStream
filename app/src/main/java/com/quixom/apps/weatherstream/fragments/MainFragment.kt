@@ -1,7 +1,9 @@
 package com.quixom.apps.weatherstream.fragments
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils.TruncateAt
 import android.view.LayoutInflater
@@ -18,6 +20,10 @@ import com.quixom.apps.weatherstream.utilities.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.toolbar_ui.*
 import java.util.*
+
+
+
+
 
 /**
  * A simple [BaseFragment] subclass.
@@ -44,6 +50,9 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         }
 
         setWeatherDetails()
+        llDirection.setOnClickListener(View.OnClickListener {
+            showInfoDialog()
+        })
     }
 
     override fun onDestroyView() {
@@ -120,7 +129,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             tvCountryAdd?.text = loc.displayCountry
             tvAverageTemperatureView?.text = Math.round(mainWeatherData?.temp?.toDouble()!!).toString().plus(mResources.getString(R.string.temp_degree_sign))
             tvWeatherTypeView?.text = inWeatherData.description
-            tvTemperatureMinV?.text = Methods.getSpannableStringHeight(mActivity, Math.round(mainWeatherData.temp_min?.toDouble()!!).toString().plus(mResources.getString(R.string.temperature_low)))
+            tvTemperatureMinV?.text = Math.round(mainWeatherData.temp_min?.toDouble()!!).toString().plus(mResources.getString(R.string.temperature_low))
             tvTemperatureMaxV?.text = Math.round(mainWeatherData.temp_max?.toDouble()!!).toString().plus(mResources.getString(R.string.temperature_high))
             tvDateTime?.text = DateUtil.getDateFromMillis(weatherData.dt, DateUtil.dateDisplayFormat1)
 
@@ -154,6 +163,19 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    private fun showInfoDialog() {
+        val dialogBuilder = AlertDialog.Builder(mActivity)
+        val inflater = this.layoutInflater
+        val dialogView = inflater.inflate(R.layout.alert_dialog_layout, null)
+        dialogBuilder.setView(dialogView)
+
+        dialogBuilder.setNegativeButton(mActivity.resources.getString(R.string.close), DialogInterface.OnClickListener { dialog, whichButton ->
+            dialog.dismiss()
+        })
+        val b = dialogBuilder.create()
+        b.show()
     }
 }
 
