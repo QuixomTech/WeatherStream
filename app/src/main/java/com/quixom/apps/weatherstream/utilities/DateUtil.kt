@@ -41,12 +41,16 @@ object DateUtil {
         get() = Calendar.getInstance().time.toString()
 
     @SuppressLint("SimpleDateFormat")
-    fun getDateFromMillis(mDateInMillis: Long?, mDateFormat: String): String {
+    fun getDateFromMillis(mDateInMillis: Long?, mDateFormat: String, timeConversion: Boolean): String {
         var miliis: Long = 0
 
         if (mDateInMillis != null) {
             try {
-                miliis = mDateInMillis * 1000L
+                if (timeConversion) {
+                    miliis = mDateInMillis * 1000L
+                } else {
+                    miliis = mDateInMillis
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -55,10 +59,11 @@ object DateUtil {
         // Create a DateFormatter object for displaying date in specified format.
         val formatter = SimpleDateFormat(mDateFormat)
         // Create a calendar object that will convert the date and time value in milliseconds to date.
-        val calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance(TimeZone.getDefault())
         calendar.timeInMillis = miliis
         return formatter.format(calendar.time)
     }
+
 
     fun getWeeksFromMillis(mDateInMillis: Long): String {
         var mDateInMillis = mDateInMillis
@@ -309,7 +314,7 @@ object DateUtil {
         val datePickerDialog = DatePickerDialog(mContext, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
             c.set(year, monthOfYear, dayOfMonth)
 
-            val mDate = getDateFromMillis(c.timeInMillis, dateFormat)
+            val mDate = getDateFromMillis(c.timeInMillis, dateFormat, true)
 
             tvDate.text = mDate
         }, year, month, day)

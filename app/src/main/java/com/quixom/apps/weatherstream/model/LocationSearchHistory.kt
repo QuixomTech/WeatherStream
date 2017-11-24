@@ -16,7 +16,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel
 class LocationSearchHistory(@Column @PrimaryKey @Expose var id: Long? = null,
                             @Column @Expose var cityName: String? = null,
                             @Column @Expose var countyName: String? = null,
-                            @Column @Expose var weatherType: String? = null,
+                            @Column @Expose var weatherType: Int? = null,
                             @Column @Expose var temperature: Double? = null,
                             @Column @Expose var lat: Double? = null,
                             @Column @Expose var lon: Double? = null) : BaseModel() {

@@ -88,6 +88,7 @@ class WeatherData(@Column @PrimaryKey @Expose var id: Long? = null,
         companion object {
             const val TABLE_NAME = "WeatherDescription"
             fun getInnerWeatherDetails(): Weather? = SQLite.select().distinct().from<Weather>(Weather::class.java).querySingle()
+            fun getInnerWeatherList(): List<Weather>? = SQLite.select().distinct().from<Weather>(Weather::class.java).queryList()
         }
     }
 

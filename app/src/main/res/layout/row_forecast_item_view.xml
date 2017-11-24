@@ -21,13 +21,13 @@
         android:textColor="@color/font_primary" />
 
     <ImageView
+        android:id="@+id/ivWeatherTypeForecast"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:contentDescription="@null"
         android:layout_marginTop="5dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_snow_storm_day_winter_weather"
-        android:tint="@color/frag2" />
+        android:tint="@color/summer_sky" />
 
     <TextView
         android:id="@+id/tvMinMaxTempExpand"

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.quixom.apps.weatherstream.MainActivity
 import com.quixom.apps.weatherstream.Methods
@@ -15,6 +16,7 @@ import com.quixom.apps.weatherstream.R
 import com.quixom.apps.weatherstream.model.WeatherData
 import com.quixom.apps.weatherstream.model.WeatherForecastData
 import com.quixom.apps.weatherstream.utilities.DateUtil
+import com.quixom.apps.weatherstream.utilities.WeatherToImage
 import java.util.*
 
 
@@ -37,7 +39,7 @@ class ForecastItemAdapter(private var cityname : String, private var daysForecas
         val dateTime = daysForecastList[position].dt_txt
         val dateValue = daysForecastList[position].dt
 
-        holder.tvDayTime.text = DateUtil.getDateFromMillis(dateValue, DateUtil.dateDisplayFormat3).plus(" ").plus(DateUtil.convertTime(dateTime!!))
+        holder.tvDayTime.text = DateUtil.getDateFromMillis(dateValue, DateUtil.dateDisplayFormat3, true).plus(" ").plus(DateUtil.convertTime(dateTime!!))
 
         if (DateUtil.getCurrentDateTime(dateTime)) {
             holder.tvDayTime.background = ContextCompat.getDrawable(mActivity, R.drawable.day_status_active)
@@ -45,6 +47,11 @@ class ForecastItemAdapter(private var cityname : String, private var daysForecas
             holder.tvDayTime.background = ContextCompat.getDrawable(mActivity, R.drawable.day_status_pendding)
         }
 
+        val innerWeatherList: List<WeatherData.Weather>? = WeatherData.Weather.getInnerWeatherList()
+        if (innerWeatherList != null && innerWeatherList.isNotEmpty()) {
+            println("weather data=="  +innerWeatherList[position].id)
+            holder.ivWeatherTypeForecast.setImageResource(WeatherToImage.getWeatherTypeConditionCode(null, null, innerWeatherList[position].id.toString()))
+        }
         val mainWeatherData: List<WeatherData.Main>? = WeatherData.Main.getMainWeatherList()
         if (mainWeatherData != null) {
             val avgTemp = mainWeatherData[position + 1].temp
@@ -107,7 +114,7 @@ class ForecastItemAdapter(private var cityname : String, private var daysForecas
                     tvWindViewBL.text = windData.speed.toString().plus(" m/s")
                 }
 
-                tvDateTimeBL.text = DateUtil.getDateFromMillis(dateValue, DateUtil.dateDisplayFormat3).plus(" ").plus(DateUtil.convertTime(dateTime))
+                tvDateTimeBL.text = DateUtil.getDateFromMillis(dateValue, DateUtil.dateDisplayFormat3, true).plus(" ").plus(DateUtil.convertTime(dateTime))
                 tvCityBL.text = cityname
                 tvHumidityBL.text = humidity.plus("%")
                 tvPressureBL.text = pressure.plus(" hPa")
@@ -127,5 +134,6 @@ class ForecastItemAdapter(private var cityname : String, private var daysForecas
         val tvDayTime: TextView = itemView.findViewById(R.id.tvDayTime)
         val tvMinMaxTempExpand: TextView = itemView.findViewById(R.id.tvMinMaxTempExpand)
         val tvAvgTemperature: TextView = itemView.findViewById(R.id.tvAvgTemperature)
+        val ivWeatherTypeForecast: ImageView = itemView.findViewById(R.id.ivWeatherTypeForecast)
     }
 }

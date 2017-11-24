@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.quixom.apps.weatherstream.MainActivity
 import com.quixom.apps.weatherstream.R
 import com.quixom.apps.weatherstream.model.LocationSearchHistory
+import com.quixom.apps.weatherstream.utilities.WeatherToImage
 import java.util.*
 
 /**
@@ -50,6 +51,8 @@ class LocationHistoryAdapter(internal var appslist: ArrayList<LocationSearchHist
             val loc = Locale("", locationSearchData.countyName)
             tvCountryName.text = loc.displayCountry
             tvTemperature.text = Math.round(locationSearchData.temperature!!).toString().plus(sActivity.resources.getString(R.string.c_symbol))
+            ivWeatherType.setImageResource(WeatherToImage.getWeatherTypeConditionCode(null, null, locationSearchData.weatherType.toString()))
+
         }
     }
 }

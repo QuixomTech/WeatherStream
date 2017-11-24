@@ -5,6 +5,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.support.annotation.RequiresApi
@@ -23,9 +24,9 @@ class LocalNotification(val mainActivity: MainActivity) {
      * Build local notification for showing weather
      */
     @RequiresApi(Build.VERSION_CODES.N)
-    fun showCustomLayoutHeadsUpNotification(context: Context) {
+    fun showCustomLayoutHeadsUpNotification(context: Context, title: String, message: String, time: String, weatherTypeImage: Int) {
 
-        val remoteViews = createRemoteViews(context, R.layout.notification_custom_content, R.drawable.ic_snow_storm_day_winter_weather, "Ahmedabad, India", "34 Sunny")
+        val remoteViews = createRemoteViews(context, R.layout.notification_custom_content, title, message, time, weatherTypeImage)
 
         val notificationIntent = Intent(Intent.ACTION_VIEW)
         notificationIntent.data = Uri.parse("http://www.google.com")
@@ -36,7 +37,8 @@ class LocalNotification(val mainActivity: MainActivity) {
                 .setStyle(NotificationCompat.DecoratedCustomViewStyle())
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setVibrate(LongArray(0))
-                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setSmallIcon(weatherTypeImage)
+                .setColor(Color.parseColor("#ffffff"))
                 .setContentIntent(contentIntent)
                 .setAutoCancel(true)
 
@@ -49,11 +51,12 @@ class LocalNotification(val mainActivity: MainActivity) {
         showNotification(context, builder.build(), 0)
     }
 
-    private fun createRemoteViews(context: Context, layout: Int, iconResource: Int, title: String, message: String): RemoteViews {
+    private fun createRemoteViews(context: Context, layout: Int, title: String, message: String, time: String, weatherTypeImage: Int): RemoteViews {
         val remoteViews = RemoteViews(context.packageName, layout)
-        remoteViews.setImageViewResource(R.id.image_icon, iconResource)
         remoteViews.setTextViewText(R.id.text_title, title)
         remoteViews.setTextViewText(R.id.text_message, message)
+        remoteViews.setTextViewText(R.id.text_time, time)
+        remoteViews.setImageViewResource(R.id.ivWeatherTypeNotification, weatherTypeImage)
         return remoteViews
     }
 

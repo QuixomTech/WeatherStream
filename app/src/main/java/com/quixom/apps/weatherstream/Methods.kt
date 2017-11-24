@@ -259,5 +259,11 @@ class Methods(val mActivity: MainActivity) {
             val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
             return weatherData == null
         }
+
+        /*** Converts to celsius */
+        private fun convertFahrenheitToCelsius(fahrenheit: Float): Float = (fahrenheit - 32) * 5 / 9
+
+        /*** Converts to fahrenheit */
+        private fun convertCelsiusToFahrenheit(celsius: Float): Float = celsius * 9 / 5 + 32
     }
 }

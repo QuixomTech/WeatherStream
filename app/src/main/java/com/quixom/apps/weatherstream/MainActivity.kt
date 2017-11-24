@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.speech.RecognizerIntent
+import android.support.annotation.RequiresApi
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -23,9 +24,7 @@ import com.quixom.apps.weatherstream.model.LocationSearchHistory
 import com.quixom.apps.weatherstream.model.WeatherData
 import com.quixom.apps.weatherstream.model.WeatherForecastData
 import com.quixom.apps.weatherstream.slidingmenu.SlidingMenu
-import com.quixom.apps.weatherstream.utilities.FragmentUtil
-import com.quixom.apps.weatherstream.utilities.KeyUtil
-import com.quixom.apps.weatherstream.utilities.WeatherStreamCallbackManager
+import com.quixom.apps.weatherstream.utilities.*
 import com.quixom.apps.weatherstream.webservice.APIParameters
 import com.quixom.apps.weatherstream.webservice.NetworkConfig
 import com.raizlabs.android.dbflow.sql.language.Delete
@@ -91,10 +90,6 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             Collections.reverse(lists)
             rvMenuLocationList.adapter = LocationHistoryAdapter(lists, this@MainActivity)
         }
-
-        /*** Weather notification */
-        /*val localNotification = LocalNotification(this@MainActivity)
-        localNotification.showCustomLayoutHeadsUpNotification(this@MainActivity)*/
     }
 
     override fun onBackPressed() {
@@ -235,6 +230,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         locationSearchCall = NetworkConfig.getWebApis().getWeatherDetail(APIParameters.KEY_OPEN_WEATHER_MAP_KEY, hashMap)
         locationSearchCall!!.enqueue(object : Callback<WeatherData> {
 
+            @RequiresApi(Build.VERSION_CODES.N)
             override fun onResponse(call: Call<WeatherData>, response: Response<WeatherData>) {
                 if (call.isCanceled)
                     return
@@ -277,6 +273,16 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                                 }
 
                                 WeatherStreamCallbackManager.updateHomeScreenData(1)
+
+                                /*** Weather notification */
+                                val localNotification = LocalNotification(this@MainActivity)
+                                val loc = Locale("", sysWeatherDetail.country)
+                                val title = weatherDetail.name.plus(", ").plus(loc.displayCountry)
+                                val message = Math.round(mainWeatherDetail.temp!!.toDouble()).toString().plus(resources.getString(R.string.temp_degree_sign)).plus(" "+innerWeatherDetail[0].description)
+                                val time =  DateUtil.getDateFromMillis(System.currentTimeMillis(), DateUtil.timeHourFormat, false)
+                                val weatherType = innerWeatherDetail[0].id
+                                localNotification.showCustomLayoutHeadsUpNotification(this@MainActivity,  title, message, time,
+                                        WeatherToImage.getWeatherTypeConditionCode(null, null, weatherType.toString()))
 
                                 /** called here location weather forecasting api */
                                 callWeatherForecasting(lat, lon)
@@ -418,7 +424,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         locationSearch.cityName = weatherDetail.name
         locationSearch.countyName = weatherDetail.sys?.country
         locationSearch.temperature = weatherDetail.main?.temp?.toDouble()
-        locationSearch.weatherType = weatherDetail.weather?.get(0)?.main
+        locationSearch.weatherType = weatherDetail.weather?.get(0)?.id
         locationSearch.lat = weatherDetail.coord?.lat
         locationSearch.lon = weatherDetail.coord?.lon
         locationSearch.save()

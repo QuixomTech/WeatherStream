@@ -21,10 +21,6 @@ import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.toolbar_ui.*
 import java.util.*
 
-
-
-
-
 /**
  * A simple [BaseFragment] subclass.
  */
@@ -39,7 +35,6 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         weatherSensor = WeatherViewSensorEventListener(mActivity, weatherView)
 
         WeatherStreamCallbackManager.addWishCallBack(addWeatherStreamCallBack)
-
         recyclerViewDaysWeather.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false)
         recyclerViewDaysWeather.layoutManager = layoutManager
@@ -97,6 +92,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         tvToolbarTitle.text = header
         toggleMenu.setOnClickListener(this)
         ivSetting.setOnClickListener(this)
+
         toggleMenu.tag = 0
 
         try {
@@ -131,7 +127,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
             tvWeatherTypeView?.text = inWeatherData.description
             tvTemperatureMinV?.text = Math.round(mainWeatherData.temp_min?.toDouble()!!).toString().plus(mResources.getString(R.string.temperature_low))
             tvTemperatureMaxV?.text = Math.round(mainWeatherData.temp_max?.toDouble()!!).toString().plus(mResources.getString(R.string.temperature_high))
-            tvDateTime?.text = DateUtil.getDateFromMillis(weatherData.dt, DateUtil.dateDisplayFormat1)
+            tvDateTime?.text = DateUtil.getDateFromMillis(weatherData.dt, DateUtil.dateDisplayFormat1, true)
 
             tvHumidityView?.text = mainWeatherData.humidity?.plus("%")
             if (cloudWeatherData?.all != null) {
@@ -144,7 +140,7 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                 tvDirectionView?.text = DegreeToWindDirection.getWindDirection(mActivity, windWeatherData.deg?.toDouble()!!)
             }
 
-            WeatherToImage.getWeatherTypeConditionCode(this@MainFragment, weatherView, inWeatherData.id?.toString()!!)
+            iv_weather_type.setImageResource(WeatherToImage.getWeatherTypeConditionCode(this@MainFragment, weatherView, inWeatherData.id?.toString()!!))
         }
     }
 
