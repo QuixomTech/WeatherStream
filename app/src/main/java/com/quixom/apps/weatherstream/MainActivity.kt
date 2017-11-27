@@ -28,8 +28,9 @@ import com.quixom.apps.weatherstream.utilities.*
 import com.quixom.apps.weatherstream.webservice.APIParameters
 import com.quixom.apps.weatherstream.webservice.NetworkConfig
 import com.raizlabs.android.dbflow.sql.language.Delete
-import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.leftmenu.*
+import kotlinx.android.synthetic.main.settingmenu.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,10 +39,11 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClickListener {
 
-    private var slidingMenuLeft: SlidingMenu? = null
+    var slidingMenuLeft: SlidingMenu? = null
     private var slidingMenuRight: SlidingMenu? = null
     private var fragmentContainer: FrameLayout? = null
     private var fragmentUtil: FragmentUtil? = null
+    lateinit var preferenceUtil: PreferenceUtil
     lateinit var errorHandler: com.quixom.apps.weatherstream.webservice.ErrorHandler
     var lists = ArrayList<LocationSearchHistory>()
 
@@ -54,6 +56,8 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         this.window.navigationBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
 
         fragmentUtil = FragmentUtil(this@MainActivity)
+        preferenceUtil = PreferenceUtil(this@MainActivity)
+
         fragmentContainer = findViewById(R.id.fl_fragment_container)
 
         initSlideMenuLeft()
@@ -63,12 +67,28 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         ivSearchLocationIC.setOnClickListener(this)
         tvLocationSearchText.setOnClickListener(this)
 
+        // Temperature switch
+        rbCelsius.setOnClickListener(this)
+        rbFahrenheit.setOnClickListener(this)
+
+        // Speed switch
+        rbMS.setOnClickListener(this)
+        rbMPH.setOnClickListener(this)
+
+        // Notification switch
+        rbOnNotification.setOnClickListener(this)
+        rbOffNotification.setOnClickListener(this)
+
+        // Air, Sea level, Ground level pressure switch
+        rbHPA.setOnClickListener(this)
+        rbInHg.setOnClickListener(this)
+
         /** Launch Main Fragment */
         fragmentUtil!!.clearBackStackFragmets()
         fragmentUtil!!.replaceFragment(MainFragment(), false, false)
 
 
-        /*** Init Recylerview here */
+        /*** Init RecyclerView here */
         val layoutManager = LinearLayoutManager(this@MainActivity)
         rvMenuLocationList.layoutManager = layoutManager
 
@@ -77,18 +97,25 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             val latitude = intent.extras.getDouble(KeyUtil.LATITUDE_VALUE)
             val longitude = intent.extras.getDouble(KeyUtil.LONGITUDE_VALUE)
             if (latitude != 0.0 && longitude != 0.0) {
-                    callSearchLocationApi(latitude, longitude)
+                callSearchLocationApi(latitude, longitude)
+            } else {
+                WeatherStreamCallbackManager.updateHomeScreenData(1)
             }
         }
 
         // Fetch searched location list from database.
         val searchedLocation: List<LocationSearchHistory> = LocationSearchHistory.getSearchedLocationList()
         if (searchedLocation.isNotEmpty()) {
+            tvRecentSearch.visibility = View.VISIBLE
+            tvClearSearch.visibility = View.VISIBLE
             for (searchedLC in searchedLocation) {
                 lists.add(LocationSearchHistory(0, searchedLC.cityName, searchedLC.countyName, searchedLC.weatherType, searchedLC.temperature))
             }
             Collections.reverse(lists)
-            rvMenuLocationList.adapter = LocationHistoryAdapter(lists, this@MainActivity)
+            rvMenuLocationList.adapter = LocationHistoryAdapter(preferenceUtil, lists, this@MainActivity)
+        } else {
+            tvRecentSearch.visibility = View.GONE
+            tvClearSearch.visibility = View.GONE
         }
     }
 
@@ -150,6 +177,27 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         slidingMenuRight?.setBehindWidth(650)
         slidingMenuRight?.setMenu(R.layout.settingmenu)
         slidingMenuRight?.isSlidingEnabled
+
+        // Set Notification switch status
+        if (preferenceUtil.getBooleanPref(preferenceUtil.IS_NOTIFICATION_ON)) {
+            rbOnNotification.isChecked = true
+        } else {
+            rbOffNotification.isChecked = true
+        }
+
+        // Set Temperature switch status
+        if (preferenceUtil.getBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS)) {
+            rbCelsius.isChecked = true
+        } else {
+            rbFahrenheit.isChecked = true
+        }
+
+        // Set Speed switch status
+        if (preferenceUtil.getBooleanPref(preferenceUtil.IS_SPEED_UNIT_METERS)) {
+            rbMS.isChecked = true
+        } else {
+            rbMPH.isChecked = true
+        }
     }
 
     /***
@@ -170,6 +218,36 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             tvLocationSearchText -> {
                 Methods.avoidDoubleClicks(tvLocationSearchText)
                 showGoogleAutoLocationSearch("")
+            }
+            rbOnNotification -> {
+                preferenceUtil.setBooleanPref(preferenceUtil.IS_NOTIFICATION_ON, true)
+            }
+            rbOffNotification -> {
+                preferenceUtil.setBooleanPref(preferenceUtil.IS_NOTIFICATION_ON, false)
+            }
+            rbCelsius -> {
+                preferenceUtil.setBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS, true)
+                WeatherStreamCallbackManager.updateHomeScreenData(3)
+            }
+            rbFahrenheit -> {
+                preferenceUtil.setBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS, false)
+                WeatherStreamCallbackManager.updateHomeScreenData(3)
+            }
+            rbMS -> {
+                preferenceUtil.setBooleanPref(preferenceUtil.IS_SPEED_UNIT_METERS, true)
+                WeatherStreamCallbackManager.updateHomeScreenData(3)
+            }
+            rbMPH -> {
+                preferenceUtil.setBooleanPref(preferenceUtil.IS_SPEED_UNIT_METERS, false)
+                WeatherStreamCallbackManager.updateHomeScreenData(3)
+            }
+            rbHPA -> {
+                preferenceUtil.setBooleanPref(preferenceUtil.IS_AIR_PRESSURE_HPA, true)
+                WeatherStreamCallbackManager.updateHomeScreenData(3)
+            }
+            rbInHg -> {
+                preferenceUtil.setBooleanPref(preferenceUtil.IS_AIR_PRESSURE_HPA, false)
+                WeatherStreamCallbackManager.updateHomeScreenData(3)
             }
         }
     }
@@ -275,14 +353,22 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                                 WeatherStreamCallbackManager.updateHomeScreenData(1)
 
                                 /*** Weather notification */
-                                val localNotification = LocalNotification(this@MainActivity)
-                                val loc = Locale("", sysWeatherDetail.country)
-                                val title = weatherDetail.name.plus(", ").plus(loc.displayCountry)
-                                val message = Math.round(mainWeatherDetail.temp!!.toDouble()).toString().plus(resources.getString(R.string.temp_degree_sign)).plus(" "+innerWeatherDetail[0].description)
-                                val time =  DateUtil.getDateFromMillis(System.currentTimeMillis(), DateUtil.timeHourFormat, false)
-                                val weatherType = innerWeatherDetail[0].id
-                                localNotification.showCustomLayoutHeadsUpNotification(this@MainActivity,  title, message, time,
-                                        WeatherToImage.getWeatherTypeConditionCode(null, null, weatherType.toString()))
+                                if (preferenceUtil.getBooleanPref(preferenceUtil.IS_NOTIFICATION_ON)) {
+                                    val localNotification = LocalNotification(this@MainActivity)
+                                    val loc = Locale("", sysWeatherDetail.country)
+                                    val title = weatherDetail.name.plus(", ").plus(loc.displayCountry)
+                                    val message: String ?= if (preferenceUtil.getBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS)) {
+                                        Math.round(mainWeatherDetail.temp!!.toDouble()).toString().plus(resources.getString(R.string.c_symbol)).plus(" " + innerWeatherDetail[0].description)
+                                    } else {
+                                        Math.round(Methods.convertCelsiusToFahrenheit(mainWeatherDetail.temp?.toFloat()!!)).toString().plus(resources.getString(R.string.f_symbol)).plus(" " + innerWeatherDetail[0].description)
+                                    }
+                                    val time = DateUtil.getDateFromMillis(System.currentTimeMillis(), DateUtil.timeHourFormat, false)
+                                    val weatherType = innerWeatherDetail[0].id
+                                    if (message != null) {
+                                        localNotification.showCustomLayoutHeadsUpNotification(this@MainActivity, title, message, time,
+                                                WeatherToImage.getWeatherTypeConditionCode(null, null, weatherType.toString()))
+                                    }
+                                }
 
                                 /** called here location weather forecasting api */
                                 callWeatherForecasting(lat, lon)
@@ -420,6 +506,14 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
     fun setSideMenuSearchEntry(weatherDetail: WeatherData) {
         val locationSearch = LocationSearchHistory()
 
+        if (weatherDetail != null) {
+            tvRecentSearch.visibility = View.VISIBLE
+            tvClearSearch.visibility = View.VISIBLE
+        } else {
+            tvRecentSearch.visibility = View.GONE
+            tvClearSearch.visibility = View.GONE
+        }
+
         locationSearch.id = weatherDetail.id
         locationSearch.cityName = weatherDetail.name
         locationSearch.countyName = weatherDetail.sys?.country
@@ -430,6 +524,6 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         locationSearch.save()
 
         lists.add(LocationSearchHistory(locationSearch.id, locationSearch.cityName, locationSearch.countyName, locationSearch.weatherType, locationSearch.temperature))
-        rvMenuLocationList.adapter = LocationHistoryAdapter(lists, this@MainActivity)
+        rvMenuLocationList.adapter = LocationHistoryAdapter(preferenceUtil, lists, this@MainActivity)
     }
 }

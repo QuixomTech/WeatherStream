@@ -15,8 +15,6 @@ import android.provider.Settings
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException
-import com.google.android.gms.common.GooglePlayServicesRepairableException
 import com.google.android.gms.location.places.ui.PlaceAutocomplete
 import com.quixom.apps.weatherstream.MainActivity
 import com.quixom.apps.weatherstream.Methods
@@ -61,7 +59,13 @@ class SplashActivity : AppCompatActivity() {
         }
 
         override fun onProviderDisabled(provider: String?) {
-            Toast.makeText(this@SplashActivity, "Provider", Toast.LENGTH_SHORT).show()
+            Handler().postDelayed({
+                val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                intent.putExtra(KeyUtil.LATITUDE_VALUE, 0.0)
+                intent.putExtra(KeyUtil.LONGITUDE_VALUE, 0.0)
+                startActivity(intent)
+                finish()
+            }, SPLASH_TIME_OUT.toLong())
         }
     }
 
@@ -108,8 +112,8 @@ class SplashActivity : AppCompatActivity() {
                 dialog.dismiss()
             })
             dialogBuilder.setNegativeButton(android.R.string.cancel, { dialog, which ->
+                mLocationListener.onProviderDisabled("")
                 dialog.dismiss()
-                showGoogleAutoLocationSearch()
             })
             val b = dialogBuilder.create()
             b.show()
@@ -178,16 +182,5 @@ class SplashActivity : AppCompatActivity() {
             }
         }
         return true
-    }
-
-    fun showGoogleAutoLocationSearch() {
-        try {
-            val intent = PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN).build(this)
-            startActivityForResult(intent, KeyUtil.PLACE_AUTOCOMPLETE_REQUEST_CODE)
-        } catch (e: GooglePlayServicesRepairableException) {
-            e.printStackTrace()
-        } catch (e: GooglePlayServicesNotAvailableException) {
-            e.printStackTrace()
-        }
     }
 }

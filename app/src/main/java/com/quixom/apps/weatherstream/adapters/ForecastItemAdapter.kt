@@ -16,14 +16,17 @@ import com.quixom.apps.weatherstream.R
 import com.quixom.apps.weatherstream.model.WeatherData
 import com.quixom.apps.weatherstream.model.WeatherForecastData
 import com.quixom.apps.weatherstream.utilities.DateUtil
+import com.quixom.apps.weatherstream.utilities.PreferenceUtil
 import com.quixom.apps.weatherstream.utilities.WeatherToImage
+import java.text.DecimalFormat
+import java.text.NumberFormat
 import java.util.*
 
 
 /**
-* Created by akif on 11/3/17.
-*/
-class ForecastItemAdapter(private var cityname : String, private var daysForecastList: List<WeatherForecastData.ForecastList>, mainActivity: MainActivity) : RecyclerView.Adapter<ForecastItemAdapter.ViewHolder>() {
+ * Created by akif on 11/3/17.
+ */
+class ForecastItemAdapter(private var preferenceUtil: PreferenceUtil, private var cityname: String, private var daysForecastList: List<WeatherForecastData.ForecastList>, mainActivity: MainActivity) : RecyclerView.Adapter<ForecastItemAdapter.ViewHolder>() {
 
     private var context: Context? = null
     private var mActivity: MainActivity? = mainActivity
@@ -49,7 +52,6 @@ class ForecastItemAdapter(private var cityname : String, private var daysForecas
 
         val innerWeatherList: List<WeatherData.Weather>? = WeatherData.Weather.getInnerWeatherList()
         if (innerWeatherList != null && innerWeatherList.isNotEmpty()) {
-            println("weather data=="  +innerWeatherList[position].id)
             holder.ivWeatherTypeForecast.setImageResource(WeatherToImage.getWeatherTypeConditionCode(null, null, innerWeatherList[position].id.toString()))
         }
         val mainWeatherData: List<WeatherData.Main>? = WeatherData.Main.getMainWeatherList()
@@ -59,9 +61,16 @@ class ForecastItemAdapter(private var cityname : String, private var daysForecas
             val maxTemp = mainWeatherData[position + 1].temp_max
 
             if (avgTemp != null && minTemp != null && maxTemp != null) {
-                holder.tvAvgTemperature.text = Math.round(avgTemp.toDouble()).toString().plus(mActivity?.resources?.getString(R.string.temp_degree_sign))
-                holder.tvMinMaxTempExpand.text = Math.round(minTemp.toDouble()).toString().plus(mActivity?.resources?.getString(R.string.temp_degree_sign)).
-                        plus("/").plus(Math.round(maxTemp.toDouble()).toString()).plus(mActivity?.resources?.getString(R.string.temp_degree_sign))
+
+                if (preferenceUtil.getBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS)) {
+                    holder.tvAvgTemperature.text = Math.round(avgTemp.toDouble()).toString().plus(mActivity?.resources?.getString(R.string.temp_degree_sign))
+                    holder.tvMinMaxTempExpand.text = Math.round(minTemp.toDouble()).toString().plus(mActivity?.resources?.getString(R.string.temp_degree_sign)).
+                            plus("/").plus(Math.round(maxTemp.toDouble()).toString()).plus(mActivity?.resources?.getString(R.string.temp_degree_sign))
+                } else {
+                    holder.tvAvgTemperature.text = Math.round(Methods.convertCelsiusToFahrenheit(avgTemp.toFloat())).toString().plus(mActivity?.resources?.getString(R.string.temp_degree_sign))
+                    holder.tvMinMaxTempExpand.text = Math.round(Methods.convertCelsiusToFahrenheit(minTemp.toFloat())).toString().plus(mActivity?.resources?.getString(R.string.temp_degree_sign)).
+                            plus("/").plus(Math.round(Methods.convertCelsiusToFahrenheit(maxTemp.toFloat())).toString()).plus(mActivity?.resources?.getString(R.string.temp_degree_sign))
+                }
             }
         }
 
@@ -101,25 +110,39 @@ class ForecastItemAdapter(private var cityname : String, private var daysForecas
                 tvCountryBL.text = loc.displayCountry
 
                 if (rainData != null && rainData.isNotEmpty() && rainData[position].rainCount != null) {
-                    tvRainVolumeBL.text = rainData[position].rainCount.toString().plus(" mm")
+                    val numberFormat:NumberFormat = DecimalFormat("#.00")
+                    tvRainVolumeBL.text = numberFormat.format(rainData[position].rainCount).toString().plus(" mm")
                 } else {
-                    tvRainVolumeBL.text = ("-")
+                    tvRainVolumeBL.text = ("0").plus(" mm")
                 }
 
                 if (cloudsData != null) {
                     tvRainPrecipitationBL.text = cloudsData.all.toString().plus("%")
                 }
+                val numberFormat: NumberFormat = DecimalFormat("#.0000")
 
                 if (windData != null) {
-                    tvWindViewBL.text = windData.speed.toString().plus(" m/s")
+                    if (preferenceUtil.getBooleanPref(preferenceUtil.IS_SPEED_UNIT_METERS)) {
+                        tvWindViewBL.text = windData.speed.toString().plus(mActivity?.resources?.getString(R.string.ms_speed))
+                    } else {
+                        tvWindViewBL.text = numberFormat.format(Methods.getMiles(windData.speed?.toFloat()!!)).toString().plus(mActivity!!.resources.getString(R.string.mph_speed))
+                    }
                 }
 
                 tvDateTimeBL.text = DateUtil.getDateFromMillis(dateValue, DateUtil.dateDisplayFormat3, true).plus(" ").plus(DateUtil.convertTime(dateTime))
                 tvCityBL.text = cityname
                 tvHumidityBL.text = humidity.plus("%")
-                tvPressureBL.text = pressure.plus(" hPa")
-                tvSeaLevelBL.text = seaLevel.toString().plus(" hPa")
-                tvGroundLevelBL.text = groundLevel.toString().plus(" hPa")
+
+                val numberFormatHpa: NumberFormat = DecimalFormat("#.00")
+                if (preferenceUtil.getBooleanPref(preferenceUtil.IS_AIR_PRESSURE_HPA)) {
+                    tvPressureBL.text = numberFormatHpa.format(Methods.gethPa(pressure?.toFloat()!!)).toString().plus(mActivity?.resources?.getString(R.string.hpa_air_pressure))
+                    tvSeaLevelBL.text = numberFormatHpa.format(Methods.gethPa(seaLevel?.toFloat()!!)).toString().plus(mActivity?.resources?.getString(R.string.hpa_air_pressure))
+                    tvGroundLevelBL.text = numberFormatHpa.format(Methods.gethPa(groundLevel?.toFloat()!!)).toString().plus(mActivity?.resources?.getString(R.string.hpa_air_pressure))
+                } else {
+                    tvPressureBL.text = numberFormatHpa.format(Methods.getInHG(pressure?.toFloat()!!)).plus(mActivity?.resources?.getString(R.string.inhg_air_pressure))
+                    tvSeaLevelBL.text = numberFormatHpa.format(Methods.getInHG(seaLevel?.toFloat()!!)).plus(mActivity?.resources?.getString(R.string.inhg_air_pressure))
+                    tvGroundLevelBL.text = numberFormatHpa.format(groundLevel?.toFloat()!!).plus(mActivity?.resources?.getString(R.string.inhg_air_pressure))
+                }
 
             }
             mBottomSheetDialog.setContentView(sheetView)

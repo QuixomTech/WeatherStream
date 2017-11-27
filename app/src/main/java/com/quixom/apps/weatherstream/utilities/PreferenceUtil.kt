@@ -4,17 +4,18 @@ import android.content.Context
 import com.quixom.apps.weatherstream.MainActivity
 
 /**
- * Created by akif on 14/11/17.
- */
+* Created by akif on 14/11/17.
+*/
 
 class PreferenceUtil(private val mActivity: MainActivity) {
 
     private val PREFERENCE_ID = "WEATHERSTREAM"
 
-    //lrf flow
-    val SHOW_INSTRUCTIONS = "SHOW_INSTRUCTIONS"
-    val SHOW_WELCOME = "SHOW_WELCOME"
-    val IS_LOGGED_IN = "IS_LOGGED_IN"
+    // Notification switch
+    val IS_NOTIFICATION_ON = "IS_NOTIFICATION_ON"
+    val IS_TEMPERATURE_UNIT_CELCIUS = "IS_TEMPERATURE_UNIT_CELCIUS"
+    val IS_SPEED_UNIT_METERS = "IS_SPEED_UNIT_METERS"
+    var IS_AIR_PRESSURE_HPA = "IS_AIR_PRESSURE_HPA"
 
     fun getPref(mPrefKey: String): String {
         try {
@@ -47,7 +48,8 @@ class PreferenceUtil(private val mActivity: MainActivity) {
     fun getBooleanPref(mPrefKey: String): Boolean {
         try {
             val prefs = mActivity.getSharedPreferences(PREFERENCE_ID, Context.MODE_PRIVATE)
-            return if (mPrefKey == SHOW_INSTRUCTIONS || mPrefKey == SHOW_WELCOME) {
+            return if (mPrefKey == IS_NOTIFICATION_ON || mPrefKey == IS_TEMPERATURE_UNIT_CELCIUS || mPrefKey == IS_SPEED_UNIT_METERS
+                           || mPrefKey == IS_AIR_PRESSURE_HPA) {
                 prefs.getBoolean(mPrefKey, true)
             } else {
                 prefs.getBoolean(mPrefKey, false)

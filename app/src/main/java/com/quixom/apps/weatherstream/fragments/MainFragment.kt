@@ -5,9 +5,12 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.text.TextUtils.TruncateAt
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import com.github.matteobattilana.weather.WeatherDataAnim
 import com.github.matteobattilana.weather.WeatherViewSensorEventListener
@@ -16,15 +19,36 @@ import com.quixom.apps.weatherstream.R
 import com.quixom.apps.weatherstream.adapters.ForecastItemAdapter
 import com.quixom.apps.weatherstream.model.WeatherData
 import com.quixom.apps.weatherstream.model.WeatherForecastData
+import com.quixom.apps.weatherstream.slidingmenu.SlidingMenu
 import com.quixom.apps.weatherstream.utilities.*
+import com.quixom.apps.weatherstream.widgets.StickySwitch
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.leftmenu.*
+import kotlinx.android.synthetic.main.settingmenu.*
 import kotlinx.android.synthetic.main.toolbar_ui.*
+import java.text.DecimalFormat
+import java.text.NumberFormat
 import java.util.*
+
 
 /**
  * A simple [BaseFragment] subclass.
  */
-class MainFragment : BaseFragment(), View.OnClickListener {
+class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelectedChangeListener, OnTouchListener {
+    override fun onTouch(view: View?, event: MotionEvent?): Boolean {
+        when (view) {
+             llTopView, llMiddleView, llNoLocationFound -> {
+                if (event?.action == MotionEvent.ACTION_DOWN) {
+                    mActivity.slidingMenuLeft?.touchModeAbove = SlidingMenu.LEFT
+                }
+
+                if (event?.action == MotionEvent.ACTION_UP) {
+                    mActivity.slidingMenuLeft?.touchModeAbove = SlidingMenu.LEFT
+                }
+            }
+        }
+        return false
+    }
 
     lateinit var weatherSensor: WeatherViewSensorEventListener
 
@@ -41,8 +65,21 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         val lists: List<WeatherForecastData.ForecastList>? = WeatherForecastData.ForecastList.getForecastList()
         val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
         if (weatherData != null) {
-            recyclerViewDaysWeather.adapter = ForecastItemAdapter(weatherData.name!!, lists!!, mActivity)
+            recyclerViewDaysWeather.adapter = ForecastItemAdapter(preferenceUtil, weatherData.name!!, lists!!, mActivity)
         }
+
+        recyclerViewDaysWeather.setOnScrollListener(object : RecyclerView.OnScrollListener() {
+            internal var scrollDy = 0
+
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                scrollDy += dy
+                mActivity.slidingMenuLeft?.touchModeAbove = SlidingMenu.TOUCHMODE_NONE
+            }
+        })
+
+        llMiddleView.setOnTouchListener(this)
+        llTopView.setOnTouchListener(this)
+        llNoLocationFound.setOnTouchListener(this)
 
         setWeatherDetails()
         llDirection.setOnClickListener(View.OnClickListener {
@@ -53,6 +90,40 @@ class MainFragment : BaseFragment(), View.OnClickListener {
     override fun onDestroyView() {
         super.onDestroyView()
         WeatherStreamCallbackManager.removeWishCallBack(addWeatherStreamCallBack)
+    }
+
+    override fun onSelectedChange(direction: StickySwitch.Direction, text: String) {
+        if (direction == StickySwitch.Direction.LEFT) {
+            preferenceUtil.setBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS, true)
+            mActivity.rbCelsius.isChecked = true
+            if (mActivity.rvMenuLocationList.adapter != null) {
+                mActivity.rvMenuLocationList.adapter.notifyDataSetChanged()
+            }
+
+            setWeatherDetails()
+
+            val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
+            if (weatherData != null) {
+                val lists: List<WeatherForecastData.ForecastList>? = WeatherForecastData.ForecastList.getForecastList()
+                recyclerViewDaysWeather.adapter = ForecastItemAdapter(preferenceUtil, weatherData.name!!, lists!!, mActivity)
+                recyclerViewDaysWeather?.adapter?.notifyDataSetChanged()
+            }
+        } else {
+            preferenceUtil.setBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS, false)
+            mActivity.rbFahrenheit.isChecked = true
+            if (mActivity.rvMenuLocationList.adapter != null) {
+                mActivity.rvMenuLocationList.adapter.notifyDataSetChanged()
+            }
+
+            setWeatherDetails()
+
+            val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
+            if (weatherData != null) {
+                val lists: List<WeatherForecastData.ForecastList>? = WeatherForecastData.ForecastList.getForecastList()
+                recyclerViewDaysWeather.adapter = ForecastItemAdapter(preferenceUtil, weatherData.name!!, lists!!, mActivity)
+                recyclerViewDaysWeather?.adapter?.notifyDataSetChanged()
+            }
+        }
     }
 
     fun setWeatherData(weatherDataAnim: WeatherDataAnim) {
@@ -92,8 +163,9 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         tvToolbarTitle.text = header
         toggleMenu.setOnClickListener(this)
         ivSetting.setOnClickListener(this)
-
         toggleMenu.tag = 0
+
+        stickySwitch.onSelectedChangeListener = this
 
         try {
             tvToolbarTitle.ellipsize = TruncateAt.MARQUEE
@@ -119,28 +191,46 @@ class MainFragment : BaseFragment(), View.OnClickListener {
         val windWeatherData: WeatherData.Wind? = WeatherData.Wind.getWindWeatherDetails()
 
         if (weatherData != null && sysWeatherData != null && inWeatherData != null) {
+            llNoLocationFound.visibility = View.GONE
             initToolbar(weatherData.name!!)
 
             val loc = Locale("", sysWeatherData.country)
             tvCountryAdd?.text = loc.displayCountry
-            tvAverageTemperatureView?.text = Math.round(mainWeatherData?.temp?.toDouble()!!).toString().plus(mResources.getString(R.string.temp_degree_sign))
-            tvWeatherTypeView?.text = inWeatherData.description
-            tvTemperatureMinV?.text = Math.round(mainWeatherData.temp_min?.toDouble()!!).toString().plus(mResources.getString(R.string.temperature_low))
-            tvTemperatureMaxV?.text = Math.round(mainWeatherData.temp_max?.toDouble()!!).toString().plus(mResources.getString(R.string.temperature_high))
-            tvDateTime?.text = DateUtil.getDateFromMillis(weatherData.dt, DateUtil.dateDisplayFormat1, true)
 
+            if (preferenceUtil.getBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS)) {
+                stickySwitch.setDirection(StickySwitch.Direction.LEFT, true)
+                tvAverageTemperatureView?.text = Math.round(mainWeatherData?.temp?.toDouble()!!).toString().plus(mResources.getString(R.string.temp_degree_sign))
+                tvTemperatureMinV?.text = Math.round(mainWeatherData.temp_min?.toDouble()!!).toString().plus(mResources.getString(R.string.temperature_low))
+                tvTemperatureMaxV?.text = Math.round(mainWeatherData.temp_max?.toDouble()!!).toString().plus(mResources.getString(R.string.temperature_high))
+            } else {
+                stickySwitch.setDirection(StickySwitch.Direction.RIGHT, true)
+                tvAverageTemperatureView?.text = Math.round(Methods.convertCelsiusToFahrenheit(mainWeatherData?.temp?.toFloat()!!)).toString().plus(mResources.getString(R.string.temp_degree_sign))
+                tvTemperatureMinV?.text = Math.round(Methods.convertCelsiusToFahrenheit(mainWeatherData.temp_min?.toFloat()!!)).toString().plus(mResources.getString(R.string.temperature_low))
+                tvTemperatureMaxV?.text = Math.round(Methods.convertCelsiusToFahrenheit(mainWeatherData.temp_max?.toFloat()!!)).toString().plus(mResources.getString(R.string.temperature_high))
+            }
+
+            tvWeatherTypeView?.text = inWeatherData.description
+            tvDateTime?.text = DateUtil.getDateFromMillis(weatherData.dt, DateUtil.dateDisplayFormat1, true)
             tvHumidityView?.text = mainWeatherData.humidity?.plus("%")
             if (cloudWeatherData?.all != null) {
                 tvRainPrecipitationView?.text = cloudWeatherData.all.toString().plus("%")
             }
             if (windWeatherData?.speed != null) {
-                tvWindView?.text = windWeatherData.speed?.plus(" m/s")
+                val numberFormat: NumberFormat = DecimalFormat("#.0000")
+                if (preferenceUtil.getBooleanPref(preferenceUtil.IS_SPEED_UNIT_METERS)) {
+                    tvWindView?.text = windWeatherData.speed?.plus(mResources.getString(R.string.ms_speed))
+                } else {
+                    tvWindView?.text = numberFormat.format(Methods.getMiles(windWeatherData.speed?.toFloat()!!)).toString().plus(mResources.getString(R.string.mph_speed))
+                }
             }
+
             if (windWeatherData?.deg != null) {
                 tvDirectionView?.text = DegreeToWindDirection.getWindDirection(mActivity, windWeatherData.deg?.toDouble()!!)
             }
 
             iv_weather_type.setImageResource(WeatherToImage.getWeatherTypeConditionCode(this@MainFragment, weatherView, inWeatherData.id?.toString()!!))
+        } else {
+            llNoLocationFound.visibility = View.VISIBLE
         }
     }
 
@@ -150,11 +240,22 @@ class MainFragment : BaseFragment(), View.OnClickListener {
                 setWeatherDetails()
             }
 
-            if (type == 2){
+            if (type == 2) {
                 val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
                 if (weatherData != null) {
                     val lists: List<WeatherForecastData.ForecastList>? = WeatherForecastData.ForecastList.getForecastList()
-                    recyclerViewDaysWeather.adapter = ForecastItemAdapter(weatherData.name!!, lists!!, mActivity)
+                    recyclerViewDaysWeather.adapter = ForecastItemAdapter(preferenceUtil, weatherData.name!!, lists!!, mActivity)
+                    recyclerViewDaysWeather?.adapter?.notifyDataSetChanged()
+                }
+            }
+
+            if (type == 3) {
+                setWeatherDetails()
+
+                val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
+                if (weatherData != null) {
+                    val lists: List<WeatherForecastData.ForecastList>? = WeatherForecastData.ForecastList.getForecastList()
+                    recyclerViewDaysWeather.adapter = ForecastItemAdapter(preferenceUtil, weatherData.name!!, lists!!, mActivity)
                     recyclerViewDaysWeather?.adapter?.notifyDataSetChanged()
                 }
             }

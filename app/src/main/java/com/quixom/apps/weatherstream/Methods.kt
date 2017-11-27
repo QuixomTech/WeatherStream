@@ -27,8 +27,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /**
-* Created by akif on 11/2/17.
-*/
+ * Created by akif on 11/2/17.
+ */
 class Methods(val mActivity: MainActivity) {
 
     companion object {
@@ -242,7 +242,7 @@ class Methods(val mActivity: MainActivity) {
          * Method for show SnackBar layout
          * */
         fun showSnackBar(view: View, message: String, color: Int, mActivity: MainActivity) {
-            val snackbar = Snackbar.make(view , message , Snackbar.LENGTH_LONG)
+            val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
 
             // Changing action button text color
             val sbView = snackbar.view
@@ -255,15 +255,27 @@ class Methods(val mActivity: MainActivity) {
         /***
          * Method for check history
          * **/
-        fun checkHistory():Boolean {
+        fun checkHistory(): Boolean {
             val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
             return weatherData == null
         }
 
         /*** Converts to celsius */
-        private fun convertFahrenheitToCelsius(fahrenheit: Float): Float = (fahrenheit - 32) * 5 / 9
+        fun convertFahrenheitToCelsius(fahrenheit: Float): Float = (fahrenheit - 32) * 5 / 9
 
         /*** Converts to fahrenheit */
-        private fun convertCelsiusToFahrenheit(celsius: Float): Float = celsius * 9 / 5 + 32
+        fun convertCelsiusToFahrenheit(celsius: Float): Float = celsius * 9 / 5 + 32
+
+        /*** Convert meters/second to miles/hour */
+        fun getMiles(i: Float): Double = i * 0.000621371192
+
+        /*** Convert miles/hour to meter/second */
+        fun getMeters(i: Float): Double = i * 1609.344
+
+        /*** Convert hPa to in/Hg */
+        fun getInHG(i: Float): Double = i * 0.02952998751
+
+        /*** Convert in/Hg to hpa */
+        fun gethPa(i: Float): Double = i * 33.8638816
     }
 }

@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.quixom.apps.weatherstream.MainActivity
+import com.quixom.apps.weatherstream.Methods
 import com.quixom.apps.weatherstream.R
 import com.quixom.apps.weatherstream.model.LocationSearchHistory
+import com.quixom.apps.weatherstream.utilities.PreferenceUtil
 import com.quixom.apps.weatherstream.utilities.WeatherToImage
 import java.util.*
 
@@ -17,7 +19,7 @@ import java.util.*
 * Created by akif on 11/3/17.
 */
 
-class LocationHistoryAdapter(internal var appslist: ArrayList<LocationSearchHistory>, internal var sActivity: MainActivity) : RecyclerView.Adapter<LocationHistoryAdapter.LocationVH>() {
+class LocationHistoryAdapter(internal var preferenceUtil: PreferenceUtil, internal var appslist: ArrayList<LocationSearchHistory>, internal var sActivity: MainActivity) : RecyclerView.Adapter<LocationHistoryAdapter.LocationVH>() {
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): LocationHistoryAdapter.LocationVH {
         val itemView = LayoutInflater.from(sActivity).inflate(R.layout.row_menu_view, parent, false)
         return LocationVH(itemView)
@@ -37,7 +39,6 @@ class LocationHistoryAdapter(internal var appslist: ArrayList<LocationSearchHist
 
     override fun getItemCount(): Int = appslist.size
 
-
     inner class LocationVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         @SuppressLint("SetTextI18n")
         fun bindData(locationSearchData: LocationSearchHistory) {
@@ -50,7 +51,13 @@ class LocationHistoryAdapter(internal var appslist: ArrayList<LocationSearchHist
             tvCityName.text = locationSearchData.cityName
             val loc = Locale("", locationSearchData.countyName)
             tvCountryName.text = loc.displayCountry
-            tvTemperature.text = Math.round(locationSearchData.temperature!!).toString().plus(sActivity.resources.getString(R.string.c_symbol))
+
+            if (preferenceUtil.getBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS)) {
+                tvTemperature.text = Math.round(locationSearchData.temperature!!).toString().plus(sActivity.resources.getString(R.string.c_symbol))
+            } else {
+                tvTemperature.text = Math.round(Methods.convertCelsiusToFahrenheit(locationSearchData.temperature?.toFloat()!!)).toString().plus(sActivity.resources.getString(R.string.f_symbol))
+            }
+
             ivWeatherType.setImageResource(WeatherToImage.getWeatherTypeConditionCode(null, null, locationSearchData.weatherType.toString()))
 
         }

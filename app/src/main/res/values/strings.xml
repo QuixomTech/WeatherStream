@@ -28,6 +28,7 @@
     <string name="speech_prompt">Weather Stream\n Try saying something</string>
     <string name="speech_not_supported">Speech not supported</string>
     <string name="recent_search">Recent search</string>
+    <string name="clear_search">Clear search</string>
 
     <!-- Setting menu screen -->
     <string name="unit_format">UNIT\u0026FORMAT</string>
@@ -41,12 +42,12 @@
     <string name="on_going_notification">On-going Notification</string>
     <string name="c_symbol">\u00B0C</string>
     <string name="f_symbol">\u00B0F</string>
-    <string name="ms_speed">m/s</string>
-    <string name="kmh_speed">km/h</string>
-    <string name="mph_speed">MPH</string>
-    <string name="hpa_air_pressure">hPa</string>
+    <string name="ms_speed">\u0020m/s</string>
+    <string name="kmh_speed">\u0020km/h</string>
+    <string name="mph_speed">\u0020MPH</string>
+    <string name="hpa_air_pressure">\u0020hPa</string>
     <string name="mmhg_air_pressure">mm/Hg</string>
-    <string name="inhg_air_pressure">in/Hg</string>
+    <string name="inhg_air_pressure">\u0020in/Hg</string>
     <string name="km_distance">KM</string>
     <string name="mi_distance">MI</string>
     <string name="twelve_hour">12 Hour</string>
