@@ -3,6 +3,8 @@ package com.quixom.apps.weatherstream.fragments
 import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.os.Bundle
+import android.os.Handler
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -37,7 +39,7 @@ import java.util.*
 class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelectedChangeListener, OnTouchListener {
     override fun onTouch(view: View?, event: MotionEvent?): Boolean {
         when (view) {
-             llTopView, llMiddleView, llNoLocationFound -> {
+            llTopView, llMiddleView -> {
                 if (event?.action == MotionEvent.ACTION_DOWN) {
                     mActivity.slidingMenuLeft?.touchModeAbove = SlidingMenu.LEFT
                 }
@@ -46,6 +48,9 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
                     mActivity.slidingMenuLeft?.touchModeAbove = SlidingMenu.LEFT
                 }
             }
+            llNoLocationFound -> {
+                mActivity.slidingMenuLeft?.touchModeAbove = SlidingMenu.TOUCHMODE_NONE
+            }
         }
         return false
     }
@@ -53,6 +58,11 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
     lateinit var weatherSensor: WeatherViewSensorEventListener
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater!!.inflate(R.layout.fragment_main, container, false)
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        llNoLocationFound.visibility = View.GONE
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -80,6 +90,30 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
         llMiddleView.setOnTouchListener(this)
         llTopView.setOnTouchListener(this)
         llNoLocationFound.setOnTouchListener(this)
+        btnSearchLocation.setOnClickListener(this)
+
+        if (!preferenceUtil.getBooleanPref(preferenceUtil.IS_APP_THEME_DAY)) {
+            llNoLocationFound.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.gulf_blue_dark))
+            tvSearchViewHeading.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
+            tvSearchViewMessage.setTextColor(ContextCompat.getColor(mActivity, R.color.font_thirdly))
+
+            toolbar.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.gulf_blue))
+            llTopView.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.gulf_blue))
+            rlMainFragmentParent.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.gulf_blue_dark))
+            recyclerViewDaysWeather.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.gulf_blue_dark))
+            llMiddleView.setCardBackgroundColor(ContextCompat.getColor(mActivity, R.color.cornflower_blue))
+            stickySwitch.sliderBackgroundColor = ContextCompat.getColor(mActivity, R.color.gulf_blue)
+
+            tvRainPrecipitationView.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
+            tvHumidityView.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
+            tvWindView.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
+            tvDirectionView.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
+
+            tvRainPrecipitationLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_primary))
+            tvHumidityLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_primary))
+            tvWindLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_primary))
+            tvDirectionLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_primary))
+        }
 
         setWeatherDetails()
         llDirection.setOnClickListener(View.OnClickListener {
@@ -140,6 +174,9 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
                 Methods.avoidDoubleClicks(ivSetting)
                 mActivity.toggleSlideMenuRight()
             }
+            btnSearchLocation -> {
+                mActivity.showGoogleAutoLocationSearch("")
+            }
             else -> {
             }
         }
@@ -163,6 +200,8 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
         tvToolbarTitle.text = header
         toggleMenu.setOnClickListener(this)
         ivSetting.setOnClickListener(this)
+        ivSetting.setOnClickListener(this)
+
         toggleMenu.tag = 0
 
         stickySwitch.onSelectedChangeListener = this
@@ -182,6 +221,7 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
     }
 
     fun setWeatherDetails() {
+        llNoLocationFound.visibility = View.GONE
         val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
         val sysWeatherData: WeatherData.Sys? = WeatherData.Sys.getSysWeatherDetails()
 
@@ -191,7 +231,6 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
         val windWeatherData: WeatherData.Wind? = WeatherData.Wind.getWindWeatherDetails()
 
         if (weatherData != null && sysWeatherData != null && inWeatherData != null) {
-            llNoLocationFound.visibility = View.GONE
             initToolbar(weatherData.name!!)
 
             val loc = Locale("", sysWeatherData.country)
@@ -245,11 +284,24 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
                 if (weatherData != null) {
                     val lists: List<WeatherForecastData.ForecastList>? = WeatherForecastData.ForecastList.getForecastList()
                     recyclerViewDaysWeather.adapter = ForecastItemAdapter(preferenceUtil, weatherData.name!!, lists!!, mActivity)
-                    recyclerViewDaysWeather?.adapter?.notifyDataSetChanged()
+                    Handler().postDelayed({
+                        recyclerViewDaysWeather.adapter?.notifyDataSetChanged()
+                    }, 100)
                 }
             }
 
             if (type == 3) {
+
+                setWeatherDetails()
+
+                val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
+                if (weatherData != null) {
+                    val lists: List<WeatherForecastData.ForecastList>? = WeatherForecastData.ForecastList.getForecastList()
+                    recyclerViewDaysWeather.adapter = ForecastItemAdapter(preferenceUtil, weatherData.name!!, lists!!, mActivity)
+                    recyclerViewDaysWeather?.adapter?.notifyDataSetChanged()
+                }
+            }
+            if (type == 4) {
                 setWeatherDetails()
 
                 val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()

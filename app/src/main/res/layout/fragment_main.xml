@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/font_white"
     android:orientation="vertical"
+    android:id="@+id/rlMainFragmentParent"
     tools:context=".MainActivity">
 
     <include
@@ -15,8 +16,8 @@
         android:id="@+id/llTopView"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_below="@id/toolbar"
         android:background="@color/colorPrimary"
+        android:layout_below="@id/toolbar"
         android:orientation="vertical">
 
         <TextView
@@ -55,8 +56,8 @@
             android:layout_marginStart="15sp"
             android:layout_marginTop="40dp"
             android:contentDescription="@null"
-            android:src="@drawable/ic_snow_storm_day_winter_weather"
-            android:tint="@color/font_white" />
+            android:tint="@color/font_white"
+            android:src="@drawable/ic_snow_storm_day_winter_weather" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -162,6 +163,7 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/llMiddleView"
+        app:cardBackgroundColor="@color/font_white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/llTopView"
@@ -190,7 +192,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:backgroundTint="@color/fire_bush"
                     android:drawableStart="@drawable/ic_rain_perception"
                     android:fontFamily="@font/lato_bold"
                     android:gravity="center_vertical"
@@ -199,6 +200,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tvRainPrecipitationLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -232,10 +234,10 @@
                     android:includeFontPadding="true"
                     android:text="@string/humidity"
                     android:textColor="@color/font_primary"
-                    android:textSize="14sp"
-                    android:tint="@color/orange" />
+                    android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tvHumidityLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -273,6 +275,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tvWindLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -283,7 +286,6 @@
                     android:textAllCaps="true"
                     android:textColor="@color/font_thirdly"
                     android:textSize="10sp"
-                    android:tint="@color/orange"
                     tools:ignore="SmallSp" />
             </LinearLayout>
 
@@ -307,10 +309,10 @@
                     android:includeFontPadding="true"
                     android:text="@string/direction"
                     android:textColor="@color/font_primary"
-                    android:textSize="14sp"
-                    android:tint="@color/orange" />
+                    android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tvDirectionLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -334,19 +336,60 @@
         android:layout_alignParentBottom="true"
         android:scrollbars="none" />
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/llNoLocationFound"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
-        android:visibility="gone"
+        android:background="@color/font_white"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
         android:translationZ="5dp"
-        android:background="@color/font_white">
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_map" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:id="@+id/tvSearchViewHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/lato_bold"
             android:gravity="center"
-            android:text="No location found"/>
+            android:text="@string/search_your_location"
+            android:textColor="@color/font_primary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvSearchViewMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="60dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/lato_regular"
+            android:text="@string/search_your_location_desc"
+            android:textAlignment="center"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btnSearchLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="60dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="30sp"
+            android:background="@color/orange"
+            android:fontFamily="@font/lato_bold"
+            android:text="@string/search_location_button"
+            android:textAllCaps="false"
+            android:textColor="@color/font_white"
+            android:textSize="16sp" />
+
     </LinearLayout>
+
 </RelativeLayout>

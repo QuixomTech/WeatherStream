@@ -42,6 +42,7 @@ class SplashActivity : AppCompatActivity() {
 
                 Handler().postDelayed({
                     val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     intent.putExtra(KeyUtil.LATITUDE_VALUE, location.latitude)
                     intent.putExtra(KeyUtil.LONGITUDE_VALUE, location.longitude)
                     startActivity(intent)
@@ -61,6 +62,7 @@ class SplashActivity : AppCompatActivity() {
         override fun onProviderDisabled(provider: String?) {
             Handler().postDelayed({
                 val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 intent.putExtra(KeyUtil.LATITUDE_VALUE, 0.0)
                 intent.putExtra(KeyUtil.LONGITUDE_VALUE, 0.0)
                 startActivity(intent)
@@ -80,6 +82,7 @@ class SplashActivity : AppCompatActivity() {
             } else {
                 Handler().postDelayed({
                     val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     intent.putExtra(KeyUtil.LATITUDE_VALUE, 0.0)
                     intent.putExtra(KeyUtil.LONGITUDE_VALUE, 0.0)
                     startActivity(intent)

@@ -15,6 +15,10 @@ object KeyUtil {
     val RC_ENABLE_LOCATION = 103
     val RC_LOCATION_PERMISSION = 104
 
+    /*** Application theme */
+    val THEME_DEFAULT = 0
+    val THEME_NIGHT = 1
+
     /*** Weather Map api Units */
     val UNITS_STANDARD = "Standard"
     val UNITS_METRIC = "metric"

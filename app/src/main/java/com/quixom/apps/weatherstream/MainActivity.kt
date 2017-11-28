@@ -2,6 +2,8 @@ package com.quixom.apps.weatherstream
 
 import android.annotation.TargetApi
 import android.app.Activity
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -50,13 +52,19 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
     @TargetApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        preferenceUtil = PreferenceUtil(this@MainActivity)
+        ThemeSwitcher.onActivityCreateSetTheme(this)
+        if (preferenceUtil.getBooleanPref(preferenceUtil.IS_APP_THEME_DAY)) {
+            this@MainActivity.setTheme(R.style.AppTheme)
+        } else {
+            this@MainActivity.setTheme(R.style.NightModeTheme)
+        }
+
         setContentView(R.layout.activity_main)
         errorHandler = com.quixom.apps.weatherstream.webservice.ErrorHandler(this@MainActivity)
 
-        this.window.navigationBarColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
-
         fragmentUtil = FragmentUtil(this@MainActivity)
-        preferenceUtil = PreferenceUtil(this@MainActivity)
 
         fragmentContainer = findViewById(R.id.fl_fragment_container)
 
@@ -66,6 +74,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         ivSpeechToSearchMenu.setOnClickListener(this)
         ivSearchLocationIC.setOnClickListener(this)
         tvLocationSearchText.setOnClickListener(this)
+        tvClearSearch.setOnClickListener(this)
 
         // Temperature switch
         rbCelsius.setOnClickListener(this)
@@ -83,6 +92,10 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         rbHPA.setOnClickListener(this)
         rbInHg.setOnClickListener(this)
 
+        // Theme Mode
+        rbDay.setOnClickListener(this)
+        rbNight.setOnClickListener(this)
+
         /** Launch Main Fragment */
         fragmentUtil!!.clearBackStackFragmets()
         fragmentUtil!!.replaceFragment(MainFragment(), false, false)
@@ -93,9 +106,9 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         rvMenuLocationList.layoutManager = layoutManager
 
         val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
-        if (weatherData == null) {
-            val latitude = intent.extras.getDouble(KeyUtil.LATITUDE_VALUE)
-            val longitude = intent.extras.getDouble(KeyUtil.LONGITUDE_VALUE)
+        if (weatherData == null && intent.extras != null && intent.extras != null) {
+            var latitude: Double = intent.extras.getDouble(KeyUtil.LATITUDE_VALUE)
+            var longitude: Double = intent.extras.getDouble(KeyUtil.LONGITUDE_VALUE)
             if (latitude != 0.0 && longitude != 0.0) {
                 callSearchLocationApi(latitude, longitude)
             } else {
@@ -198,6 +211,13 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         } else {
             rbMPH.isChecked = true
         }
+
+        // Set Theme switch
+        if (preferenceUtil.getBooleanPref(preferenceUtil.IS_APP_THEME_DAY)) {
+            rbDay.isChecked = true
+        } else {
+            rbNight.isChecked = true
+        }
     }
 
     /***
@@ -209,6 +229,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         slidingMenuRight?.toggle()
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     override fun onClick(view: View?) {
         when (view) {
             ivSpeechToSearchMenu -> {
@@ -248,6 +269,31 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             rbInHg -> {
                 preferenceUtil.setBooleanPref(preferenceUtil.IS_AIR_PRESSURE_HPA, false)
                 WeatherStreamCallbackManager.updateHomeScreenData(3)
+            }
+            rbDay -> {
+                preferenceUtil.setBooleanPref(preferenceUtil.IS_APP_THEME_DAY, true)
+                ThemeSwitcher.changeToTheme(this, KeyUtil.THEME_DEFAULT)
+            }
+            rbNight -> {
+                preferenceUtil.setBooleanPref(preferenceUtil.IS_APP_THEME_DAY, false)
+                ThemeSwitcher.changeToTheme(this, KeyUtil.THEME_NIGHT)
+            }
+            tvClearSearch -> {
+                UpgradeData.clearApplicationData()
+                UpgradeData.clearSearchHistory()
+
+                val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                if (notificationManager != null && notificationManager.activeNotifications.isNotEmpty()) {
+                    notificationManager.cancelAll()
+                }
+
+                tvClearSearch.visibility = View.GONE
+                tvRecentSearch.visibility = View.GONE
+
+                rvMenuLocationList?.adapter?.notifyDataSetChanged()
+                toggleSlideMenuLeft()
+
+                WeatherStreamCallbackManager.updateHomeScreenData(4)
             }
         }
     }
@@ -357,7 +403,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                                     val localNotification = LocalNotification(this@MainActivity)
                                     val loc = Locale("", sysWeatherDetail.country)
                                     val title = weatherDetail.name.plus(", ").plus(loc.displayCountry)
-                                    val message: String ?= if (preferenceUtil.getBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS)) {
+                                    val message: String? = if (preferenceUtil.getBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS)) {
                                         Math.round(mainWeatherDetail.temp!!.toDouble()).toString().plus(resources.getString(R.string.c_symbol)).plus(" " + innerWeatherDetail[0].description)
                                     } else {
                                         Math.round(Methods.convertCelsiusToFahrenheit(mainWeatherDetail.temp?.toFloat()!!)).toString().plus(resources.getString(R.string.f_symbol)).plus(" " + innerWeatherDetail[0].description)

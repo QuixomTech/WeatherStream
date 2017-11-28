@@ -86,6 +86,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tvHumidityBLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -122,6 +123,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tvPressureBLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -158,6 +160,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tvSystemPodBLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -201,6 +204,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tvRainVolumeBLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -236,6 +240,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tvRainPrecipitationBLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -272,6 +277,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tvWindViewBLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -315,6 +321,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tvGroundLevelBLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -350,6 +357,7 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tvSeaLevelBLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

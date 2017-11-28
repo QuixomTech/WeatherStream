@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.quixom.apps.weatherstream.MainActivity
 import com.quixom.apps.weatherstream.Methods
@@ -24,8 +25,8 @@ import java.util.*
 
 
 /**
- * Created by akif on 11/3/17.
- */
+* Created by akif on 11/3/17.
+*/
 class ForecastItemAdapter(private var preferenceUtil: PreferenceUtil, private var cityname: String, private var daysForecastList: List<WeatherForecastData.ForecastList>, mainActivity: MainActivity) : RecyclerView.Adapter<ForecastItemAdapter.ViewHolder>() {
 
     private var context: Context? = null
@@ -74,6 +75,10 @@ class ForecastItemAdapter(private var preferenceUtil: PreferenceUtil, private va
             }
         }
 
+        if (!preferenceUtil.getBooleanPref(preferenceUtil.IS_APP_THEME_DAY)) {
+            holder.tvAvgTemperature.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
+        }
+
         holder.itemView.setOnClickListener(View.OnClickListener {
             Methods.avoidDoubleClicks(holder.itemView)
             val mBottomSheetDialog = BottomSheetDialog(context!!)
@@ -89,6 +94,16 @@ class ForecastItemAdapter(private var preferenceUtil: PreferenceUtil, private va
             val tvCityBL = sheetView.findViewById<TextView>(R.id.tvCityBL)
             val tvCountryBL = sheetView.findViewById<TextView>(R.id.tvCountryBL)
             val tvDateTimeBL = sheetView.findViewById<TextView>(R.id.tvDateTimeBL)
+            val tvHumidityBLabel = sheetView.findViewById<TextView>(R.id.tvHumidityBLabel)
+            val tvPressureBLabel = sheetView.findViewById<TextView>(R.id.tvPressureBLabel)
+            val tvSystemPodBLabel = sheetView.findViewById<TextView>(R.id.tvSystemPodBLabel)
+            val tvRainVolumeBLabel = sheetView.findViewById<TextView>(R.id.tvRainVolumeBLabel)
+            val tvRainPrecipitationBLabel = sheetView.findViewById<TextView>(R.id.tvRainPrecipitationBLabel)
+            val tvWindViewBLabel = sheetView.findViewById<TextView>(R.id.tvWindViewBLabel)
+            val tvGroundLevelBLabel = sheetView.findViewById<TextView>(R.id.tvGroundLevelBLabel)
+            val tvSeaLevelBLabel = sheetView.findViewById<TextView>(R.id.tvSeaLevelBLabel)
+
+            val llParentTopView: LinearLayout = sheetView.findViewById(R.id.parentTopView)
 
             if (mainWeatherData != null && mainWeatherData.isNotEmpty()) {
                 val humidity = mainWeatherData[position + 1].humidity
@@ -110,7 +125,7 @@ class ForecastItemAdapter(private var preferenceUtil: PreferenceUtil, private va
                 tvCountryBL.text = loc.displayCountry
 
                 if (rainData != null && rainData.isNotEmpty() && rainData[position].rainCount != null) {
-                    val numberFormat:NumberFormat = DecimalFormat("#.00")
+                    val numberFormat: NumberFormat = DecimalFormat("#.00")
                     tvRainVolumeBL.text = numberFormat.format(rainData[position].rainCount).toString().plus(" mm")
                 } else {
                     tvRainVolumeBL.text = ("0").plus(" mm")
@@ -130,6 +145,32 @@ class ForecastItemAdapter(private var preferenceUtil: PreferenceUtil, private va
                 }
 
                 tvDateTimeBL.text = DateUtil.getDateFromMillis(dateValue, DateUtil.dateDisplayFormat3, true).plus(" ").plus(DateUtil.convertTime(dateTime))
+
+                if (!preferenceUtil.getBooleanPref(preferenceUtil.IS_APP_THEME_DAY)) {
+                    tvCityBL.setTextColor(ContextCompat.getColor(mActivity, R.color.gulf_blue))
+                    llParentTopView.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.bottomsheet_tras))
+
+                    tvCountryBL.setTextColor(ContextCompat.getColor(mActivity, R.color.malibu))
+
+                    tvHumidityBL.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
+                    tvPressureBL.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
+                    tvSeaLevelBL.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
+                    tvGroundLevelBL.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
+                    tvSystemPodBL.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
+                    tvRainVolumeBL.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
+                    tvRainPrecipitationBL.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
+                    tvWindViewBL.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
+
+                    tvHumidityBLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
+                    tvPressureBLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
+                    tvSystemPodBLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
+                    tvRainVolumeBLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
+                    tvRainPrecipitationBLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
+                    tvWindViewBLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
+                    tvGroundLevelBLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
+                    tvSeaLevelBLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
+                }
+
                 tvCityBL.text = cityname
                 tvHumidityBL.text = humidity.plus("%")
 
@@ -143,7 +184,6 @@ class ForecastItemAdapter(private var preferenceUtil: PreferenceUtil, private va
                     tvSeaLevelBL.text = numberFormatHpa.format(Methods.getInHG(seaLevel?.toFloat()!!)).plus(mActivity?.resources?.getString(R.string.inhg_air_pressure))
                     tvGroundLevelBL.text = numberFormatHpa.format(groundLevel?.toFloat()!!).plus(mActivity?.resources?.getString(R.string.inhg_air_pressure))
                 }
-
             }
             mBottomSheetDialog.setContentView(sheetView)
             mBottomSheetDialog.show()

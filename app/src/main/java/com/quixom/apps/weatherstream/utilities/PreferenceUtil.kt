@@ -16,6 +16,7 @@ class PreferenceUtil(private val mActivity: MainActivity) {
     val IS_TEMPERATURE_UNIT_CELCIUS = "IS_TEMPERATURE_UNIT_CELCIUS"
     val IS_SPEED_UNIT_METERS = "IS_SPEED_UNIT_METERS"
     var IS_AIR_PRESSURE_HPA = "IS_AIR_PRESSURE_HPA"
+    var IS_APP_THEME_DAY = "IS_APP_THEME_DAY"
 
     fun getPref(mPrefKey: String): String {
         try {
@@ -49,7 +50,7 @@ class PreferenceUtil(private val mActivity: MainActivity) {
         try {
             val prefs = mActivity.getSharedPreferences(PREFERENCE_ID, Context.MODE_PRIVATE)
             return if (mPrefKey == IS_NOTIFICATION_ON || mPrefKey == IS_TEMPERATURE_UNIT_CELCIUS || mPrefKey == IS_SPEED_UNIT_METERS
-                           || mPrefKey == IS_AIR_PRESSURE_HPA) {
+                           || mPrefKey == IS_AIR_PRESSURE_HPA || mPrefKey == IS_APP_THEME_DAY) {
                 prefs.getBoolean(mPrefKey, true)
             } else {
                 prefs.getBoolean(mPrefKey, false)

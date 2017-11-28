@@ -29,13 +29,14 @@ class LocalNotification(val mainActivity: MainActivity) {
         val remoteViews = createRemoteViews(context, R.layout.notification_custom_content, title, message, time, weatherTypeImage)
 
         val notificationIntent = Intent(Intent.ACTION_VIEW)
-        notificationIntent.data = Uri.parse("http://www.google.com")
+        notificationIntent.data = Uri.parse("")
         val contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0)
 
         val builder = NotificationCompat.Builder(context, "ws1")
         builder.setContent(remoteViews)
                 .setStyle(NotificationCompat.DecoratedCustomViewStyle())
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setVibrate(LongArray(0))
                 .setSmallIcon(weatherTypeImage)
                 .setColor(Color.parseColor("#ffffff"))

@@ -10,9 +10,42 @@
         <item name="android:windowFullscreen">false</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="android:windowContentOverlay">@android:color/transparent</item>
+    </style>
+
+    <!-- Base application night theme. -->
+    <style name="NightModeTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/gulf_blue</item>
+        <item name="colorPrimaryDark">@color/gulf_blue_dark</item>
+        <item name="colorAccent">@color/gulf_blue</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowBackground">@color/gulf_blue</item>
+        <item name="android:navigationBarColor">@color/gulf_blue_dark</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <item name="android:windowContentOverlay">@android:color/transparent</item>
+    </style>
+
+    <style name="UpperPartDayTheme" parent="AppTheme">
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="UpperPartNightTheme" parent="NightModeTheme">
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <!-- This will set the fade in animation on all your activities by default -->
+    <style name="WindowAnimationTransition">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
     <style name="SearchActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">

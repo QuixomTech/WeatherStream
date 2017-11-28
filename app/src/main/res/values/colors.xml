@@ -7,6 +7,13 @@
     <color name="colorAccent_trans">#00ffffff</color>
     <color name="transparent_bg">#00ffffff</color>
 
+    <!-- Night mode theme -->
+    <color name="gulf_blue_dark">#171c2d</color>
+    <color name="gulf_blue">#222a41</color>
+    <color name="pattens_blue">#D3E2F0</color>
+    <color name="colorPrimary_night_tras">#d820285b</color>
+    <color name="bottomsheet_tras">#9a20285b</color>
+
     <!-- Viewpager default indicator color -->
     <color name="fpi_default_indicator_inactive_color">#80FFFFFF</color>
     <color name="fpi_default_indicator_active_color">#FFFFFF</color>
@@ -28,6 +35,7 @@
 
     <!-- Font color -->
     <color name="font_white">#ffffff</color>
+    <color name="font_white_trans">#87ffffff</color>
     <color name="font_primary">#37474F</color>
     <color name="font_secondary">#616161</color>
     <color name="font_thirdly">#757575</color>

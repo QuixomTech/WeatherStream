@@ -36,6 +36,7 @@
     <string name="speed_label">Speed</string>
     <string name="air_pressure_label">Air Pressure</string>
     <string name="distance_label">Distance</string>
+    <string name="theme_label">Theme</string>
     <string name="time_format">Time Format</string>
     <string name="date_format">Date Format</string>
     <string name="rain_fall">Rain Fall</string>
@@ -50,6 +51,8 @@
     <string name="inhg_air_pressure">\u0020in/Hg</string>
     <string name="km_distance">KM</string>
     <string name="mi_distance">MI</string>
+    <string name="day">Day</string>
+    <string name="night">Night</string>
     <string name="twelve_hour">12 Hour</string>
     <string name="twenty_four_hour">24 Hour</string>
     <string name="notification_on">On</string>
@@ -110,4 +113,10 @@
     <!-- Location alert dialog -->
     <string name="gps_alert_title">GPS is not enabled</string>
     <string name="gps_alert_message">This app required GPS to get the weather information. Do you want to enable GPS?</string>
+
+    <!-- Empty location view -->
+    <string name="search_your_location">Search your location</string>
+    <string name="search_your_location_desc">Search and get real time weather information of your location.</string>
+    <string name="search_location_button">Search Location</string>
+
 </resources>
