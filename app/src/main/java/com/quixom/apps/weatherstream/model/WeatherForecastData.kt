@@ -10,8 +10,8 @@ import com.raizlabs.android.dbflow.sql.language.SQLite
 import com.raizlabs.android.dbflow.structure.BaseModel
 
 /**
-* Created by akif on 11/9/17.
-*/
+ * Created by akif on 11/9/17.
+ */
 
 @Table(name = WeatherForecastData.TABLE_NAME, database = WeatherStreamDB::class)
 class WeatherForecastData(@Column @PrimaryKey @Expose var id: Long? = null,
@@ -30,15 +30,15 @@ class WeatherForecastData(@Column @PrimaryKey @Expose var id: Long? = null,
     }
 
     @Table(name = ForecastList.TABLE_NAME, database = WeatherStreamDB::class)
-    class ForecastList(@Column @PrimaryKey (autoincrement = true) var id: Long? = null,
-               @Expose var clouds: WeatherData.Clouds? = null,
-               @Column @Expose var dt: Long? = null,
-               @Expose var wind: WeatherData.Wind? = null,
-               @Expose var sys: WeatherData.Sys? = null,
-               @Expose var weather: Array<WeatherData.Weather>? = null,
-               @Column @Expose var dt_txt: String? = null,
-               @Expose var rain: Rain? = null,
-               @Expose var main: WeatherData.Main? = null) : BaseModel() {
+    class ForecastList(@Column @PrimaryKey(autoincrement = true) var id: Long? = null,
+                       @Expose var clouds: WeatherData.Clouds? = null,
+                       @Column @Expose var dt: Long? = null,
+                       @Expose var wind: WeatherData.Wind? = null,
+                       @Expose var sys: WeatherData.Sys? = null,
+                       @Expose var weather: Array<WeatherData.Weather>? = null,
+                       @Column @Expose var dt_txt: String? = null,
+                       @Expose var rain: Rain? = null,
+                       @Expose var main: WeatherData.Main? = null) : BaseModel() {
         companion object {
             const val TABLE_NAME = "ForecastList"
             fun getForecastList(): List<ForecastList>? = SQLite.select().distinct().from<ForecastList>(ForecastList::class.java).queryList()
@@ -54,7 +54,7 @@ class WeatherForecastData(@Column @PrimaryKey @Expose var id: Long? = null,
     @Table(name = Rain.TABLE_NAME, database = WeatherStreamDB::class)
     class Rain(@Column @PrimaryKey(autoincrement = true) @Expose var id: Long? = null,
                @SerializedName("3h")
-               @Column @Expose var rainCount: Double? = null): BaseModel() {
+               @Column @Expose var rainCount: Double? = null) : BaseModel() {
         companion object {
             const val TABLE_NAME = "Rain"
             fun getRainData(): List<Rain>? = SQLite.select().distinct().from<Rain>(Rain::class.java).queryList()

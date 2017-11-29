@@ -1,6 +1,7 @@
 package com.quixom.apps.weatherstream.adapters
 
 import android.annotation.SuppressLint
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -30,10 +31,9 @@ class LocationHistoryAdapter(internal var preferenceUtil: PreferenceUtil, intern
         val locationDataList: LocationSearchHistory = LocationSearchHistory.getLocationInfo(appslist[position].cityName!!, appslist[position].countyName!!)
 
         holder?.itemView?.setOnClickListener(View.OnClickListener {
-            if (locationDataList  != null) {
-                sActivity.toggleSlideMenuLeft()
-                sActivity.callSearchLocationApi(locationDataList.lat!!, locationDataList.lon!!)
-            }
+            sActivity.toggleSlideMenuLeft()
+            sActivity.callSearchLocationApi(locationDataList.lat!!, locationDataList.lon!!)
+
         })
     }
 
@@ -49,8 +49,16 @@ class LocationHistoryAdapter(internal var preferenceUtil: PreferenceUtil, intern
             val tvTemperature: TextView = itemView.findViewById(R.id.tvTemperatureMV)
 
             tvCityName.text = locationSearchData.cityName
-            val loc = Locale("", locationSearchData.countyName)
-            tvCountryName.text = loc.displayCountry
+
+            if (locationSearchData.countyName != null) {
+                val loc = Locale("", locationSearchData.countyName)
+                tvCountryName.text = loc.displayCountry
+            }
+
+            if (!preferenceUtil.getBooleanPref(preferenceUtil.IS_APP_THEME_DAY)) {
+                tvCityName.setTextColor(ContextCompat.getColor(sActivity, R.color.font_white_trans))
+                tvCountryName.setTextColor(ContextCompat.getColor(sActivity, R.color.font_white))
+            }
 
             if (preferenceUtil.getBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS)) {
                 tvTemperature.text = Math.round(locationSearchData.temperature!!).toString().plus(sActivity.resources.getString(R.string.c_symbol))

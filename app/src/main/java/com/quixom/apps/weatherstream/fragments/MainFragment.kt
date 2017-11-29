@@ -7,12 +7,9 @@ import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.text.TextUtils.TruncateAt
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
-import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import com.github.matteobattilana.weather.WeatherDataAnim
 import com.github.matteobattilana.weather.WeatherViewSensorEventListener
@@ -21,7 +18,6 @@ import com.quixom.apps.weatherstream.R
 import com.quixom.apps.weatherstream.adapters.ForecastItemAdapter
 import com.quixom.apps.weatherstream.model.WeatherData
 import com.quixom.apps.weatherstream.model.WeatherForecastData
-import com.quixom.apps.weatherstream.slidingmenu.SlidingMenu
 import com.quixom.apps.weatherstream.utilities.*
 import com.quixom.apps.weatherstream.widgets.StickySwitch
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -36,25 +32,7 @@ import java.util.*
 /**
  * A simple [BaseFragment] subclass.
  */
-class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelectedChangeListener, OnTouchListener {
-    override fun onTouch(view: View?, event: MotionEvent?): Boolean {
-        when (view) {
-            llTopView, llMiddleView -> {
-                if (event?.action == MotionEvent.ACTION_DOWN) {
-                    mActivity.slidingMenuLeft?.touchModeAbove = SlidingMenu.LEFT
-                }
-
-                if (event?.action == MotionEvent.ACTION_UP) {
-                    mActivity.slidingMenuLeft?.touchModeAbove = SlidingMenu.LEFT
-                }
-            }
-            llNoLocationFound -> {
-                mActivity.slidingMenuLeft?.touchModeAbove = SlidingMenu.TOUCHMODE_NONE
-            }
-        }
-        return false
-    }
-
+class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelectedChangeListener {
     lateinit var weatherSensor: WeatherViewSensorEventListener
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater!!.inflate(R.layout.fragment_main, container, false)
@@ -78,18 +56,6 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
             recyclerViewDaysWeather.adapter = ForecastItemAdapter(preferenceUtil, weatherData.name!!, lists!!, mActivity)
         }
 
-        recyclerViewDaysWeather.setOnScrollListener(object : RecyclerView.OnScrollListener() {
-            internal var scrollDy = 0
-
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                scrollDy += dy
-                mActivity.slidingMenuLeft?.touchModeAbove = SlidingMenu.TOUCHMODE_NONE
-            }
-        })
-
-        llMiddleView.setOnTouchListener(this)
-        llTopView.setOnTouchListener(this)
-        llNoLocationFound.setOnTouchListener(this)
         btnSearchLocation.setOnClickListener(this)
 
         if (!preferenceUtil.getBooleanPref(preferenceUtil.IS_APP_THEME_DAY)) {
@@ -167,7 +133,6 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
     override fun onClick(v: View?) {
         when (v) {
             toggleMenu -> {
-                Methods.avoidDoubleClicks(toggleMenu)
                 mActivity.toggleSlideMenuLeft()
             }
             ivSetting -> {
@@ -233,8 +198,10 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
         if (weatherData != null && sysWeatherData != null && inWeatherData != null) {
             initToolbar(weatherData.name!!)
 
-            val loc = Locale("", sysWeatherData.country)
-            tvCountryAdd?.text = loc.displayCountry
+            if (sysWeatherData.country != null) {
+                val loc = Locale("", sysWeatherData.country)
+                tvCountryAdd?.text = loc.displayCountry
+            }
 
             if (preferenceUtil.getBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS)) {
                 stickySwitch.setDirection(StickySwitch.Direction.LEFT, true)
@@ -255,7 +222,7 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
                 tvRainPrecipitationView?.text = cloudWeatherData.all.toString().plus("%")
             }
             if (windWeatherData?.speed != null) {
-                val numberFormat: NumberFormat = DecimalFormat("#.0000")
+                val numberFormat: NumberFormat = DecimalFormat("#.0000") as NumberFormat
                 if (preferenceUtil.getBooleanPref(preferenceUtil.IS_SPEED_UNIT_METERS)) {
                     tvWindView?.text = windWeatherData.speed?.plus(mResources.getString(R.string.ms_speed))
                 } else {
@@ -307,8 +274,12 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
                 val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
                 if (weatherData != null) {
                     val lists: List<WeatherForecastData.ForecastList>? = WeatherForecastData.ForecastList.getForecastList()
-                    recyclerViewDaysWeather.adapter = ForecastItemAdapter(preferenceUtil, weatherData.name!!, lists!!, mActivity)
-                    recyclerViewDaysWeather?.adapter?.notifyDataSetChanged()
+                    try {
+                        recyclerViewDaysWeather.adapter = ForecastItemAdapter(preferenceUtil, weatherData.name!!, lists!!, mActivity)
+                        recyclerViewDaysWeather?.adapter?.notifyDataSetChanged()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
             }
         }

@@ -129,7 +129,7 @@
                     android:gravity="center_vertical"
                     android:includeFontPadding="false"
                     android:maxLines="1"
-                    android:text="@string/temperature_high"
+                    android:text= "@string/temperature_high"
                     android:textColor="@color/font_white"
                     android:textSize="14sp" />
             </LinearLayout>

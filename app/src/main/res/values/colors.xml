@@ -12,7 +12,7 @@
     <color name="gulf_blue">#222a41</color>
     <color name="pattens_blue">#D3E2F0</color>
     <color name="colorPrimary_night_tras">#d820285b</color>
-    <color name="bottomsheet_tras">#9a20285b</color>
+    <color name="bottomsheet_tras">#27212e</color>
 
     <!-- Viewpager default indicator color -->
     <color name="fpi_default_indicator_inactive_color">#80FFFFFF</color>

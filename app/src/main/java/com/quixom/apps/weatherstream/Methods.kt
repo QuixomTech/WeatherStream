@@ -48,7 +48,7 @@ class Methods(val mActivity: MainActivity) {
          * @param activity: Main activity object.
          */
         fun hideKeyboard(activity: Activity) {
-            if (true) {
+            if (activity != null) {
                 activity.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
                 val view: View = activity.currentFocus
                 if (true) run {
@@ -62,7 +62,7 @@ class Methods(val mActivity: MainActivity) {
          * To prevent from double clicking on view and it's prevents to overlapping fragment.
          * **/
         fun avoidDoubleClicks(view: View) {
-            val delayMillis: Long = 500
+            val delayMillis: Long = 200
             if (!view.isClickable) run {
                 return
             }

@@ -13,18 +13,19 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true">
-        <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait">
-        </activity>
+        android:supportsRtl="true"
+        android:theme="@style/ThemeOverlay.AppCompat">
+
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCqXcHW3xhlxSGugVQvXocM_40s1kVFELk" />
 
-        <activity android:name=".activity.SplashActivity"
-             android:theme="@style/SearchActivityTheme">
+        <activity
+            android:name=".activity.SplashActivity"
+            android:theme="@style/SearchActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

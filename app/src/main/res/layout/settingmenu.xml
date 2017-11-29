@@ -4,6 +4,7 @@
     android:layout_width="200dp"
     android:layout_height="match_parent"
     android:background="@color/font_white"
+    android:id="@+id/rlSettingMenuParent"
     android:orientation="vertical">
 
     <LinearLayout
@@ -38,19 +39,22 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tvUnitFormatSettingLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/lato_bold"
                     android:text="@string/unit_format"
-                    android:textColor="@color/font_primary"
+                    android:textColor="@color/font_secondary"
                     android:textSize="14sp" />
 
                 <android.support.v7.widget.CardView
+                    android:id="@+id/cvUnitFormatSetting"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="4dp"
+                    app:cardBackgroundColor="@color/font_white"
                     app:cardUseCompatPadding="true">
 
                     <LinearLayout
@@ -108,7 +112,7 @@
                             android:layout_marginTop="10dp"
                             android:text="@string/speed_label"
                             android:fontFamily="@font/lato_regular"
-                            android:textColor="@color/voodoo"
+                            android:textColor="@color/brink_pink"
                             android:textSize="12sp" />
 
                         <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
@@ -119,7 +123,7 @@
                             segmentedgroup:sc_border_width="1dp"
                             segmentedgroup:sc_checked_text_color="@color/font_white"
                             segmentedgroup:sc_corner_radius="4dp"
-                            segmentedgroup:sc_tint_color="@color/voodoo">
+                            segmentedgroup:sc_tint_color="@color/brink_pink">
 
                             <RadioButton
                                 android:id="@+id/rbMS"
@@ -228,7 +232,7 @@
                             android:layout_marginTop="10dp"
                             android:text="@string/theme_label"
                             android:fontFamily="@font/lato_regular"
-                            android:textColor="@color/lipstick"
+                            android:textColor="@color/persian_green"
                             android:textSize="12sp" />
 
                         <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
@@ -239,7 +243,7 @@
                             segmentedgroup:sc_border_width="1dp"
                             segmentedgroup:sc_checked_text_color="@color/font_white"
                             segmentedgroup:sc_corner_radius="4dp"
-                            segmentedgroup:sc_tint_color="@color/lipstick">
+                            segmentedgroup:sc_tint_color="@color/persian_green">
 
                             <RadioButton
                                 android:id="@+id/rbDay"
@@ -264,6 +268,7 @@
                 </android.support.v7.widget.CardView>
 
                 <TextView
+                    android:id="@+id/tvAboutSettingLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"

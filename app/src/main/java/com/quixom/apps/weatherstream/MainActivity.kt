@@ -2,11 +2,10 @@ package com.quixom.apps.weatherstream
 
 import android.annotation.TargetApi
 import android.app.Activity
-import android.app.NotificationManager
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.speech.RecognizerIntent
 import android.support.annotation.RequiresApi
 import android.support.v4.content.ContextCompat
@@ -31,6 +30,7 @@ import com.quixom.apps.weatherstream.webservice.APIParameters
 import com.quixom.apps.weatherstream.webservice.NetworkConfig
 import com.raizlabs.android.dbflow.sql.language.Delete
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.leftmenu.*
 import kotlinx.android.synthetic.main.settingmenu.*
 import retrofit2.Call
@@ -39,7 +39,9 @@ import retrofit2.Response
 import java.util.*
 
 
-class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClickListener {
+class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClickListener, SlidingMenu.OnCloseListener {
+    override fun onClose() {
+    }
 
     var slidingMenuLeft: SlidingMenu? = null
     private var slidingMenuRight: SlidingMenu? = null
@@ -60,8 +62,8 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         } else {
             this@MainActivity.setTheme(R.style.NightModeTheme)
         }
-
         setContentView(R.layout.activity_main)
+
         errorHandler = com.quixom.apps.weatherstream.webservice.ErrorHandler(this@MainActivity)
 
         fragmentUtil = FragmentUtil(this@MainActivity)
@@ -158,20 +160,26 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         slidingMenuLeft?.setShadowWidthRes(R.dimen.shadow_width)
         slidingMenuLeft?.setShadowDrawable(R.drawable.shadow)
         slidingMenuLeft?.setBehindOffsetRes(R.dimen.slidingmenu_offset)
-        slidingMenuLeft?.setFadeDegree(0.8f)
+        slidingMenuLeft?.setFadeDegree(1f)
         slidingMenuLeft?.attachToActivity(this, SlidingMenu.SLIDING_CONTENT)
         slidingMenuLeft?.setBehindWidth(850)
         slidingMenuLeft?.setMenu(R.layout.leftmenu)
         slidingMenuLeft?.isSlidingEnabled
+        slidingMenuLeft?.setOnCloseListener(this)
+
+        if (!preferenceUtil.getBooleanPref(preferenceUtil.IS_APP_THEME_DAY)) {
+            llLeftMenuParent.setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.bottomsheet_tras))
+            rvMenuLocationList.setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.bottomsheet_tras))
+            tvLeftMenuAppName.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.font_white_trans))
+        }
     }
 
     /***
      * Method for Open/Close slide menu drawer */
     fun toggleSlideMenuLeft() {
-        /*if (slidingMenuRight?.isMenuShowing!!) {
-            slidingMenuRight?.toggle(true)
-        }*/
         slidingMenuLeft?.toggle()
+        /*if (slidingMenuLeft?.isMenuShowing!!) {
+        }*/
     }
 
     /***
@@ -217,6 +225,10 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             rbDay.isChecked = true
         } else {
             rbNight.isChecked = true
+            rlSettingMenuParent.setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.bottomsheet_tras))
+            cvUnitFormatSetting.setCardBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.bottomsheet_tras))
+            tvUnitFormatSettingLabel.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.font_white_trans))
+            tvAboutSettingLabel.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.font_white_trans))
         }
     }
 
@@ -282,15 +294,11 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                 UpgradeData.clearApplicationData()
                 UpgradeData.clearSearchHistory()
 
-                val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                if (notificationManager != null && notificationManager.activeNotifications.isNotEmpty()) {
-                    notificationManager.cancelAll()
-                }
-
                 tvClearSearch.visibility = View.GONE
                 tvRecentSearch.visibility = View.GONE
 
-                rvMenuLocationList?.adapter?.notifyDataSetChanged()
+                clear()
+
                 toggleSlideMenuLeft()
 
                 WeatherStreamCallbackManager.updateHomeScreenData(4)
@@ -314,7 +322,11 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             KeyUtil.PLACE_AUTOCOMPLETE_REQUEST_CODE -> {
                 if (resultCode == Activity.RESULT_OK) {
                     val place = PlaceAutocomplete.getPlace(this, data)
-                    callSearchLocationApi(place.latLng.latitude, place.latLng.longitude)
+                    toggleSlideMenuLeft()
+                    Handler().postDelayed({
+                        callSearchLocationApi(place.latLng.latitude, place.latLng.longitude)
+                    }, 200)
+
                 } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                     Methods.hideKeyboard(this@MainActivity)
                     val status = PlaceAutocomplete.getStatus(this, data)
@@ -344,6 +356,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
     var locationSearchCall: Call<WeatherData>? = null
 
     fun callSearchLocationApi(lat: Double, lon: Double) = if (isNetworkConnected(this@MainActivity)) {
+        recyclerViewDaysWeather?.visibility = View.GONE
 
         val hashMap = APIParameters.getParam()
         hashMap.put(APIParameters.LocationSearch.lat, "" + lat)
@@ -362,7 +375,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                 if (response != null) {
                     if (response.isSuccessful) {
                         if (response.body() != null) {
-                            if (response.body()?.cod == 200) {
+                            if (response.body()?.cod == 200 && response.body()?.name != null && response.body()?.name != "") {
                                 Methods.hideKeyboard(this@MainActivity)
 
                                 UpgradeData.clearApplicationData()
@@ -401,8 +414,11 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                                 /*** Weather notification */
                                 if (preferenceUtil.getBooleanPref(preferenceUtil.IS_NOTIFICATION_ON)) {
                                     val localNotification = LocalNotification(this@MainActivity)
-                                    val loc = Locale("", sysWeatherDetail.country)
-                                    val title = weatherDetail.name.plus(", ").plus(loc.displayCountry)
+                                    var title: String ?= null
+                                    if (sysWeatherDetail.country != null) {
+                                        val loc = Locale("", sysWeatherDetail.country)
+                                        title = weatherDetail.name.plus(", ").plus(loc.displayCountry)
+                                    }
                                     val message: String? = if (preferenceUtil.getBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS)) {
                                         Math.round(mainWeatherDetail.temp!!.toDouble()).toString().plus(resources.getString(R.string.c_symbol)).plus(" " + innerWeatherDetail[0].description)
                                     } else {
@@ -410,7 +426,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                                     }
                                     val time = DateUtil.getDateFromMillis(System.currentTimeMillis(), DateUtil.timeHourFormat, false)
                                     val weatherType = innerWeatherDetail[0].id
-                                    if (message != null) {
+                                    if (title != null && message != null) {
                                         localNotification.showCustomLayoutHeadsUpNotification(this@MainActivity, title, message, time,
                                                 WeatherToImage.getWeatherTypeConditionCode(null, null, weatherType.toString()))
                                     }
@@ -428,12 +444,9 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                                         setSideMenuSearchEntry(weatherDetail)
                                     }
                                 }
-                                if (slidingMenuLeft?.isMenuShowing!!) {
-                                    slidingMenuLeft?.toggle()
-                                }
                             }
                         } else {
-                            Methods.showSnackBar(coordinatorLayoutMain, response.message(), ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
+                            Methods.showSnackBar(coordinatorLayoutMain, "No Location Found", ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
                         }
                     } else {
                         Methods.showSnackBar(coordinatorLayoutMain, response.message(), ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
@@ -477,6 +490,8 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                     if (response.isSuccessful) {
                         if (response.body() != null) {
                             if (response.body()?.cod == "200") {
+                                recyclerViewDaysWeather?.visibility = View.VISIBLE
+
                                 Methods.hideKeyboard(this@MainActivity)
 
                                 val weatherForecastData: WeatherForecastData = response.body()!!
@@ -571,5 +586,16 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
 
         lists.add(LocationSearchHistory(locationSearch.id, locationSearch.cityName, locationSearch.countyName, locationSearch.weatherType, locationSearch.temperature))
         rvMenuLocationList.adapter = LocationHistoryAdapter(preferenceUtil, lists, this@MainActivity)
+    }
+
+    fun clear() {
+        val size = this.lists.size
+        if (size > 0) {
+            for (i in 0 until size) {
+                this.lists.removeAt(0)
+            }
+
+            rvMenuLocationList?.adapter?.notifyItemRangeRemoved(0, size)
+        }
     }
 }

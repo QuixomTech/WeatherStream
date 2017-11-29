@@ -27,6 +27,7 @@
         android:layout_gravity="center_horizontal"
         android:fontFamily="@font/lato_black"
         android:maxLines="3"
+        android:layout_marginTop="5dp"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/font_secondary"

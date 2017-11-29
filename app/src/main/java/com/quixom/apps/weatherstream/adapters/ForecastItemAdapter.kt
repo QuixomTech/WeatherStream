@@ -81,6 +81,7 @@ class ForecastItemAdapter(private var preferenceUtil: PreferenceUtil, private va
 
         holder.itemView.setOnClickListener(View.OnClickListener {
             Methods.avoidDoubleClicks(holder.itemView)
+
             val mBottomSheetDialog = BottomSheetDialog(context!!)
             val sheetView = mActivity?.layoutInflater?.inflate(R.layout.bottomsheet_weather_details, null) as View
             val tvHumidityBL = sheetView.findViewById<TextView>(R.id.tvHumidityBL)
@@ -121,12 +122,17 @@ class ForecastItemAdapter(private var preferenceUtil: PreferenceUtil, private va
                     tvSystemPodBL.text = sysWeatherList[position + 1].pod
                 }
 
-                val loc = Locale("", sysWeatherData?.country)
-                tvCountryBL.text = loc.displayCountry
+                if (sysWeatherData?.country != null) {
+                    val loc = Locale("", sysWeatherData?.country)
+                    tvCountryBL.text = loc.displayCountry
+                }
 
-                if (rainData != null && rainData.isNotEmpty() && rainData[position].rainCount != null) {
-                    val numberFormat: NumberFormat = DecimalFormat("#.00")
-                    tvRainVolumeBL.text = numberFormat.format(rainData[position].rainCount).toString().plus(" mm")
+
+                if (rainData != null && rainData.isNotEmpty()) {
+                    if (rainData.size-1 <= position) {
+                        val numberFormat: NumberFormat = DecimalFormat("#.00")
+                        tvRainVolumeBL.text = numberFormat.format(rainData[position].rainCount!!).toString().plus(" mm")
+                    }
                 } else {
                     tvRainVolumeBL.text = ("0").plus(" mm")
                 }
@@ -147,7 +153,7 @@ class ForecastItemAdapter(private var preferenceUtil: PreferenceUtil, private va
                 tvDateTimeBL.text = DateUtil.getDateFromMillis(dateValue, DateUtil.dateDisplayFormat3, true).plus(" ").plus(DateUtil.convertTime(dateTime))
 
                 if (!preferenceUtil.getBooleanPref(preferenceUtil.IS_APP_THEME_DAY)) {
-                    tvCityBL.setTextColor(ContextCompat.getColor(mActivity, R.color.gulf_blue))
+                    tvCityBL.setTextColor(ContextCompat.getColor(mActivity, R.color.fire_bush))
                     llParentTopView.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.bottomsheet_tras))
 
                     tvCountryBL.setTextColor(ContextCompat.getColor(mActivity, R.color.malibu))
