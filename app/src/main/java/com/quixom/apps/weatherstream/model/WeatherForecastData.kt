@@ -53,11 +53,14 @@ class WeatherForecastData(@Column @PrimaryKey @Expose var id: Long? = null,
 
     @Table(name = Rain.TABLE_NAME, database = WeatherStreamDB::class)
     class Rain(@Column @PrimaryKey(autoincrement = true) @Expose var id: Long? = null,
+               @Column @Expose var dt: Long? = null,
                @SerializedName("3h")
                @Column @Expose var rainCount: Double? = null) : BaseModel() {
         companion object {
             const val TABLE_NAME = "Rain"
-            fun getRainData(): List<Rain>? = SQLite.select().distinct().from<Rain>(Rain::class.java).queryList()
+            fun getRainData(dt: Long?): Rain? = SQLite.select().distinct().from<Rain>(Rain::class.java)
+                    .where(Rain_Table.dt.eq(dt))
+                    .querySingle()
         }
     }
 }

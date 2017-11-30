@@ -119,4 +119,7 @@
     <string name="search_your_location_desc">Search and get real time weather information of your location.</string>
     <string name="search_location_button">Search Location</string>
 
+    <!-- Clear data dialog -->
+    <string name="attention">Attention</string>
+    <string name="clear_data_dialog_heading">Are you sure want to clear search history?</string>
 </resources>

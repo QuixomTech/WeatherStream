@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/parentTopView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -57,7 +58,6 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="40dp"
         android:layout_marginTop="10dp">
 
         <TableRow
@@ -376,4 +376,20 @@
         </TableRow>
     </TableLayout>
 
+    <com.lypeer.googleioclock.GoogleClock
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="20dp"
+        app:lyClockWidth="100dp"
+        app:lyDividerHorizontal="0dp"
+        android:visibility="visible"
+        app:lyDividerVertical="5dp"
+        app:lyHourWidth="20dp"
+        app:lyMinWidth="20dp"
+        app:lySecWidth="15dp"
+        app:lyTheme="@style/LyTheme2" />
 </LinearLayout>

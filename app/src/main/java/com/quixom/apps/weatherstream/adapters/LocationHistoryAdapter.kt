@@ -1,6 +1,7 @@
 package com.quixom.apps.weatherstream.adapters
 
 import android.annotation.SuppressLint
+import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -17,8 +18,8 @@ import com.quixom.apps.weatherstream.utilities.WeatherToImage
 import java.util.*
 
 /**
-* Created by akif on 11/3/17.
-*/
+ * Created by akif on 11/3/17.
+ */
 
 class LocationHistoryAdapter(internal var preferenceUtil: PreferenceUtil, internal var appslist: ArrayList<LocationSearchHistory>, internal var sActivity: MainActivity) : RecyclerView.Adapter<LocationHistoryAdapter.LocationVH>() {
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): LocationHistoryAdapter.LocationVH {
@@ -31,9 +32,10 @@ class LocationHistoryAdapter(internal var preferenceUtil: PreferenceUtil, intern
         val locationDataList: LocationSearchHistory = LocationSearchHistory.getLocationInfo(appslist[position].cityName!!, appslist[position].countyName!!)
 
         holder?.itemView?.setOnClickListener(View.OnClickListener {
-            sActivity.toggleSlideMenuLeft()
-            sActivity.callSearchLocationApi(locationDataList.lat!!, locationDataList.lon!!)
-
+            sActivity.slidingMenuLeft?.showContent(true)
+            Handler().postDelayed({
+                sActivity.callSearchLocationApi(locationDataList.lat!!, locationDataList.lon!!)
+            }, 500)
         })
     }
 

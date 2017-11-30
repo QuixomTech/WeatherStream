@@ -1,145 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/llLeftMenuParent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llLeftMenuParent"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:background="@color/font_white"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/ivApplicationIconLeftMenu"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="20sp"
         android:layout_marginTop="50dp"
-        android:orientation="horizontal"
-        android:paddingStart="10dp">
+        android:contentDescription="@null"
+        android:src="@mipmap/ic_launcher_round" />
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:contentDescription="@null"
-            android:src="@mipmap/ic_launcher_round" />
+    <TextView
+        android:id="@+id/tvLeftMenuAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="70dp"
+        android:layout_toEndOf="@id/ivApplicationIconLeftMenu"
+        android:fontFamily="@font/lato_black"
+        android:text="@string/app_name"
+        android:textColor="@color/font_primary"
+        android:textSize="17sp" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="5dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvLeftMenuAppName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:fontFamily="@font/lato_black"
-                android:textColor="@color/font_primary"
-                android:textSize="17sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_tag_line"
-                android:textColor="@color/font_secondary"
-                android:fontFamily="@font/lato_regular"
-                android:textSize="10sp"
-                tools:ignore="SmallSp" />
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
+        android:layout_below="@id/tvLeftMenuAppName"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_toEndOf="@id/ivApplicationIconLeftMenu"
+        android:fontFamily="@font/lato_regular"
+        android:text="@string/app_tag_line"
+        android:textColor="@color/font_secondary"
+        android:textSize="10sp"
+        tools:ignore="SmallSp" />
+
+    <FrameLayout
+        android:id="@+id/flSearchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivApplicationIconLeftMenu"
         android:layout_marginEnd="20dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:background="@drawable/search_view_bg">
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/search_view_bg"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/ivSearchLocationIC"
-            android:layout_width="0dp"
-            android:layout_weight="0.2"
+            android:layout_width="wrap_content"
             android:layout_height="18dp"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="10dp"
             android:contentDescription="@null"
-            android:tint="@color/font_primary"
-            android:src="@drawable/ic_search"/>
+            android:src="@drawable/ic_search"
+            android:tint="@color/font_primary" />
 
         <TextView
             android:id="@+id/tvLocationSearchText"
-            android:layout_width="0dp"
-            android:layout_weight="1.6"
-            android:layout_marginStart="5dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/location_search"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="30dp"
             android:fontFamily="@font/lato_regular"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="@string/location_search"
             android:textColor="@color/font_primary"
-            android:gravity="center_vertical" />
+            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/ivSpeechToSearchMenu"
-            android:layout_width="0dp"
-            android:layout_weight="0.2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="10dp"
             android:contentDescription="@null"
-            android:layout_height="wrap_content"
-            android:tint="@color/font_primary"
-            android:src="@drawable/ic_mic_black_24dp"/>
+            android:padding="5dp"
+            android:src="@drawable/ic_mic_black_24dp"
+            android:tint="@color/font_primary" />
 
-    </LinearLayout>
+    </FrameLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tvRecentSearch"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/flSearchView"
         android:layout_marginStart="24dp"
-        android:layout_marginEnd="20dp">
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/lato_italic"
+        android:text="@string/recent_search"
+        android:textColor="@color/font_thirdly"
+        android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/tvRecentSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/recent_search"
-            android:fontFamily="@font/lato_italic"
-            android:textSize="12sp"
-            android:layout_alignParentStart="true"
-            android:textColor="@color/font_thirdly"/>
-
-        <TextView
-            android:id="@+id/tvClearSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/clear_search"
-            android:fontFamily="@font/lato_regular"
-            android:textSize="12sp"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="4dp"
-            android:visibility="gone"
-            android:layout_alignParentEnd="true"
-            android:background="@drawable/clear_search_view_bg"
-            android:textColor="@color/font_white"
-            tools:ignore="RelativeOverlap" />
-
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/tvClearSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/flSearchView"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/clear_search_view_bg"
+        android:fontFamily="@font/lato_regular"
+        android:paddingBottom="4dp"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"
+        android:paddingTop="3dp"
+        android:text="@string/clear_search"
+        android:textColor="@color/font_white"
+        android:textSize="12sp"
+        android:visibility="gone"
+        tools:ignore="RelativeOverlap" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvMenuLocationList"
+        android:layout_below="@id/tvRecentSearch"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-        android:scrollbars="vertical"
-        android:background="@color/font_white"/>
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/font_white"
+        android:scrollbars="vertical" />
 
-</LinearLayout>
+</RelativeLayout>
 
 

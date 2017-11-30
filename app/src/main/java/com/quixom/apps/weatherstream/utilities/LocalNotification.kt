@@ -35,7 +35,7 @@ class LocalNotification(val mainActivity: MainActivity) {
         val builder = NotificationCompat.Builder(context, "ws1")
         builder.setContent(remoteViews)
                 .setStyle(NotificationCompat.DecoratedCustomViewStyle())
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setVibrate(LongArray(0))
                 .setSmallIcon(weatherTypeImage)

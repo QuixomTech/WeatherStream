@@ -22,6 +22,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.quixom.apps.weatherstream.model.WeatherData
 import com.quixom.apps.weatherstream.utilities.KeyUtil
+import com.quixom.apps.weatherstream.utilities.WSProgressDialog
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -277,5 +278,39 @@ class Methods(val mActivity: MainActivity) {
 
         /*** Convert in/Hg to hpa */
         fun gethPa(i: Float): Double = i * 33.8638816
+
+        var wsProgressDialog: WSProgressDialog? = null
+
+        /**
+         * This method shows progressBar.
+         *
+         * @param mContext: context.
+         */
+        fun isProgressShowMessage(mContext: Context) {
+            try {
+                if (wsProgressDialog == null) {
+                    wsProgressDialog = WSProgressDialog.show(mContext, false, null)
+                } else {
+                    if (!wsProgressDialog!!.isShowing) {
+                        wsProgressDialog = WSProgressDialog.show(mContext, false, null)
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+        }
+
+        /**
+         * This method is hide a progressBar.
+         */
+        fun isProgressHide() {
+            try {
+                wsProgressDialog?.dismiss()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+        }
     }
 }

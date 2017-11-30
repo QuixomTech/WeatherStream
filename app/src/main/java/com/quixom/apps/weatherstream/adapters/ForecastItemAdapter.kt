@@ -25,8 +25,8 @@ import java.util.*
 
 
 /**
-* Created by akif on 11/3/17.
-*/
+ * Created by akif on 11/3/17.
+ */
 class ForecastItemAdapter(private var preferenceUtil: PreferenceUtil, private var cityname: String, private var daysForecastList: List<WeatherForecastData.ForecastList>, mainActivity: MainActivity) : RecyclerView.Adapter<ForecastItemAdapter.ViewHolder>() {
 
     private var context: Context? = null
@@ -39,7 +39,6 @@ class ForecastItemAdapter(private var preferenceUtil: PreferenceUtil, private va
 
     @SuppressLint("InflateParams")
     override fun onBindViewHolder(holder: ForecastItemAdapter.ViewHolder, position: Int) {
-        val drawable = R.drawable.honey_dew
         val dateTime = daysForecastList[position].dt_txt
         val dateValue = daysForecastList[position].dt
 
@@ -84,6 +83,7 @@ class ForecastItemAdapter(private var preferenceUtil: PreferenceUtil, private va
 
             val mBottomSheetDialog = BottomSheetDialog(context!!)
             val sheetView = mActivity?.layoutInflater?.inflate(R.layout.bottomsheet_weather_details, null) as View
+
             val tvHumidityBL = sheetView.findViewById<TextView>(R.id.tvHumidityBL)
             val tvPressureBL = sheetView.findViewById<TextView>(R.id.tvPressureBL)
             val tvSeaLevelBL = sheetView.findViewById<TextView>(R.id.tvSeaLevelBL)
@@ -114,7 +114,7 @@ class ForecastItemAdapter(private var preferenceUtil: PreferenceUtil, private va
 
                 val sysWeatherData: WeatherData.Sys? = WeatherData.Sys.getSysWeatherDetails()
                 val sysWeatherList: List<WeatherData.Sys>? = WeatherData.Sys.getSysListDetails()
-                val rainData: List<WeatherForecastData.Rain>? = WeatherForecastData.Rain.getRainData()
+                val rainData: WeatherForecastData.Rain? = WeatherForecastData.Rain.getRainData(dateValue)
                 val cloudsData: WeatherData.Clouds? = WeatherData.Clouds.getCloudWeatherDetails()
                 val windData: WeatherData.Wind? = WeatherData.Wind.getWindWeatherDetails()
 
@@ -127,15 +127,13 @@ class ForecastItemAdapter(private var preferenceUtil: PreferenceUtil, private va
                     tvCountryBL.text = loc.displayCountry
                 }
 
-
-                if (rainData != null && rainData.isNotEmpty()) {
-                    if (rainData.size-1 <= position) {
-                        val numberFormat: NumberFormat = DecimalFormat("#.00")
-                        tvRainVolumeBL.text = numberFormat.format(rainData[position].rainCount!!).toString().plus(" mm")
-                    }
+                if (rainData != null && rainData.rainCount != null) {
+                    val numberFormat: NumberFormat = DecimalFormat("#.00")
+                    tvRainVolumeBL.text = numberFormat.format(rainData.rainCount!!).toString().plus(" mm")
                 } else {
                     tvRainVolumeBL.text = ("0").plus(" mm")
                 }
+
 
                 if (cloudsData != null) {
                     tvRainPrecipitationBL.text = cloudsData.all.toString().plus("%")

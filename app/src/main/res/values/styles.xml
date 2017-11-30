@@ -10,9 +10,9 @@
         <item name="android:windowFullscreen">false</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="android:windowContentOverlay">@android:color/transparent</item>
     </style>
@@ -71,6 +71,17 @@
         <item name="lyColorColon">@color/colorPrimary</item>
         <item name="lyThickness">@integer/lyThickness_4</item>
         <item name="lyColonThickness">@integer/lyThickness_1</item>
+    </style>
+
+    <style name="ProgressUtil" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
 </resources>

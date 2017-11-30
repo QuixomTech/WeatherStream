@@ -8,7 +8,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/brink_pink">
+        android:background="@color/colorAccent">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -21,19 +21,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/lato_bold"
-        android:text="@string/gps_alert_title"
-        android:textColor="@color/font_primary"
-        android:textSize="22sp" />
+        android:text="@string/attention"
+        android:textColor="@color/font_secondary"
+        android:textSize="20sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20sp"
+        android:fontFamily="@font/lato_regular"
+        android:text="@string/clear_data_dialog_heading"
         android:textColor="@color/font_thirdly"
-        android:textSize="14sp"
-        android:text="@string/gps_alert_message"/>
-
+        android:layout_gravity="start"
+        android:textSize="14sp"/>
 </LinearLayout>

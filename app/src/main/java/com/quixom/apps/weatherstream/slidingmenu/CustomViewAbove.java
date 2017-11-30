@@ -212,7 +212,7 @@ public class CustomViewAbove extends ViewGroup {
 	}
 
 	void setCurrentItemInternal(int item, boolean smoothScroll, boolean always) {
-		setCurrentItemInternal(item, smoothScroll, always, 0);
+		setCurrentItemInternal(item, smoothScroll, always, 10);
 	}
 
 	void setCurrentItemInternal(int item, boolean smoothScroll, boolean always, int velocity) {
@@ -416,7 +416,7 @@ public class CustomViewAbove extends ViewGroup {
 		int duration = 0;
 		velocity = Math.abs(velocity);
 		if (velocity > 0) {
-			duration = 4 * Math.round(1000 * Math.abs(distance / velocity));
+			duration = 4 * Math.round(500 * Math.abs(distance / velocity));
 		} else {
 			final float pageDelta = (float) Math.abs(dx) / width;
 			duration = (int) ((pageDelta + 1) * 100);
@@ -742,7 +742,7 @@ public class CustomViewAbove extends ViewGroup {
 		case MotionEvent.ACTION_UP:
 			if (mIsBeingDragged) {
 				final VelocityTracker velocityTracker = mVelocityTracker;
-				velocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
+				velocityTracker.computeCurrentVelocity(500, mMaximumVelocity);
 				int initialVelocity = (int) VelocityTrackerCompat.getXVelocity(
 						velocityTracker, mActivePointerId);
 				final int scrollX = getScrollX();
