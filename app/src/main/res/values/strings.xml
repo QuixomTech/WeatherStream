@@ -122,4 +122,7 @@
     <!-- Clear data dialog -->
     <string name="attention">Attention</string>
     <string name="clear_data_dialog_heading">Are you sure want to clear search history?</string>
+
+    <!-- About -->
+    <string name="version">Version</string>
 </resources>

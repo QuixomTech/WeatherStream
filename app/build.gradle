@@ -13,8 +13,16 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [ GoogleAutoCompletePalceKey:"AIzaSyCqXcHW3xhlxSGugVQvXocM_40s1kVFELk"]
     }
     buildTypes {
+
+        buildTypes.each {
+            it.buildConfigField 'String', 'BASE_URL', BASE_URL
+            it.buildConfigField 'String', 'KEY_OPEN_WEATHER_MAP_KEY', KEY_OPEN_WEATHER_MAP_KEY
+            it.buildConfigField 'String', 'KEY_AUTH', KEY_AUTH
+        }
+
         release {
             shrinkResources true
             minifyEnabled true

@@ -253,6 +253,7 @@
             android:background="?attr/selectableItemBackground"
             android:fontFamily="@font/lato_bold"
             android:padding="5dp"
+            android:visibility="invisible"
             android:text="@string/about"
             android:textColor="@color/font_primary"
             android:textSize="14sp" />

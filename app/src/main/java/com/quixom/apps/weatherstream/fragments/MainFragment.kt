@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.support.v4.widget.TextViewCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils.TruncateAt
@@ -59,8 +60,8 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
         tvDirectionView.setOnClickListener(this)
         tvDirectionLabel.setOnClickListener(this)
 
+
         if (!preferenceUtil.getBooleanPref(preferenceUtil.IS_APP_THEME_DAY)) {
-            progressBarHorizontal.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.gulf_blue_dark))
             llNoLocationFound.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.gulf_blue_dark))
             tvSearchViewHeading.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
             tvSearchViewMessage.setTextColor(ContextCompat.getColor(mActivity, R.color.font_thirdly))
@@ -140,7 +141,7 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
                 mActivity.slidingMenuLeft?.showMenu(true)
             }
             ivSetting -> {
-                Methods.avoidDoubleClicks(ivSetting)
+            Methods.avoidDoubleClicks(ivSetting)
                 mActivity.toggleSlideMenuRight()
             }
             btnSearchLocation -> {
@@ -231,7 +232,7 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
                 tvRainPrecipitationView?.text = cloudWeatherData.all.toString().plus("%")
             }
             if (windWeatherData?.speed != null) {
-                val numberFormat: NumberFormat = DecimalFormat("#.0000") as NumberFormat
+                val numberFormat: NumberFormat = DecimalFormat("#.0000")
                 if (preferenceUtil.getBooleanPref(preferenceUtil.IS_SPEED_UNIT_METERS)) {
                     tvWindView?.text = windWeatherData.speed?.plus(mResources.getString(R.string.ms_speed))
                 } else {

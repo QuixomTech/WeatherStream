@@ -1,5 +1,6 @@
 package com.quixom.apps.weatherstream.webservice
 
+import com.quixom.apps.weatherstream.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -21,7 +22,7 @@ open class NetworkConfig {
                 httpClient.addInterceptor(logging)
 
                 retrofitInstance = Retrofit.Builder()
-                        .baseUrl(APIParameters.BASE_URL)
+                        .baseUrl(BuildConfig.BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .client(httpClient.build())
                         .build()

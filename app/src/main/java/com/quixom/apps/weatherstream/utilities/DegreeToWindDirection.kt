@@ -4,8 +4,8 @@ import com.quixom.apps.weatherstream.MainActivity
 import com.quixom.apps.weatherstream.R
 
 /**
- * Created by akif on 11/14/17.
- */
+* Created by akif on 11/14/17.
+*/
 object DegreeToWindDirection {
 
     fun getWindDirection(mainActivity: MainActivity, degree: Double): String {

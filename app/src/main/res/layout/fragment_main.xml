@@ -72,8 +72,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lato_italic"
-                android:text="broken clouds"
                 android:textColor="@color/font_white"
+                android:autoSizeTextType="uniform"
                 android:textSize="15sp"
                 tools:ignore="RelativeOverlap" />
 
@@ -160,19 +160,6 @@
             android:layout_height="320dp"
             android:visibility="gone" />
     </RelativeLayout>
-
-    <ProgressBar
-        android:id="@+id/progressBarHorizontal"
-        android:layout_below="@id/llTopView"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_centerHorizontal="true"
-        android:background="@color/font_white"
-        android:indeterminateOnly="true"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/orange"
-        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"/>
 
     <android.support.v7.widget.CardView
         android:id="@+id/llMiddleView"

@@ -28,6 +28,18 @@
         android:textColor="@color/font_white"
         android:textSize="24sp" />
 
+<!--    <TextView
+        android:id="@+id/tvBackIcon"
+        android:layout_width="0dp"
+        android:layout_weight="2.2"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/lato_bold"
+        android:maxLines="1"
+        android:textColor="@color/font_white"
+        android:textSize="24sp" />-->
+
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/ivSetting"
         android:layout_width="0dp"

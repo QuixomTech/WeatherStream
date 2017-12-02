@@ -353,7 +353,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
 
         Methods.isProgressShowMessage(this@MainActivity)
 
-        locationSearchCall = NetworkConfig.getWebApis().getWeatherDetail(APIParameters.KEY_OPEN_WEATHER_MAP_KEY, hashMap)
+        locationSearchCall = NetworkConfig.getWebApis().getWeatherDetail(BuildConfig.KEY_OPEN_WEATHER_MAP_KEY, hashMap)
         locationSearchCall!!.enqueue(object : Callback<WeatherData> {
 
             @RequiresApi(Build.VERSION_CODES.N)
@@ -467,7 +467,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         hashMap.put(APIParameters.ForecastingWeather.units, "" + KeyUtil.UNITS_METRIC)
         hashMap.put(APIParameters.ForecastingWeather.type, "" + KeyUtil.TYPES_ACCURATE)
 
-        weatherForecastingCall = NetworkConfig.getWebApis().getWeatherForecasting(APIParameters.KEY_OPEN_WEATHER_MAP_KEY, hashMap)
+        weatherForecastingCall = NetworkConfig.getWebApis().getWeatherForecasting(BuildConfig.KEY_OPEN_WEATHER_MAP_KEY, hashMap)
         weatherForecastingCall!!.enqueue(object : Callback<WeatherForecastData> {
 
             override fun onResponse(call: Call<WeatherForecastData>, response: Response<WeatherForecastData>) {
@@ -479,8 +479,6 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                         if (response.body() != null) {
                             if (response.body()?.cod == "200") {
 
-                                Methods.isProgressHide()
-
                                 Methods.hideKeyboard(this@MainActivity)
 
                                 val weatherForecastData: WeatherForecastData = response.body()!!
@@ -489,7 +487,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
 
                                 val forecastingList: Array<WeatherForecastData.ForecastList> = response.body()?.list!!
                                 if (forecastingList != null && forecastingList.isNotEmpty()) {
-
+                                    Methods.isProgressHide()
                                     for (hourlyWeatherData in forecastingList) {
                                         hourlyWeatherData.id = 0
                                         hourlyWeatherData.save()
