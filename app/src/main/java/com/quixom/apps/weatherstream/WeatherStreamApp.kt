@@ -4,9 +4,14 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import android.support.v7.app.AppCompatDelegate
+import com.crashlytics.android.Crashlytics
 import com.quixom.apps.weatherstream.utilities.PreferenceUtil
 import com.raizlabs.android.dbflow.config.FlowConfig
+import com.raizlabs.android.dbflow.config.FlowLog
 import com.raizlabs.android.dbflow.config.FlowManager
+import io.fabric.sdk.android.Fabric
+
+
 
 /**
 * Created by akif on 11/2/17.
@@ -16,11 +21,15 @@ class WeatherStreamApp: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        // Make sure we use vector drawables
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
 
         // This instantiates DBFlow
         FlowManager.init(FlowConfig.Builder(this).build())
+        FlowLog.setMinimumLoggingLevel(FlowLog.Level.V)
+
+        // Make sure we use vector drawables
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
+
+        Fabric.with(this, Crashlytics())
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
     }
 

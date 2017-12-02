@@ -2,6 +2,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
 
 android {
     compileSdkVersion 26
@@ -9,19 +14,16 @@ android {
         applicationId "com.quixom.apps.weatherstream"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders = [ GoogleAutoCompletePalceKey:"AIzaSyCqXcHW3xhlxSGugVQvXocM_40s1kVFELk"]
+        manifestPlaceholders = [ GoogleAutoCompletePlaceKey:"AIzaSyCqXcHW3xhlxSGugVQvXocM_40s1kVFELk"]
+        it.buildConfigField 'String', 'BASE_URL', BASE_URL
+        it.buildConfigField 'String', 'KEY_OPEN_WEATHER_MAP_KEY', KEY_OPEN_WEATHER_MAP_KEY
+        it.buildConfigField 'String', 'KEY_AUTH', KEY_AUTH
     }
     buildTypes {
-
-        buildTypes.each {
-            it.buildConfigField 'String', 'BASE_URL', BASE_URL
-            it.buildConfigField 'String', 'KEY_OPEN_WEATHER_MAP_KEY', KEY_OPEN_WEATHER_MAP_KEY
-            it.buildConfigField 'String', 'KEY_AUTH', KEY_AUTH
-        }
 
         release {
             shrinkResources true
@@ -56,9 +58,15 @@ dependencies {
 
     compile 'com.google.android.gms:play-services-location:8.4.0'
 
+    compile('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
+        transitive = true
+    }
+
     compile 'com.victor:lib:1.0.4'
 
     kapt "com.github.Raizlabs.DBFlow:dbflow-processor:${dbflow_version}"
     compile "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
     compile "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
+
+    compile "com.github.Raizlabs.DBFlow:dbflow-kotlinextensions:${dbflow_version}"
 }
