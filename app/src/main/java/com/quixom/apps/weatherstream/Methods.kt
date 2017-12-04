@@ -185,7 +185,7 @@ class Methods(val mActivity: MainActivity) {
          *
          * @param first:  string
          * @param second: string
-         * @return: string with two different color
+         * @return: string with two different text_selector_color
          */
         fun getSpannableString(context: Context, first: String, second: String): SpannableStringBuilder {
 
@@ -245,7 +245,7 @@ class Methods(val mActivity: MainActivity) {
         fun showSnackBar(view: View, message: String, color: Int, mActivity: MainActivity) {
             val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
 
-            // Changing action button text color
+            // Changing action button text text_selector_color
             val sbView = snackbar.view
             sbView.setBackgroundColor(color)
             val textView = sbView.findViewById<View>(android.support.design.R.id.snackbar_text) as TextView

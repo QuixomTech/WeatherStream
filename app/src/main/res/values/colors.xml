@@ -14,7 +14,7 @@
     <color name="colorPrimary_night_tras">#d820285b</color>
     <color name="bottomsheet_tras">#27212e</color>
 
-    <!-- Viewpager default indicator color -->
+    <!-- Viewpager default indicatext_selector_colorolor -->
     <color name="fpi_default_indicator_inactive_color">#80FFFFFF</color>
     <color name="fpi_default_indicator_active_color">#FFFFFF</color>
     <color name="dark_gray">#D2D2D2</color>
@@ -25,7 +25,7 @@
     <color name="frag2">#FDD835</color>
     <color name="frag3">#8E24AA</color>
 
-    <!-- new color -->
+    <!-- text_selector_colorolor -->
     <color name="cornflower_blue">#6C83D9</color>
     <color name="fire_bush">#E99E3E</color>
     <color name="persian_green">#0CB298</color>
@@ -33,7 +33,7 @@
     <color name="aquamarine">#0E9C80</color>
     <color name="summer_sky">#48ABEC</color>
 
-    <!-- Font color -->
+    <!-- Ftext_selector_colorolor -->
     <color name="font_white">#ffffff</color>
     <color name="font_white_trans">#87ffffff</color>
     <color name="font_primary">#37474F</color>

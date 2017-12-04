@@ -121,7 +121,7 @@ class StickySwitch : View {
     private val textAlphaMax = 255
     private val textAlphaMin = 163
 
-    // text color transparency
+    // text text_selector_color transparency
     private var leftTextAlpha = textAlphaMax
         set(value) {
             field = value
@@ -172,7 +172,7 @@ class StickySwitch : View {
             invalidate()
         }
 
-    // type of transition animation between states
+    // type of activity_fade animation between states
     var animationType = AnimationType.LINE
         set(value) {
             field = value
@@ -229,13 +229,13 @@ class StickySwitch : View {
         leftTextSize = selectedTextSize.toFloat()
         rightTextSize = textSize.toFloat()
 
-        // slider background color
+        // slider background text_selector_color
         sliderBackgroundColor = typedArray.getColor(R.styleable.StickySwitch_ss_sliderBackgroundColor, sliderBackgroundColor)
 
-        // switch color
+        // switch text_selector_color
         switchColor = typedArray.getColor(R.styleable.StickySwitch_ss_switchColor, switchColor)
 
-        // text color
+        // text text_selector_color
         textColor = typedArray.getColor(R.styleable.StickySwitch_ss_textColor, textColor)
 
         // animation duration

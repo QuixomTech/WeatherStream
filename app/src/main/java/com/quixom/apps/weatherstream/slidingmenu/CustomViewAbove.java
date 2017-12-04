@@ -188,7 +188,7 @@ public class CustomViewAbove extends ViewGroup {
 
 	/**
 	 * Set the currently selected page. If the CustomViewPager has already been through its first
-	 * layout there will be a smooth animated transition between the current item and the
+	 * layout there will be a smooth animated activity_fade between the current item and the
 	 * specified item.
 	 *
 	 * @param item WeatherViewItem index to select
@@ -201,7 +201,7 @@ public class CustomViewAbove extends ViewGroup {
 	 * Set the currently selected page.
 	 *
 	 * @param item WeatherViewItem index to select
-	 * @param smoothScroll True to smoothly scroll to the new item, false to transition immediately
+	 * @param smoothScroll True to smoothly scroll to the new item, false to activity_fade immediately
 	 */
 	public void setCurrentItem(int item, boolean smoothScroll) {
 		setCurrentItemInternal(item, smoothScroll, false);

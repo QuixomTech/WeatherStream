@@ -487,7 +487,7 @@ public class SlidingMenu extends RelativeLayout {
 	/**
 	 * Opens the menu and shows the menu view.
 	 *
-	 * @param animate true to animate the transition, false to ignore animation
+	 * @param animate true to animate the activity_fade, false to ignore animation
 	 */
 	public void showMenu(boolean animate) {
 		mViewAbove.setCurrentItem(0, animate);
@@ -505,7 +505,7 @@ public class SlidingMenu extends RelativeLayout {
 	 * Opens the menu and shows the secondary (right) menu view. Will default to the regular menu
 	 * if there is only one.
 	 *
-	 * @param animate true to animate the transition, false to ignore animation
+	 * @param animate true to animate the activity_fade, false to ignore animation
 	 */
 	public void showSecondaryMenu(boolean animate) {
 		mViewAbove.setCurrentItem(2, animate);
@@ -521,7 +521,7 @@ public class SlidingMenu extends RelativeLayout {
 	/**
 	 * Closes the menu and shows the above view.
 	 *
-	 * @param animate true to animate the transition, false to ignore animation
+	 * @param animate true to animate the activity_fade, false to ignore animation
 	 */
 	public void showContent(boolean animate) {
 		mViewAbove.setCurrentItem(1, animate);
@@ -537,7 +537,7 @@ public class SlidingMenu extends RelativeLayout {
 	/**
 	 * Toggle the SlidingMenu. If it is open, it will be closed, and vice versa.
 	 *
-	 * @param animate true to animate the transition, false to ignore animation
+	 * @param animate true to animate the activity_fade, false to ignore animation
 	 */
 	public void toggle(boolean animate) {
 		if (isMenuShowing()) {

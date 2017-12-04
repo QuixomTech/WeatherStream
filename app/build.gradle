@@ -14,11 +14,12 @@ android {
         applicationId "com.quixom.apps.weatherstream"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 2
-        versionName "1.1"
+        versionCode 3
+        versionName "1.2"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders = [ GoogleAutoCompletePlaceKey:"AIzaSyCqXcHW3xhlxSGugVQvXocM_40s1kVFELk"]
+        manifestPlaceholders = [GoogleAutoCompletePlaceKey: "AIzaSyCqXcHW3xhlxSGugVQvXocM_40s1kVFELk",
+                                FabricApiKeyWS            : "97d7aaa2c9357dfe8e3868060c32636559e6a223"]
         it.buildConfigField 'String', 'BASE_URL', BASE_URL
         it.buildConfigField 'String', 'KEY_OPEN_WEATHER_MAP_KEY', KEY_OPEN_WEATHER_MAP_KEY
         it.buildConfigField 'String', 'KEY_AUTH', KEY_AUTH

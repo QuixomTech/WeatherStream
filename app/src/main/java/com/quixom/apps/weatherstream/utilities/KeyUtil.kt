@@ -14,6 +14,7 @@ object KeyUtil {
     val PLACE_AUTOCOMPLETE_REQUEST_CODE: Int = 102
     val RC_ENABLE_LOCATION = 103
     val RC_LOCATION_PERMISSION = 104
+    val KEY_CALL_PERMISSION = 105
 
     /*** Application theme */
     val THEME_DEFAULT = 0

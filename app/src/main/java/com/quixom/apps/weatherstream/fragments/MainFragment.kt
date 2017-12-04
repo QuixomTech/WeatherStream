@@ -4,10 +4,10 @@ import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
-import android.support.v4.widget.TextViewCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils.TruncateAt
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +27,6 @@ import kotlinx.android.synthetic.main.toolbar_ui.*
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
-
 
 /**
  * A simple [BaseFragment] subclass.
@@ -141,7 +140,7 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
                 mActivity.slidingMenuLeft?.showMenu(true)
             }
             ivSetting -> {
-            Methods.avoidDoubleClicks(ivSetting)
+                Methods.avoidDoubleClicks(ivSetting)
                 mActivity.toggleSlideMenuRight()
             }
             btnSearchLocation -> {
@@ -167,12 +166,26 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
         weatherSensor.onPause()
     }
 
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden && isAdded) {
+            val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
+            if (weatherData != null) {
+                initToolbar(weatherData.name!!)
+            }
+        }
+    }
+
     /***
      * Method for initialise Toolbar
      * */
     @SuppressLint("SetTextI18n")
     private fun initToolbar(header: String) {
         tvToolbarTitle.text = header
+        toggleMenu?.visibility = View.VISIBLE
+        ivSetting?.visibility = View.VISIBLE
+        backNavigation?.visibility = View.GONE
+        tvToolbarTitle?.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24F)
         toggleMenu.setOnClickListener(this)
         ivSetting.setOnClickListener(this)
         ivSetting.setOnClickListener(this)
@@ -232,7 +245,7 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
                 tvRainPrecipitationView?.text = cloudWeatherData.all.toString().plus("%")
             }
             if (windWeatherData?.speed != null) {
-                val numberFormat: NumberFormat = DecimalFormat("#.0000")
+                val numberFormat: NumberFormat = DecimalFormat("#.0000") as NumberFormat
                 if (preferenceUtil.getBooleanPref(preferenceUtil.IS_SPEED_UNIT_METERS)) {
                     tvWindView?.text = windWeatherData.speed?.plus(mResources.getString(R.string.ms_speed))
                 } else {

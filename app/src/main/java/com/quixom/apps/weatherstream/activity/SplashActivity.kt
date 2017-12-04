@@ -46,6 +46,7 @@ class SplashActivity : AppCompatActivity() {
                     intent.putExtra(KeyUtil.LATITUDE_VALUE, location.latitude)
                     intent.putExtra(KeyUtil.LONGITUDE_VALUE, location.longitude)
                     startActivity(intent)
+                    overridePendingTransition(R.anim.activity_fade_in, R.anim.activity_fad_out)
                     finish()
                 }, SPLASH_TIME_OUT.toLong())
             }
@@ -66,6 +67,7 @@ class SplashActivity : AppCompatActivity() {
                 intent.putExtra(KeyUtil.LATITUDE_VALUE, 0.0)
                 intent.putExtra(KeyUtil.LONGITUDE_VALUE, 0.0)
                 startActivity(intent)
+                overridePendingTransition(R.anim.activity_fade_in, R.anim.activity_fad_out)
                 finish()
             }, SPLASH_TIME_OUT.toLong())
         }
@@ -74,6 +76,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
         mLocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
         if (checkAndAskForLocationPermissions()) {
@@ -86,6 +89,7 @@ class SplashActivity : AppCompatActivity() {
                     intent.putExtra(KeyUtil.LATITUDE_VALUE, 0.0)
                     intent.putExtra(KeyUtil.LONGITUDE_VALUE, 0.0)
                     startActivity(intent)
+                    overridePendingTransition(R.anim.activity_fade_in, R.anim.activity_fad_out)
                     finish()
                 }, SPLASH_TIME_OUT.toLong())
             }

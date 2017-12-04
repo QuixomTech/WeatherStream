@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".WeatherStreamApp"
@@ -25,7 +26,7 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="97d7aaa2c9357dfe8e3868060c32636559e6a223" />
+            android:value="${FabricApiKeyWS}" />
 
         <activity
             android:name=".activity.SplashActivity"

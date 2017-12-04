@@ -21,5 +21,5 @@
 #-renamesourcefileattribute SourceFile
 -ignorewarnings
 -keep class * {
-    public private *;
+   public private *;
 }

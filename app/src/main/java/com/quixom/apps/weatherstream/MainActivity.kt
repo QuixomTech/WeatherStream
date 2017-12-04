@@ -2,7 +2,9 @@ package com.quixom.apps.weatherstream
 
 import android.annotation.TargetApi
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -21,6 +23,7 @@ import com.quixom.apps.weatherstream.Methods.Companion.isNetworkConnected
 import com.quixom.apps.weatherstream.Methods.Companion.promptSpeechInput
 import com.quixom.apps.weatherstream.adapters.LocationHistoryAdapter
 import com.quixom.apps.weatherstream.dbconfig.UpgradeData
+import com.quixom.apps.weatherstream.fragments.AboutAppFragment
 import com.quixom.apps.weatherstream.fragments.MainFragment
 import com.quixom.apps.weatherstream.model.LocationSearchHistory
 import com.quixom.apps.weatherstream.model.WeatherData
@@ -96,6 +99,15 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         rbDay.setOnClickListener(this)
         rbNight.setOnClickListener(this)
 
+        // About App
+        tvAboutSettingLabel.setOnClickListener(this)
+
+        // Rate Us
+        tvRateUs.setOnClickListener(this)
+
+        // Weather data provider
+        tvWeatherDataProvider.setOnClickListener(this)
+
         /** Launch Main Fragment */
         fragmentUtil!!.clearBackStackFragmets()
         fragmentUtil!!.replaceFragment(MainFragment(), false, false)
@@ -134,9 +146,6 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
 
     override fun onBackPressed() {
         super.onBackPressed()
-        if (supportFragmentManager.backStackEntryCount == 0) {
-            finish()
-        }
 
         if (slidingMenuLeft?.isMenuShowing!!) {
             slidingMenuLeft?.toggle()
@@ -225,6 +234,9 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             cvUnitFormatSetting.setCardBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.bottomsheet_tras))
             tvUnitFormatSettingLabel.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.font_white_trans))
             tvAboutSettingLabel.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.font_white_trans))
+            tvRateUs.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.font_white_trans))
+            tvWeatherDataProvider.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.font_white_trans))
+            tvWeatherStreamSetting.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.font_white_trans))
         }
     }
 
@@ -285,6 +297,16 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             rbNight -> {
                 preferenceUtil.setBooleanPref(preferenceUtil.IS_APP_THEME_DAY, false)
                 ThemeSwitcher.changeToTheme(this, KeyUtil.THEME_NIGHT)
+            }
+            tvAboutSettingLabel -> {
+                toggleSlideMenuRight()
+                fragmentUtil?.addFragment(AboutAppFragment(), true, true)
+            }
+            tvRateUs -> {
+                rateUsApp(this@MainActivity)
+            }
+            tvWeatherDataProvider -> {
+                webIntent()
             }
             tvClearSearch -> {
                 confirmClearSearchHistory()
@@ -440,12 +462,14 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                         Methods.showSnackBar(coordinatorLayoutMain, response.message(), ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
                     }
                 } else {
+                    Methods.isProgressHide()
                     Methods.showSnackBar(coordinatorLayoutMain, errorHandler.parseError(response).message(), ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
                 }
             }
 
             override fun onFailure(call: Call<WeatherData>?, t: Throwable?) {
                 if (call!!.isCanceled)
+                    Methods.isProgressHide()
                     return
                 errorHandler.setExceptionMessage(t)
             }
@@ -529,7 +553,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                                     }
                                     WeatherStreamCallbackManager.updateHomeScreenData(2)
                                 }
-//                                Methods.showSnackBar(coordinatorLayoutMain, response.code().toString(), ContextCompat.getColor(this@MainActivity, R.color.fruit_salad), this@MainActivity)
+//                                Methods.showSnackBar(coordinatorLayoutMain, response.code().toString(), ContextCompat.getColor(this@MainActivity, R.text_selector_color.fruit_salad), this@MainActivity)
                             }
                         } else {
                             Methods.showSnackBar(coordinatorLayoutMain, response.message(), ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
@@ -538,6 +562,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                         Methods.showSnackBar(coordinatorLayoutMain, response.message(), ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
                     }
                 } else {
+                    Methods.isProgressHide()
                     Methods.showSnackBar(coordinatorLayoutMain, errorHandler.parseError(response).message(), ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
                 }
             }
@@ -617,6 +642,30 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         })
         val b = dialogBuilder.create()
         b.show()
+    }
+
+    /***
+     * Method for redirect user to App page on Google Play Store
+     * */
+    fun rateUsApp(mActivity: MainActivity) {
+        val uri = Uri.parse("market://details?id=com.quixom.apps.weatherstream")
+        val goToMarket = Intent(Intent.ACTION_VIEW, uri)
+        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or
+                Intent.FLAG_ACTIVITY_NEW_DOCUMENT or
+                Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+        try {
+            mActivity.startActivity(goToMarket)
+        } catch (e: ActivityNotFoundException) {
+            mActivity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.quixom.apps.weatherstream&hl=en")))
+        }
+    }
+
+    /***
+     * Method for open Browser with load predefined website address
+     * */
+    private fun webIntent() {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://openweathermap.org/"))
+        startActivity(browserIntent)
     }
 }
 
