@@ -1,8 +1,6 @@
 package com.quixom.apps.weatherstream.webservice
 
 import com.quixom.apps.weatherstream.BuildConfig
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -16,15 +14,10 @@ open class NetworkConfig {
 
         fun getRetrofit(): Retrofit {
             if (retrofitInstance == null) {
-                val logging: HttpLoggingInterceptor = HttpLoggingInterceptor()
-                logging.level = HttpLoggingInterceptor.Level.BODY
-                val httpClient: OkHttpClient.Builder = OkHttpClient.Builder()
-                httpClient.addInterceptor(logging)
 
                 retrofitInstance = Retrofit.Builder()
                         .baseUrl(BuildConfig.BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
-                        .client(httpClient.build())
                         .build()
             }
             return retrofitInstance!!

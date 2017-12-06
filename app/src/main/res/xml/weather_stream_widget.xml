@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialKeyguardLayout="@layout/weather_forecasting_app_widget"
+    android:initialLayout="@layout/weather_forecasting_app_widget"
+    android:minHeight="180dp"
+    android:minWidth="170dp"
+    android:previewImage="@drawable/app_widget_preview"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="20000"
+    android:widgetCategory="home_screen|keyguard"/>

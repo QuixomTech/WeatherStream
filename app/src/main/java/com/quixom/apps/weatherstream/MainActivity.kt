@@ -2,7 +2,9 @@ package com.quixom.apps.weatherstream
 
 import android.annotation.TargetApi
 import android.app.Activity
+import android.appwidget.AppWidgetManager
 import android.content.ActivityNotFoundException
+import android.content.ComponentName
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -28,10 +30,12 @@ import com.quixom.apps.weatherstream.fragments.MainFragment
 import com.quixom.apps.weatherstream.model.LocationSearchHistory
 import com.quixom.apps.weatherstream.model.WeatherData
 import com.quixom.apps.weatherstream.model.WeatherForecastData
+import com.quixom.apps.weatherstream.services.WeatherWidgetService
 import com.quixom.apps.weatherstream.slidingmenu.SlidingMenu
 import com.quixom.apps.weatherstream.utilities.*
 import com.quixom.apps.weatherstream.webservice.APIParameters
 import com.quixom.apps.weatherstream.webservice.NetworkConfig
+import com.quixom.apps.weatherstream.widgets.WeatherStreamAppWidget
 import com.raizlabs.android.dbflow.sql.language.Delete
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.leftmenu.*
@@ -128,6 +132,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             }
         }
 
+
         // Fetch searched location list from database.
         val searchedLocation: List<LocationSearchHistory> = LocationSearchHistory.getSearchedLocationList()
         if (searchedLocation.isNotEmpty()) {
@@ -142,6 +147,11 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             tvRecentSearch.visibility = View.GONE
             tvClearSearch.visibility = View.GONE
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+            startService(Intent(this, WeatherWidgetService::class.java))
     }
 
     override fun onBackPressed() {
@@ -420,6 +430,14 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                                     inWeatherDt.save()
                                 }
 
+
+                                /*** Send broadcast to update widget's data */
+                                val intent = Intent(this@MainActivity.applicationContext, WeatherStreamAppWidget::class.java)
+                                intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+                                val ids = AppWidgetManager.getInstance(application).getAppWidgetIds(ComponentName(application, WeatherStreamAppWidget::class.java))
+                                intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+                                sendBroadcast(intent)
+
                                 WeatherStreamCallbackManager.updateHomeScreenData(1)
                                 /** called here location weather forecasting api */
                                 callWeatherForecasting(lat, lon)
@@ -636,6 +654,14 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             clear()
             toggleSlideMenuLeft()
             WeatherStreamCallbackManager.updateHomeScreenData(4)
+
+            /*** Send broadcast to update widget's data */
+            val intent = Intent(this@MainActivity.applicationContext, WeatherStreamAppWidget::class.java)
+            intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+            val ids = AppWidgetManager.getInstance(application).getAppWidgetIds(ComponentName(application, WeatherStreamAppWidget::class.java))
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+            sendBroadcast(intent)
+
         })
         dialogBuilder.setNegativeButton(android.R.string.cancel, { dialog, which ->
             dialog.dismiss()

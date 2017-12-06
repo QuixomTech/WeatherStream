@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/flwidgetParent"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:background="@drawable/widget_bg_view_bg"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/tvWeatherLocationNameWidget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/ic_location"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
+            android:textAlignment="center"
+            android:textColor="@color/font_white"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/ivWeatherTypeIconWidget"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_below="@id/tvWeatherLocationNameWidget"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="12dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_clouds_of_storm"
+            android:tint="@color/frag2" />
+
+        <TextView
+            android:id="@+id/tvAvgTemperatureWidget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvWeatherLocationNameWidget"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/ivWeatherTypeIconWidget"
+            android:includeFontPadding="false"
+            android:textColor="@color/font_white"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tvWeatherMessageWidget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvAvgTemperatureWidget"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:includeFontPadding="false"
+            android:textColor="@color/font_white"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvMaxTemperatureWidget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvWeatherLocationNameWidget"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@id/tvAvgTemperatureWidget"
+            android:drawableStart="@drawable/ic_arrow_drop_down_black_24dp"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:textColor="@color/font_white"
+            android:textSize="10sp"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:id="@+id/tvMinTemperatureWidget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvMaxTemperatureWidget"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/tvAvgTemperatureWidget"
+            android:drawableStart="@drawable/ic_arrow_drop_up_black_24dp"
+            android:gravity="center_vertical"
+            android:includeFontPadding="false"
+            android:textColor="@color/font_white"
+            android:textSize="10sp"
+            tools:ignore="SmallSp" />
+
+        <TextView
+            android:id="@+id/tvNoDataFound"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:text="@string/no_data_found"
+            android:visibility="visible"
+            android:textColor="@color/font_white"
+            android:background="@drawable/widget_bg_view_bg" />
+    </RelativeLayout>
+</FrameLayout>

@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatDelegate
 import com.crashlytics.android.Crashlytics
 import com.quixom.apps.weatherstream.utilities.PreferenceUtil
-import com.raizlabs.android.dbflow.config.FlowConfig
-import com.raizlabs.android.dbflow.config.FlowLog
 import com.raizlabs.android.dbflow.config.FlowManager
 import io.fabric.sdk.android.Fabric
 
@@ -23,8 +21,7 @@ class WeatherStreamApp: Application() {
         super.onCreate()
 
         // This instantiates DBFlow
-        FlowManager.init(FlowConfig.Builder(this).build())
-        FlowLog.setMinimumLoggingLevel(FlowLog.Level.V)
+        FlowManager.init(this)
 
         // Make sure we use vector drawables
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)

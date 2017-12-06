@@ -135,4 +135,8 @@
     <string name="address">Quixom Tech \nB-12, Galaxy Signature \nOpp Sukhan Bungalows
 \nScience City Road, Ahmedabad</string>
     <string name="website">www.quixom.com</string>
+
+    <!-- Widgets text -->
+    <string name="no_data_found">No Data</string>
+
 </resources>

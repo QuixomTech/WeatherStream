@@ -9,8 +9,8 @@ import com.raizlabs.android.dbflow.sql.language.SQLite
 import com.raizlabs.android.dbflow.structure.BaseModel
 
 /**
- * Created by akif on 11/13/17.
- */
+* Created by akif on 11/13/17.
+*/
 
 @Table(name = LocationSearchHistory.TABLE_NAME, database = WeatherStreamDB::class)
 class LocationSearchHistory(@Column @PrimaryKey @Expose var id: Long? = null,

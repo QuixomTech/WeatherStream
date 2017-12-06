@@ -17,8 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/ThemeOverlay.AppCompat">
 
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -30,14 +31,26 @@
 
         <activity
             android:name=".activity.SplashActivity"
-            android:theme="@style/SearchActivityTheme"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/SearchActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <receiver android:name=".widgets.WeatherStreamAppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/weather_stream_widget" />
+        </receiver>
+
+        <service android:name=".services.WeatherWidgetService" android:description="@string/app_name" android:exported="true" android:enabled="true" android:label="location data updater"/>
+
+    </application>
 </manifest>
