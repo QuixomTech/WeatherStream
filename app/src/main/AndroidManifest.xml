@@ -50,7 +50,7 @@
                 android:resource="@xml/weather_stream_widget" />
         </receiver>
 
-        <service android:name=".services.WeatherWidgetService" android:description="@string/app_name" android:exported="true" android:enabled="true" android:label="location data updater"/>
+        <service android:name=".services.WeatherWidgetService" />
 
     </application>
 </manifest>

@@ -1,6 +1,5 @@
 package com.quixom.apps.weatherstream.services
 
-import android.app.ActivityManager
 import android.app.Service
 import android.appwidget.AppWidgetManager
 import android.content.Context
@@ -33,8 +32,6 @@ class WeatherWidgetService : Service() {
         val appWidgetManager: AppWidgetManager = AppWidgetManager.getInstance(this@WeatherWidgetService)
         val allWidgetIds = intent?.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS)
 
-        println("service started successfully!!!")
-
         val timer = Timer()
         val hourlyTask = object : TimerTask() {
             override fun run() {
@@ -42,7 +39,6 @@ class WeatherWidgetService : Service() {
 
                 val weatherDataCoord: WeatherData.Coord? = WeatherData.Coord.getCoordinateDetails()
                 if (weatherDataCoord != null) {
-                    println("weatherDataCoord == " + weatherDataCoord.lat)
 
                     if (cm.activeNetworkInfo != null && cm.isActiveNetworkMetered) {
                         callSearchLocationServiceApi(weatherDataCoord.lat!!, weatherDataCoord.lon!!)
@@ -67,13 +63,14 @@ class WeatherWidgetService : Service() {
 
                         appWidgetManager.updateAppWidget(widgetId, remoteViews)
                     }
+                } else {
+                    stopSelf()
                 }
             }
         }
-        // schedule the task to run starting now and then every hour...
-        timer.schedule(hourlyTask, 0L, 5000)
+        // schedule the task to run starting now and then every half-an-hour...
+        timer.schedule(hourlyTask, 0L, 1800000)
 
-        stopSelf()
         return START_STICKY
     }
 
@@ -144,21 +141,5 @@ class WeatherWidgetService : Service() {
 
             override fun onFailure(call: Call<WeatherData>?, t: Throwable?) {}
         })
-    }
-
-    private fun isAppIsInBackground(context: Context): Boolean {
-        var isInBackground = true
-        val am = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        val runningProcesses = am.runningAppProcesses
-        for (processInfo in runningProcesses) {
-            if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                for (activeProcess in processInfo.pkgList) {
-                    if (activeProcess == context.packageName) {
-                        isInBackground = false
-                    }
-                }
-            }
-        }
-        return isInBackground
     }
 }

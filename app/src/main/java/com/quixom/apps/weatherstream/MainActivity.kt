@@ -30,7 +30,6 @@ import com.quixom.apps.weatherstream.fragments.MainFragment
 import com.quixom.apps.weatherstream.model.LocationSearchHistory
 import com.quixom.apps.weatherstream.model.WeatherData
 import com.quixom.apps.weatherstream.model.WeatherForecastData
-import com.quixom.apps.weatherstream.services.WeatherWidgetService
 import com.quixom.apps.weatherstream.slidingmenu.SlidingMenu
 import com.quixom.apps.weatherstream.utilities.*
 import com.quixom.apps.weatherstream.webservice.APIParameters
@@ -149,11 +148,6 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-            startService(Intent(this, WeatherWidgetService::class.java))
-    }
-
     override fun onBackPressed() {
         super.onBackPressed()
 
@@ -163,6 +157,18 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
 
         if (slidingMenuRight?.isMenuShowing!!) {
             slidingMenuRight?.toggle()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        /*** Send broadcast to update widget's data */
+        val ids = AppWidgetManager.getInstance(application).getAppWidgetIds(ComponentName(application, WeatherStreamAppWidget::class.java))
+        if (ids != null && ids.isNotEmpty()) {
+            val intent = Intent(this@MainActivity.applicationContext, WeatherStreamAppWidget::class.java)
+            intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+            sendBroadcast(intent)
         }
     }
 
@@ -488,7 +494,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             override fun onFailure(call: Call<WeatherData>?, t: Throwable?) {
                 if (call!!.isCanceled)
                     Methods.isProgressHide()
-                    return
+                return
                 errorHandler.setExceptionMessage(t)
             }
         })
