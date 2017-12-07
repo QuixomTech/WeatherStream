@@ -58,7 +58,8 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp">
 
         <TableRow
             android:layout_marginTop="20dp"
@@ -375,21 +376,4 @@
 
         </TableRow>
     </TableLayout>
-
-    <com.lypeer.googleioclock.GoogleClock
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:paddingTop="10dp"
-        android:layout_marginTop="20sp"
-        android:layout_marginBottom="20dp"
-        app:lyClockWidth="100dp"
-        app:lyDividerHorizontal="0dp"
-        android:visibility="visible"
-        app:lyDividerVertical="5dp"
-        app:lyHourWidth="20dp"
-        app:lyMinWidth="20dp"
-        app:lySecWidth="15dp"
-        app:lyTheme="@style/LyTheme2" />
 </LinearLayout>

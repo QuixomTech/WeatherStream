@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/flwidgetParent"
     android:layout_width="170dp"
     android:layout_height="170dp"
@@ -11,10 +10,14 @@
         android:id="@+id/tvWeatherLocationNameWidget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/tvAvgTemperatureWidget"
+        android:layout_marginBottom="10dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="@dimen/ftb_default_radius"
+        android:layout_marginEnd="@dimen/ftb_default_radius"
         android:drawableStart="@drawable/ic_location"
         android:gravity="center_vertical"
+        android:maxLines="2"
         android:textAlignment="center"
         android:textColor="@color/font_white"
         android:textSize="12sp" />
@@ -53,7 +56,8 @@
         android:paddingStart="4dp"
         android:text="@string/c_symbol"
         android:textColor="@color/font_white"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:id="@+id/textView" />
 
     <TextView
         android:id="@+id/tvWeatherMessageWidget"
@@ -76,7 +80,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvWeatherLocationNameWidget"
         android:layout_marginStart="2dp"
-        android:layout_marginTop="20dp"
         android:layout_toEndOf="@id/tvAvgTemperatureWidget"
         android:drawableStart="@drawable/ic_arrow_drop_down_black_24dp"
         android:gravity="center_vertical"

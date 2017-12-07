@@ -469,6 +469,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                                     }
                                 }
 
+                                /*** Save searched location and shown it on left side menu */
                                 if (weatherDetail != null) {
                                     val searchedLocation: List<LocationSearchHistory> = LocationSearchHistory.getSearchedLocationList()
                                     if (searchedLocation.isNotEmpty()) {

@@ -63,16 +63,6 @@
         <item name="android:windowContentOverlay">@color/font_white</item>
     </style>
 
-    <style name="LyTheme2" parent="LyTheme">
-        <item name="lyColor0">@color/fruit_salad</item>
-        <item name="lyColor1">@color/lighting_yellow</item>
-        <item name="lyColor2">@color/fruit_salad</item>
-        <item name="lyColor3">@color/frag1</item>
-        <item name="lyColorColon">@color/colorPrimary</item>
-        <item name="lyThickness">@integer/lyThickness_4</item>
-        <item name="lyColonThickness">@integer/lyThickness_1</item>
-    </style>
-
     <style name="ProgressUtil" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>

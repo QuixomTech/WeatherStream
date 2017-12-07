@@ -23,6 +23,8 @@ android {
         it.buildConfigField 'String', 'BASE_URL', BASE_URL
         it.buildConfigField 'String', 'KEY_OPEN_WEATHER_MAP_KEY', KEY_OPEN_WEATHER_MAP_KEY
         it.buildConfigField 'String', 'KEY_AUTH', KEY_AUTH
+
+        resConfigs "en"
     }
     buildTypes {
 
@@ -30,6 +32,13 @@ android {
             shrinkResources true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            //Other parameters
+            debuggable false
+            jniDebuggable false
+            renderscriptDebuggable false
+            pseudoLocalesEnabled false
+            zipAlignEnabled true
         }
     }
 }
@@ -51,7 +60,6 @@ dependencies {
     androidTestCompile 'com.android.support.test:runner:1.0.1'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    compile 'com.github.lypeer:GoogleClock:1.0.0'
     compile 'info.hoang8f:android-segmented:1.0.6'
 
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
