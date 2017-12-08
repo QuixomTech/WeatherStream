@@ -74,7 +74,7 @@ class WeatherWidgetService : Service() {
             }
         }
         // schedule the task to run starting now and then every half-an-hour...
-        timer.schedule(hourlyTask, 0L, 900000)
+        timer.schedule(hourlyTask, 0L, 1800000)
 
         return START_STICKY
     }
