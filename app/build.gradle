@@ -8,6 +8,10 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
     compileSdkVersion 26
     defaultConfig {
@@ -18,10 +22,10 @@ android {
         versionName "1.4"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-//        manifestPlaceholders = [FabricApiKeyWS            : "97d7aaa2c9357dfe8e3868060c32636559e6a223"]
-        it.buildConfigField 'String', 'BASE_URL', BASE_URL
-        it.buildConfigField 'String', 'KEY_OPEN_WEATHER_MAP_KEY', KEY_OPEN_WEATHER_MAP_KEY
-        it.buildConfigField 'String', 'KEY_AUTH', KEY_AUTH
+
+        it.buildConfigField 'String', 'BASE_URL', keystoreProperties['BASE_URL']
+        it.buildConfigField 'String', 'KEY_OPEN_WEATHER_MAP_KEY', keystoreProperties['KEY_OPEN_WEATHER_MAP_KEY']
+        it.buildConfigField 'String', 'KEY_AUTH', keystoreProperties['KEY_AUTH']
 
         resConfigs "en"
     }
