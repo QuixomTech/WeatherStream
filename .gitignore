@@ -1,9 +1,8 @@
+# Created by .ignore support plugin (hsz.mobi)
 *.iml
 .gradle
 /local.properties
 .idea/
-/.idea/workspace.xml
-/.idea/libraries
 /weatherstream.jks
 /build
 /app/release
