@@ -1,0 +1,60 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-mn-rMN/values-mn-rMN.xml",
+            "map": [
+                {
+                    "source": "/home/akif/.gradle/caches/transforms-1/files-1.1/play-services-location-8.4.0.aar/a96443f14facd8690a2864c54c6c4759/res/values-mn-rMN/location_strings.xml",
+                    "from": {
+                        "startLines": "6,5",
+                        "startColumns": "4,4",
+                        "startOffsets": "324,230",
+                        "endColumns": "106,93",
+                        "endOffsets": "426,319"
+                    },
+                    "to": {
+                        "startLines": "31,32",
+                        "startColumns": "4,4",
+                        "startOffsets": "4772,4879",
+                        "endColumns": "106,93",
+                        "endOffsets": "4874,4968"
+                    }
+                },
+                {
+                    "source": "/home/akif/.gradle/caches/transforms-1/files-1.1/play-services-base-8.4.0.aar/893d31a6221271c73a516eb78f029952/res/values-mn-rMN/base_strings.xml",
+                    "from": {
+                        "startLines": "24,10,9,8,7,5,6,4,19,18,17,16,3,28,27,26,25,21,20,22,12,11,15,14,13,23,29,30",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "3527,1313,1120,986,857,433,645,305,2733,2611,2438,2316,170,4247,4113,3942,3816,3044,2919,3328,1579,1448,2112,1973,1775,3437,4410,4502",
+                        "endColumns": "288,134,192,133,128,211,211,127,185,121,172,121,134,162,133,170,125,283,124,108,195,130,203,138,197,89,91,106",
+                        "endOffsets": "3811,1443,1308,1115,981,640,852,428,2914,2728,2606,2433,300,4405,4242,4108,3937,3323,3039,3432,1770,1574,2311,2107,1968,3522,4497,4604"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,21,22,23,24,25,26,27,28,29,30",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,390,525,714,848,977,1185,1393,1521,1707,1829,2002,2124,2259,2422,2556,2727,3109,3389,3514,3623,3815,3946,4146,4285,4483,4573,4665",
+                        "endColumns": "284,134,188,133,128,207,207,127,185,121,172,121,134,162,133,170,125,279,124,108,191,130,199,138,197,89,91,106",
+                        "endOffsets": "385,520,709,843,972,1180,1388,1516,1702,1824,1997,2119,2254,2417,2551,2722,2848,3384,3509,3618,3810,3941,4141,4280,4478,4568,4660,4767"
+                    }
+                },
+                {
+                    "source": "/home/akif/.gradle/caches/transforms-1/files-1.1/play-services-basement-8.4.0.aar/68a36fbbe0f4fbee55be561e5ad18f16/res/values-mn-rMN/common_strings.xml",
+                    "from": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "170",
+                        "endColumns": "259",
+                        "endOffsets": "425"
+                    },
+                    "to": {
+                        "startLines": "19",
+                        "startColumns": "4",
+                        "startOffsets": "2853",
+                        "endColumns": "255",
+                        "endOffsets": "3104"
+                    }
+                }
+            ]
+        }
+    ]
+}

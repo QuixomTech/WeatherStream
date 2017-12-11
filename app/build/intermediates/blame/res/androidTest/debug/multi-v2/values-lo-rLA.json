@@ -1,0 +1,60 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-lo-rLA/values-lo-rLA.xml",
+            "map": [
+                {
+                    "source": "/home/akif/.gradle/caches/transforms-1/files-1.1/play-services-location-8.4.0.aar/a96443f14facd8690a2864c54c6c4759/res/values-lo-rLA/location_strings.xml",
+                    "from": {
+                        "startLines": "6,5",
+                        "startColumns": "4,4",
+                        "startOffsets": "326,230",
+                        "endColumns": "104,95",
+                        "endOffsets": "426,321"
+                    },
+                    "to": {
+                        "startLines": "31,32",
+                        "startColumns": "4,4",
+                        "startOffsets": "4882,4987",
+                        "endColumns": "104,95",
+                        "endOffsets": "4982,5078"
+                    }
+                },
+                {
+                    "source": "/home/akif/.gradle/caches/transforms-1/files-1.1/play-services-basement-8.4.0.aar/68a36fbbe0f4fbee55be561e5ad18f16/res/values-lo-rLA/common_strings.xml",
+                    "from": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "170",
+                        "endColumns": "267",
+                        "endOffsets": "433"
+                    },
+                    "to": {
+                        "startLines": "19",
+                        "startColumns": "4",
+                        "startOffsets": "2914",
+                        "endColumns": "263",
+                        "endOffsets": "3173"
+                    }
+                },
+                {
+                    "source": "/home/akif/.gradle/caches/transforms-1/files-1.1/play-services-base-8.4.0.aar/893d31a6221271c73a516eb78f029952/res/values-lo-rLA/base_strings.xml",
+                    "from": {
+                        "startLines": "24,10,9,8,7,5,6,4,19,18,17,16,3,28,27,26,25,21,20,22,12,11,15,14,13,23,29,30",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "3584,1379,1173,1041,907,444,674,317,2814,2693,2530,2409,170,4324,4194,4016,3884,3107,2981,3380,1641,1510,2175,2033,1842,3487,4497,4596",
+                        "endColumns": "299,130,205,131,133,229,232,126,166,120,162,120,146,172,129,177,131,272,125,106,200,130,233,141,190,96,98,114",
+                        "endOffsets": "3879,1505,1374,1168,1036,669,902,439,2976,2809,2688,2525,312,4492,4319,4189,4011,3375,3102,3482,1837,1636,2404,2170,2028,3579,4591,4706"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,21,22,23,24,25,26,27,28,29,30",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,401,532,734,866,1000,1226,1455,1582,1749,1870,2033,2154,2301,2474,2604,2782,3178,3447,3573,3680,3877,4008,4238,4380,4571,4668,4767",
+                        "endColumns": "295,130,201,131,133,225,228,126,166,120,162,120,146,172,129,177,131,268,125,106,196,130,229,141,190,96,98,114",
+                        "endOffsets": "396,527,729,861,995,1221,1450,1577,1744,1865,2028,2149,2296,2469,2599,2777,2909,3442,3568,3675,3872,4003,4233,4375,4566,4663,4762,4877"
+                    }
+                }
+            ]
+        }
+    ]
+}

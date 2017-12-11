@@ -1,0 +1,60 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-gl-rES/values-gl-rES.xml",
+            "map": [
+                {
+                    "source": "/home/akif/.gradle/caches/transforms-1/files-1.1/play-services-location-8.4.0.aar/a96443f14facd8690a2864c54c6c4759/res/values-gl-rES/location_strings.xml",
+                    "from": {
+                        "startLines": "6,5",
+                        "startColumns": "4,4",
+                        "startOffsets": "326,230",
+                        "endColumns": "103,95",
+                        "endOffsets": "425,321"
+                    },
+                    "to": {
+                        "startLines": "31,32",
+                        "startColumns": "4,4",
+                        "startOffsets": "4913,5017",
+                        "endColumns": "103,95",
+                        "endOffsets": "5012,5108"
+                    }
+                },
+                {
+                    "source": "/home/akif/.gradle/caches/transforms-1/files-1.1/play-services-basement-8.4.0.aar/68a36fbbe0f4fbee55be561e5ad18f16/res/values-gl-rES/common_strings.xml",
+                    "from": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "170",
+                        "endColumns": "255",
+                        "endOffsets": "421"
+                    },
+                    "to": {
+                        "startLines": "19",
+                        "startColumns": "4",
+                        "startOffsets": "2962",
+                        "endColumns": "251",
+                        "endOffsets": "3209"
+                    }
+                },
+                {
+                    "source": "/home/akif/.gradle/caches/transforms-1/files-1.1/play-services-base-8.4.0.aar/893d31a6221271c73a516eb78f029952/res/values-gl-rES/base_strings.xml",
+                    "from": {
+                        "startLines": "24,10,9,8,7,5,6,4,19,18,17,16,3,28,27,26,25,21,20,22,12,11,15,14,13,23,29,30",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "3618,1357,1158,1027,892,443,668,309,2831,2709,2514,2381,170,4368,4238,4044,3898,3140,3013,3411,1626,1489,2153,2012,1830,3522,4540,4639",
+                        "endColumns": "279,131,198,130,134,224,223,133,181,121,194,132,138,171,129,193,145,270,126,110,203,136,227,140,181,95,98,114",
+                        "endOffsets": "3893,1484,1352,1153,1022,663,887,438,3008,2826,2704,2509,304,4535,4363,4233,4039,3406,3135,3517,1825,1621,2376,2148,2007,3613,4634,4749"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,21,22,23,24,25,26,27,28,29,30",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,381,513,708,839,974,1195,1415,1549,1731,1853,2048,2181,2320,2492,2622,2816,3214,3481,3608,3719,3919,4056,4280,4421,4603,4699,4798",
+                        "endColumns": "275,131,194,130,134,220,219,133,181,121,194,132,138,171,129,193,145,266,126,110,199,136,223,140,181,95,98,114",
+                        "endOffsets": "376,508,703,834,969,1190,1410,1544,1726,1848,2043,2176,2315,2487,2617,2811,2957,3476,3603,3714,3914,4051,4275,4416,4598,4694,4793,4908"
+                    }
+                }
+            ]
+        }
+    ]
+}

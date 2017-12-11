@@ -1,0 +1,333 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:2:1-51:12
+INJECTED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:2:1-51:12
+INJECTED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:2:1-51:12
+INJECTED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:2:1-51:12
+MERGED from [com.android.support:cardview-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/cardview-v7-26.1.0.aar/409844fc6c33be551f3ed436610aa0f1/AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:design:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/561bfcb0225de6a0026416cb0383a3b5/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:appcompat-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/fa48cf3bde33e0bc850132566dc4e9c8/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:transition:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/transition-26.1.0.aar/1e54a5375bdc7b5d7b7ed25985762f0d/AndroidManifest.xml:17:1-28:12
+MERGED from [com.google.android.gms:play-services-location:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-location-8.4.0.aar/a96443f14facd8690a2864c54c6c4759/AndroidManifest.xml:16:1-20:12
+MERGED from [com.google.android.gms:play-services-maps:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-maps-8.4.0.aar/8a6fd2e1796f99b4192f11078a2b38f1/AndroidManifest.xml:16:1-28:12
+MERGED from [com.google.android.gms:play-services-base:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-base-8.4.0.aar/893d31a6221271c73a516eb78f029952/AndroidManifest.xml:16:1-19:12
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-basement-8.4.0.aar/68a36fbbe0f4fbee55be561e5ad18f16/AndroidManifest.xml:16:1-26:12
+MERGED from [com.android.support:support-v4:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-v4-26.1.0.aar/733fc438bad8885f78348753cfd70a14/AndroidManifest.xml:17:1-31:12
+MERGED from [info.hoang8f:android-segmented:1.0.6] /home/akif/.gradle/caches/transforms-1/files-1.1/android-segmented-1.0.6.aar/148414cd03d6dafc8c5e397f2a849f81/AndroidManifest.xml:2:1-11:12
+MERGED from [com.crashlytics.sdk.android:crashlytics:2.8.0] /home/akif/.gradle/caches/transforms-1/files-1.1/crashlytics-2.8.0.aar/e2a61bdf063196b8cf9ab085e7941974/AndroidManifest.xml:2:1-19:12
+MERGED from [com.victor:lib:1.0.4] /home/akif/.gradle/caches/transforms-1/files-1.1/lib-1.0.4.aar/637ecbcf18c1c650c0736fad8b836b56/AndroidManifest.xml:2:1-16:12
+MERGED from [com.github.Raizlabs.DBFlow:dbflow:4.1.2] /home/akif/.gradle/caches/transforms-1/files-1.1/dbflow-4.1.2.aar/dd701ae1b93511ae2b21ef17ab8f22f8/AndroidManifest.xml:2:1-13:12
+MERGED from [com.github.Raizlabs.DBFlow:dbflow-kotlinextensions:4.1.2] /home/akif/.gradle/caches/transforms-1/files-1.1/dbflow-kotlinextensions-4.1.2.aar/e5e662645aee2080caf097bbfd028adc/AndroidManifest.xml:2:1-12:12
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /home/akif/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.0.2.aar/4b83f814b1fe82d09754025180698d68/AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:animated-vector-drawable:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.1.0.aar/1b3366f33f0449e5650350c9c58215a0/AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-vector-drawable:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-26.1.0.aar/940d5fdeac67a09a2b917bebddc844e0/AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:recyclerview-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-26.1.0.aar/4349114125d9fda0d6fb34dfb2440502/AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-fragment:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-fragment-26.1.0.aar/4deeebda9731e481492e6fcc2b115b84/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-core-ui:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-core-ui-26.1.0.aar/5c89d0c8a8057d03275e499f4973b649/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-media-compat:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/45f80cdef596c19bc7f307147fd60f1e/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-core-utils:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-core-utils-26.1.0.aar/1fffab7243e9cbaa53cd38340b791e62/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-compat:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/927bc986f91a64d16e8be5c1d55bd749/AndroidManifest.xml:17:1-31:12
+MERGED from [com.crashlytics.sdk.android:crashlytics-core:2.5.0] /home/akif/.gradle/caches/transforms-1/files-1.1/crashlytics-core-2.5.0.aar/fda4260df3650ddfd546044c7a323ff9/AndroidManifest.xml:45:1-56:12
+MERGED from [com.crashlytics.sdk.android:beta:1.2.7] /home/akif/.gradle/caches/transforms-1/files-1.1/beta-1.2.7.aar/f982a421a9416c2693ab3ef0582ac31c/AndroidManifest.xml:2:1-13:12
+MERGED from [com.crashlytics.sdk.android:answers:1.4.1] /home/akif/.gradle/caches/transforms-1/files-1.1/answers-1.4.1.aar/aa4981783abb98d03acb98db848a2ff4/AndroidManifest.xml:2:1-13:12
+MERGED from [io.fabric.sdk.android:fabric:1.4.1] /home/akif/.gradle/caches/transforms-1/files-1.1/fabric-1.4.1.aar/fb072aba5e1f38501110557809e1e8ff/AndroidManifest.xml:22:1-33:12
+MERGED from [android.arch.lifecycle:runtime:1.0.0] /home/akif/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/9a396496a6133f06dc65c457aaa3e3b4/AndroidManifest.xml:17:1-30:12
+INJECTED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:2:1-51:12
+INJECTED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:2:1-51:12
+INJECTED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:2:1-51:12
+	package
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:3:5-44
+		INJECTED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml
+		INJECTED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:2:1-51:12
+		INJECTED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:2:1-51:12
+		INJECTED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.INTERNET
+ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:5:5-67
+MERGED from [com.google.android.gms:play-services-maps:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-maps-8.4.0.aar/8a6fd2e1796f99b4192f11078a2b38f1/AndroidManifest.xml:21:5-66
+MERGED from [com.google.android.gms:play-services-maps:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-maps-8.4.0.aar/8a6fd2e1796f99b4192f11078a2b38f1/AndroidManifest.xml:21:5-66
+MERGED from [com.crashlytics.sdk.android:crashlytics:2.8.0] /home/akif/.gradle/caches/transforms-1/files-1.1/crashlytics-2.8.0.aar/e2a61bdf063196b8cf9ab085e7941974/AndroidManifest.xml:9:5-67
+MERGED from [com.crashlytics.sdk.android:crashlytics:2.8.0] /home/akif/.gradle/caches/transforms-1/files-1.1/crashlytics-2.8.0.aar/e2a61bdf063196b8cf9ab085e7941974/AndroidManifest.xml:9:5-67
+MERGED from [com.crashlytics.sdk.android:crashlytics-core:2.5.0] /home/akif/.gradle/caches/transforms-1/files-1.1/crashlytics-core-2.5.0.aar/fda4260df3650ddfd546044c7a323ff9/AndroidManifest.xml:52:5-67
+MERGED from [com.crashlytics.sdk.android:crashlytics-core:2.5.0] /home/akif/.gradle/caches/transforms-1/files-1.1/crashlytics-core-2.5.0.aar/fda4260df3650ddfd546044c7a323ff9/AndroidManifest.xml:52:5-67
+MERGED from [com.crashlytics.sdk.android:beta:1.2.7] /home/akif/.gradle/caches/transforms-1/files-1.1/beta-1.2.7.aar/f982a421a9416c2693ab3ef0582ac31c/AndroidManifest.xml:9:5-67
+MERGED from [com.crashlytics.sdk.android:beta:1.2.7] /home/akif/.gradle/caches/transforms-1/files-1.1/beta-1.2.7.aar/f982a421a9416c2693ab3ef0582ac31c/AndroidManifest.xml:9:5-67
+MERGED from [com.crashlytics.sdk.android:answers:1.4.1] /home/akif/.gradle/caches/transforms-1/files-1.1/answers-1.4.1.aar/aa4981783abb98d03acb98db848a2ff4/AndroidManifest.xml:9:5-67
+MERGED from [com.crashlytics.sdk.android:answers:1.4.1] /home/akif/.gradle/caches/transforms-1/files-1.1/answers-1.4.1.aar/aa4981783abb98d03acb98db848a2ff4/AndroidManifest.xml:9:5-67
+MERGED from [io.fabric.sdk.android:fabric:1.4.1] /home/akif/.gradle/caches/transforms-1/files-1.1/fabric-1.4.1.aar/fb072aba5e1f38501110557809e1e8ff/AndroidManifest.xml:29:5-67
+MERGED from [io.fabric.sdk.android:fabric:1.4.1] /home/akif/.gradle/caches/transforms-1/files-1.1/fabric-1.4.1.aar/fb072aba5e1f38501110557809e1e8ff/AndroidManifest.xml:29:5-67
+	android:name
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:5:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:6:5-79
+MERGED from [com.google.android.gms:play-services-maps:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-maps-8.4.0.aar/8a6fd2e1796f99b4192f11078a2b38f1/AndroidManifest.xml:20:5-78
+MERGED from [com.google.android.gms:play-services-maps:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-maps-8.4.0.aar/8a6fd2e1796f99b4192f11078a2b38f1/AndroidManifest.xml:20:5-78
+	android:name
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:6:22-76
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:7:5-79
+	android:name
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:7:22-76
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:8:5-81
+	android:name
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:8:22-78
+uses-permission#android.permission.CALL_PHONE
+ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:9:5-69
+	android:name
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:9:22-66
+application
+ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:11:5-50:19
+MERGED from [com.android.support:cardview-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/cardview-v7-26.1.0.aar/409844fc6c33be551f3ed436610aa0f1/AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:cardview-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/cardview-v7-26.1.0.aar/409844fc6c33be551f3ed436610aa0f1/AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:design:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/561bfcb0225de6a0026416cb0383a3b5/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:design:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/561bfcb0225de6a0026416cb0383a3b5/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:appcompat-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/fa48cf3bde33e0bc850132566dc4e9c8/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:appcompat-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/fa48cf3bde33e0bc850132566dc4e9c8/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:transition:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/transition-26.1.0.aar/1e54a5375bdc7b5d7b7ed25985762f0d/AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:transition:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/transition-26.1.0.aar/1e54a5375bdc7b5d7b7ed25985762f0d/AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-location:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-location-8.4.0.aar/a96443f14facd8690a2864c54c6c4759/AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-location:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-location-8.4.0.aar/a96443f14facd8690a2864c54c6c4759/AndroidManifest.xml:19:5-20
+MERGED from [com.google.android.gms:play-services-maps:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-maps-8.4.0.aar/8a6fd2e1796f99b4192f11078a2b38f1/AndroidManifest.xml:27:5-20
+MERGED from [com.google.android.gms:play-services-maps:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-maps-8.4.0.aar/8a6fd2e1796f99b4192f11078a2b38f1/AndroidManifest.xml:27:5-20
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-basement-8.4.0.aar/68a36fbbe0f4fbee55be561e5ad18f16/AndroidManifest.xml:20:5-24:19
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-basement-8.4.0.aar/68a36fbbe0f4fbee55be561e5ad18f16/AndroidManifest.xml:20:5-24:19
+MERGED from [com.android.support:support-v4:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-v4-26.1.0.aar/733fc438bad8885f78348753cfd70a14/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-v4:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-v4-26.1.0.aar/733fc438bad8885f78348753cfd70a14/AndroidManifest.xml:25:5-29:19
+MERGED from [com.crashlytics.sdk.android:crashlytics:2.8.0] /home/akif/.gradle/caches/transforms-1/files-1.1/crashlytics-2.8.0.aar/e2a61bdf063196b8cf9ab085e7941974/AndroidManifest.xml:11:5-17:19
+MERGED from [com.crashlytics.sdk.android:crashlytics:2.8.0] /home/akif/.gradle/caches/transforms-1/files-1.1/crashlytics-2.8.0.aar/e2a61bdf063196b8cf9ab085e7941974/AndroidManifest.xml:11:5-17:19
+MERGED from [com.victor:lib:1.0.4] /home/akif/.gradle/caches/transforms-1/files-1.1/lib-1.0.4.aar/637ecbcf18c1c650c0736fad8b836b56/AndroidManifest.xml:11:5-14:19
+MERGED from [com.victor:lib:1.0.4] /home/akif/.gradle/caches/transforms-1/files-1.1/lib-1.0.4.aar/637ecbcf18c1c650c0736fad8b836b56/AndroidManifest.xml:11:5-14:19
+MERGED from [com.github.Raizlabs.DBFlow:dbflow:4.1.2] /home/akif/.gradle/caches/transforms-1/files-1.1/dbflow-4.1.2.aar/dd701ae1b93511ae2b21ef17ab8f22f8/AndroidManifest.xml:11:5-20
+MERGED from [com.github.Raizlabs.DBFlow:dbflow:4.1.2] /home/akif/.gradle/caches/transforms-1/files-1.1/dbflow-4.1.2.aar/dd701ae1b93511ae2b21ef17ab8f22f8/AndroidManifest.xml:11:5-20
+MERGED from [com.github.Raizlabs.DBFlow:dbflow-kotlinextensions:4.1.2] /home/akif/.gradle/caches/transforms-1/files-1.1/dbflow-kotlinextensions-4.1.2.aar/e5e662645aee2080caf097bbfd028adc/AndroidManifest.xml:10:5-20
+MERGED from [com.github.Raizlabs.DBFlow:dbflow-kotlinextensions:4.1.2] /home/akif/.gradle/caches/transforms-1/files-1.1/dbflow-kotlinextensions-4.1.2.aar/e5e662645aee2080caf097bbfd028adc/AndroidManifest.xml:10:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /home/akif/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.0.2.aar/4b83f814b1fe82d09754025180698d68/AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /home/akif/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.0.2.aar/4b83f814b1fe82d09754025180698d68/AndroidManifest.xml:9:5-20
+MERGED from [com.android.support:animated-vector-drawable:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.1.0.aar/1b3366f33f0449e5650350c9c58215a0/AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:animated-vector-drawable:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.1.0.aar/1b3366f33f0449e5650350c9c58215a0/AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:support-vector-drawable:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-26.1.0.aar/940d5fdeac67a09a2b917bebddc844e0/AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:support-vector-drawable:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-26.1.0.aar/940d5fdeac67a09a2b917bebddc844e0/AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:recyclerview-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-26.1.0.aar/4349114125d9fda0d6fb34dfb2440502/AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:recyclerview-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-26.1.0.aar/4349114125d9fda0d6fb34dfb2440502/AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:support-fragment:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-fragment-26.1.0.aar/4deeebda9731e481492e6fcc2b115b84/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-fragment:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-fragment-26.1.0.aar/4deeebda9731e481492e6fcc2b115b84/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-core-ui:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-core-ui-26.1.0.aar/5c89d0c8a8057d03275e499f4973b649/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-core-ui:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-core-ui-26.1.0.aar/5c89d0c8a8057d03275e499f4973b649/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-media-compat:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/45f80cdef596c19bc7f307147fd60f1e/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-media-compat:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/45f80cdef596c19bc7f307147fd60f1e/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-core-utils:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-core-utils-26.1.0.aar/1fffab7243e9cbaa53cd38340b791e62/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-core-utils:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-core-utils-26.1.0.aar/1fffab7243e9cbaa53cd38340b791e62/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-compat:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/927bc986f91a64d16e8be5c1d55bd749/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-compat:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/927bc986f91a64d16e8be5c1d55bd749/AndroidManifest.xml:25:5-29:19
+MERGED from [com.crashlytics.sdk.android:crashlytics-core:2.5.0] /home/akif/.gradle/caches/transforms-1/files-1.1/crashlytics-core-2.5.0.aar/fda4260df3650ddfd546044c7a323ff9/AndroidManifest.xml:54:5-20
+MERGED from [com.crashlytics.sdk.android:crashlytics-core:2.5.0] /home/akif/.gradle/caches/transforms-1/files-1.1/crashlytics-core-2.5.0.aar/fda4260df3650ddfd546044c7a323ff9/AndroidManifest.xml:54:5-20
+MERGED from [com.crashlytics.sdk.android:beta:1.2.7] /home/akif/.gradle/caches/transforms-1/files-1.1/beta-1.2.7.aar/f982a421a9416c2693ab3ef0582ac31c/AndroidManifest.xml:11:5-20
+MERGED from [com.crashlytics.sdk.android:beta:1.2.7] /home/akif/.gradle/caches/transforms-1/files-1.1/beta-1.2.7.aar/f982a421a9416c2693ab3ef0582ac31c/AndroidManifest.xml:11:5-20
+MERGED from [com.crashlytics.sdk.android:answers:1.4.1] /home/akif/.gradle/caches/transforms-1/files-1.1/answers-1.4.1.aar/aa4981783abb98d03acb98db848a2ff4/AndroidManifest.xml:11:5-20
+MERGED from [com.crashlytics.sdk.android:answers:1.4.1] /home/akif/.gradle/caches/transforms-1/files-1.1/answers-1.4.1.aar/aa4981783abb98d03acb98db848a2ff4/AndroidManifest.xml:11:5-20
+MERGED from [io.fabric.sdk.android:fabric:1.4.1] /home/akif/.gradle/caches/transforms-1/files-1.1/fabric-1.4.1.aar/fb072aba5e1f38501110557809e1e8ff/AndroidManifest.xml:31:5-20
+MERGED from [io.fabric.sdk.android:fabric:1.4.1] /home/akif/.gradle/caches/transforms-1/files-1.1/fabric-1.4.1.aar/fb072aba5e1f38501110557809e1e8ff/AndroidManifest.xml:31:5-20
+MERGED from [android.arch.lifecycle:runtime:1.0.0] /home/akif/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/9a396496a6133f06dc65c457aaa3e3b4/AndroidManifest.xml:24:5-28:19
+MERGED from [android.arch.lifecycle:runtime:1.0.0] /home/akif/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/9a396496a6133f06dc65c457aaa3e3b4/AndroidManifest.xml:24:5-28:19
+	android:supportsRtl
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:17:9-35
+	android:label
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:15:9-41
+	android:roundIcon
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:16:9-57
+	android:icon
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:14:9-46
+	android:allowBackup
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:13:9-35
+	android:theme
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:18:9-54
+	android:name
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:12:9-41
+activity#com.quixom.apps.weatherstream.MainActivity
+ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:20:9-22:52
+	android:screenOrientation
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:22:13-49
+	android:name
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:21:13-41
+meta-data#com.google.android.geo.API_KEY
+ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:24:9-26:70
+	android:value
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:26:13-67
+	android:name
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:25:13-58
+activity#com.quixom.apps.weatherstream.activity.SplashActivity
+ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:28:9-36:20
+	android:screenOrientation
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:30:13-49
+	android:theme
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:31:13-55
+	android:name
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:29:13-52
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:32:13-35:29
+action#android.intent.action.MAIN
+ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:33:17-69
+	android:name
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:33:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:34:17-77
+	android:name
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:34:27-74
+receiver#com.quixom.apps.weatherstream.widgets.WeatherStreamAppWidget
+ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:38:9-46:20
+	android:name
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:38:19-65
+intent-filter#android.appwidget.action.APPWIDGET_UPDATE
+ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:39:13-41:29
+action#android.appwidget.action.APPWIDGET_UPDATE
+ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:40:17-84
+	android:name
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:40:25-81
+meta-data#android.appwidget.provider
+ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:43:13-45:65
+	android:resource
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:45:17-62
+	android:name
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:44:17-58
+service#com.quixom.apps.weatherstream.services.WeatherWidgetService
+ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:48:9-66
+	android:name
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml:48:18-63
+uses-sdk
+INJECTED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml
+INJECTED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml
+MERGED from [com.android.support:cardview-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/cardview-v7-26.1.0.aar/409844fc6c33be551f3ed436610aa0f1/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/cardview-v7-26.1.0.aar/409844fc6c33be551f3ed436610aa0f1/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:design:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/561bfcb0225de6a0026416cb0383a3b5/AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:design:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/561bfcb0225de6a0026416cb0383a3b5/AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:appcompat-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/fa48cf3bde33e0bc850132566dc4e9c8/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:appcompat-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/fa48cf3bde33e0bc850132566dc4e9c8/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:transition:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/transition-26.1.0.aar/1e54a5375bdc7b5d7b7ed25985762f0d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/transition-26.1.0.aar/1e54a5375bdc7b5d7b7ed25985762f0d/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-location:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-location-8.4.0.aar/a96443f14facd8690a2864c54c6c4759/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-location:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-location-8.4.0.aar/a96443f14facd8690a2864c54c6c4759/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-maps:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-maps-8.4.0.aar/8a6fd2e1796f99b4192f11078a2b38f1/AndroidManifest.xml:26:5-42
+MERGED from [com.google.android.gms:play-services-maps:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-maps-8.4.0.aar/8a6fd2e1796f99b4192f11078a2b38f1/AndroidManifest.xml:26:5-42
+MERGED from [com.google.android.gms:play-services-base:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-base-8.4.0.aar/893d31a6221271c73a516eb78f029952/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-base:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-base-8.4.0.aar/893d31a6221271c73a516eb78f029952/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-basement-8.4.0.aar/68a36fbbe0f4fbee55be561e5ad18f16/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-basement:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-basement-8.4.0.aar/68a36fbbe0f4fbee55be561e5ad18f16/AndroidManifest.xml:18:5-42
+MERGED from [com.android.support:support-v4:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-v4-26.1.0.aar/733fc438bad8885f78348753cfd70a14/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-v4:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-v4-26.1.0.aar/733fc438bad8885f78348753cfd70a14/AndroidManifest.xml:21:5-23:54
+MERGED from [info.hoang8f:android-segmented:1.0.6] /home/akif/.gradle/caches/transforms-1/files-1.1/android-segmented-1.0.6.aar/148414cd03d6dafc8c5e397f2a849f81/AndroidManifest.xml:7:5-9:41
+MERGED from [info.hoang8f:android-segmented:1.0.6] /home/akif/.gradle/caches/transforms-1/files-1.1/android-segmented-1.0.6.aar/148414cd03d6dafc8c5e397f2a849f81/AndroidManifest.xml:7:5-9:41
+MERGED from [com.crashlytics.sdk.android:crashlytics:2.8.0] /home/akif/.gradle/caches/transforms-1/files-1.1/crashlytics-2.8.0.aar/e2a61bdf063196b8cf9ab085e7941974/AndroidManifest.xml:7:5-43
+MERGED from [com.crashlytics.sdk.android:crashlytics:2.8.0] /home/akif/.gradle/caches/transforms-1/files-1.1/crashlytics-2.8.0.aar/e2a61bdf063196b8cf9ab085e7941974/AndroidManifest.xml:7:5-43
+MERGED from [com.victor:lib:1.0.4] /home/akif/.gradle/caches/transforms-1/files-1.1/lib-1.0.4.aar/637ecbcf18c1c650c0736fad8b836b56/AndroidManifest.xml:7:5-9:41
+MERGED from [com.victor:lib:1.0.4] /home/akif/.gradle/caches/transforms-1/files-1.1/lib-1.0.4.aar/637ecbcf18c1c650c0736fad8b836b56/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.Raizlabs.DBFlow:dbflow:4.1.2] /home/akif/.gradle/caches/transforms-1/files-1.1/dbflow-4.1.2.aar/dd701ae1b93511ae2b21ef17ab8f22f8/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.Raizlabs.DBFlow:dbflow:4.1.2] /home/akif/.gradle/caches/transforms-1/files-1.1/dbflow-4.1.2.aar/dd701ae1b93511ae2b21ef17ab8f22f8/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.Raizlabs.DBFlow:dbflow-kotlinextensions:4.1.2] /home/akif/.gradle/caches/transforms-1/files-1.1/dbflow-kotlinextensions-4.1.2.aar/e5e662645aee2080caf097bbfd028adc/AndroidManifest.xml:6:5-8:41
+MERGED from [com.github.Raizlabs.DBFlow:dbflow-kotlinextensions:4.1.2] /home/akif/.gradle/caches/transforms-1/files-1.1/dbflow-kotlinextensions-4.1.2.aar/e5e662645aee2080caf097bbfd028adc/AndroidManifest.xml:6:5-8:41
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /home/akif/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.0.2.aar/4b83f814b1fe82d09754025180698d68/AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /home/akif/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.0.2.aar/4b83f814b1fe82d09754025180698d68/AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:animated-vector-drawable:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.1.0.aar/1b3366f33f0449e5650350c9c58215a0/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.1.0.aar/1b3366f33f0449e5650350c9c58215a0/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-26.1.0.aar/940d5fdeac67a09a2b917bebddc844e0/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-26.1.0.aar/940d5fdeac67a09a2b917bebddc844e0/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-26.1.0.aar/4349114125d9fda0d6fb34dfb2440502/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-26.1.0.aar/4349114125d9fda0d6fb34dfb2440502/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-fragment-26.1.0.aar/4deeebda9731e481492e6fcc2b115b84/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-fragment:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-fragment-26.1.0.aar/4deeebda9731e481492e6fcc2b115b84/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-core-ui:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-core-ui-26.1.0.aar/5c89d0c8a8057d03275e499f4973b649/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-ui:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-core-ui-26.1.0.aar/5c89d0c8a8057d03275e499f4973b649/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-media-compat:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/45f80cdef596c19bc7f307147fd60f1e/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-media-compat:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/45f80cdef596c19bc7f307147fd60f1e/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-utils:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-core-utils-26.1.0.aar/1fffab7243e9cbaa53cd38340b791e62/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-core-utils:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-core-utils-26.1.0.aar/1fffab7243e9cbaa53cd38340b791e62/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-compat:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/927bc986f91a64d16e8be5c1d55bd749/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-compat:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/927bc986f91a64d16e8be5c1d55bd749/AndroidManifest.xml:21:5-23:58
+MERGED from [com.crashlytics.sdk.android:crashlytics-core:2.5.0] /home/akif/.gradle/caches/transforms-1/files-1.1/crashlytics-core-2.5.0.aar/fda4260df3650ddfd546044c7a323ff9/AndroidManifest.xml:50:5-43
+MERGED from [com.crashlytics.sdk.android:crashlytics-core:2.5.0] /home/akif/.gradle/caches/transforms-1/files-1.1/crashlytics-core-2.5.0.aar/fda4260df3650ddfd546044c7a323ff9/AndroidManifest.xml:50:5-43
+MERGED from [com.crashlytics.sdk.android:beta:1.2.7] /home/akif/.gradle/caches/transforms-1/files-1.1/beta-1.2.7.aar/f982a421a9416c2693ab3ef0582ac31c/AndroidManifest.xml:7:5-43
+MERGED from [com.crashlytics.sdk.android:beta:1.2.7] /home/akif/.gradle/caches/transforms-1/files-1.1/beta-1.2.7.aar/f982a421a9416c2693ab3ef0582ac31c/AndroidManifest.xml:7:5-43
+MERGED from [com.crashlytics.sdk.android:answers:1.4.1] /home/akif/.gradle/caches/transforms-1/files-1.1/answers-1.4.1.aar/aa4981783abb98d03acb98db848a2ff4/AndroidManifest.xml:7:5-43
+MERGED from [com.crashlytics.sdk.android:answers:1.4.1] /home/akif/.gradle/caches/transforms-1/files-1.1/answers-1.4.1.aar/aa4981783abb98d03acb98db848a2ff4/AndroidManifest.xml:7:5-43
+MERGED from [io.fabric.sdk.android:fabric:1.4.1] /home/akif/.gradle/caches/transforms-1/files-1.1/fabric-1.4.1.aar/fb072aba5e1f38501110557809e1e8ff/AndroidManifest.xml:27:5-43
+MERGED from [io.fabric.sdk.android:fabric:1.4.1] /home/akif/.gradle/caches/transforms-1/files-1.1/fabric-1.4.1.aar/fb072aba5e1f38501110557809e1e8ff/AndroidManifest.xml:27:5-43
+MERGED from [android.arch.lifecycle:runtime:1.0.0] /home/akif/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/9a396496a6133f06dc65c457aaa3e3b4/AndroidManifest.xml:20:5-22:41
+MERGED from [android.arch.lifecycle:runtime:1.0.0] /home/akif/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/9a396496a6133f06dc65c457aaa3e3b4/AndroidManifest.xml:20:5-22:41
+INJECTED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml
+INJECTED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml
+	tools:overrideLibrary
+		ADDED from [com.android.support:design:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/561bfcb0225de6a0026416cb0383a3b5/AndroidManifest.xml:23:9-59
+	android:targetSdkVersion
+		INJECTED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml
+		INJECTED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml
+		ADDED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml
+		INJECTED from /home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/src/main/AndroidManifest.xml
+meta-data#android.support.VERSION
+ADDED from [com.android.support:cardview-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/cardview-v7-26.1.0.aar/409844fc6c33be551f3ed436610aa0f1/AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:design:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/561bfcb0225de6a0026416cb0383a3b5/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:design:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/561bfcb0225de6a0026416cb0383a3b5/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:appcompat-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/fa48cf3bde33e0bc850132566dc4e9c8/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:appcompat-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/fa48cf3bde33e0bc850132566dc4e9c8/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:transition:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/transition-26.1.0.aar/1e54a5375bdc7b5d7b7ed25985762f0d/AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:transition:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/transition-26.1.0.aar/1e54a5375bdc7b5d7b7ed25985762f0d/AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:support-v4:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-v4-26.1.0.aar/733fc438bad8885f78348753cfd70a14/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-v4:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-v4-26.1.0.aar/733fc438bad8885f78348753cfd70a14/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:animated-vector-drawable:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.1.0.aar/1b3366f33f0449e5650350c9c58215a0/AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:animated-vector-drawable:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.1.0.aar/1b3366f33f0449e5650350c9c58215a0/AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:support-vector-drawable:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-26.1.0.aar/940d5fdeac67a09a2b917bebddc844e0/AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:support-vector-drawable:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-26.1.0.aar/940d5fdeac67a09a2b917bebddc844e0/AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:recyclerview-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-26.1.0.aar/4349114125d9fda0d6fb34dfb2440502/AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:recyclerview-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-26.1.0.aar/4349114125d9fda0d6fb34dfb2440502/AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:support-fragment:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-fragment-26.1.0.aar/4deeebda9731e481492e6fcc2b115b84/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-fragment:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-fragment-26.1.0.aar/4deeebda9731e481492e6fcc2b115b84/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-core-ui:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-core-ui-26.1.0.aar/5c89d0c8a8057d03275e499f4973b649/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-core-ui:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-core-ui-26.1.0.aar/5c89d0c8a8057d03275e499f4973b649/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-media-compat:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/45f80cdef596c19bc7f307147fd60f1e/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-media-compat:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/45f80cdef596c19bc7f307147fd60f1e/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-core-utils:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-core-utils-26.1.0.aar/1fffab7243e9cbaa53cd38340b791e62/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-core-utils:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-core-utils-26.1.0.aar/1fffab7243e9cbaa53cd38340b791e62/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-compat:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/927bc986f91a64d16e8be5c1d55bd749/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-compat:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/927bc986f91a64d16e8be5c1d55bd749/AndroidManifest.xml:26:9-28:38
+	android:value
+		ADDED from [com.android.support:cardview-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/cardview-v7-26.1.0.aar/409844fc6c33be551f3ed436610aa0f1/AndroidManifest.xml:25:13-35
+	android:name
+		ADDED from [com.android.support:cardview-v7:26.1.0] /home/akif/.gradle/caches/transforms-1/files-1.1/cardview-v7-26.1.0.aar/409844fc6c33be551f3ed436610aa0f1/AndroidManifest.xml:24:13-51
+uses-feature#0x00020000
+ADDED from [com.google.android.gms:play-services-maps:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-maps-8.4.0.aar/8a6fd2e1796f99b4192f11078a2b38f1/AndroidManifest.xml:22:5-24:33
+	android:glEsVersion
+		ADDED from [com.google.android.gms:play-services-maps:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-maps-8.4.0.aar/8a6fd2e1796f99b4192f11078a2b38f1/AndroidManifest.xml:23:8-40
+	android:required
+		ADDED from [com.google.android.gms:play-services-maps:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-maps-8.4.0.aar/8a6fd2e1796f99b4192f11078a2b38f1/AndroidManifest.xml:24:8-31
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-basement-8.4.0.aar/68a36fbbe0f4fbee55be561e5ad18f16/AndroidManifest.xml:21:9-23:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-basement-8.4.0.aar/68a36fbbe0f4fbee55be561e5ad18f16/AndroidManifest.xml:23:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:8.4.0] /home/akif/.gradle/caches/transforms-1/files-1.1/play-services-basement-8.4.0.aar/68a36fbbe0f4fbee55be561e5ad18f16/AndroidManifest.xml:22:13-58
+provider#com.crashlytics.android.CrashlyticsInitProvider
+ADDED from [com.crashlytics.sdk.android:crashlytics:2.8.0] /home/akif/.gradle/caches/transforms-1/files-1.1/crashlytics-2.8.0.aar/e2a61bdf063196b8cf9ab085e7941974/AndroidManifest.xml:12:9-16:39
+	android:authorities
+		ADDED from [com.crashlytics.sdk.android:crashlytics:2.8.0] /home/akif/.gradle/caches/transforms-1/files-1.1/crashlytics-2.8.0.aar/e2a61bdf063196b8cf9ab085e7941974/AndroidManifest.xml:14:13-75
+	android:exported
+		ADDED from [com.crashlytics.sdk.android:crashlytics:2.8.0] /home/akif/.gradle/caches/transforms-1/files-1.1/crashlytics-2.8.0.aar/e2a61bdf063196b8cf9ab085e7941974/AndroidManifest.xml:15:13-37
+	android:initOrder
+		ADDED from [com.crashlytics.sdk.android:crashlytics:2.8.0] /home/akif/.gradle/caches/transforms-1/files-1.1/crashlytics-2.8.0.aar/e2a61bdf063196b8cf9ab085e7941974/AndroidManifest.xml:16:13-36
+	android:name
+		ADDED from [com.crashlytics.sdk.android:crashlytics:2.8.0] /home/akif/.gradle/caches/transforms-1/files-1.1/crashlytics-2.8.0.aar/e2a61bdf063196b8cf9ab085e7941974/AndroidManifest.xml:13:13-75
+meta-data#android.arch.lifecycle.VERSION
+ADDED from [android.arch.lifecycle:runtime:1.0.0] /home/akif/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/9a396496a6133f06dc65c457aaa3e3b4/AndroidManifest.xml:25:9-27:47
+	android:value
+		ADDED from [android.arch.lifecycle:runtime:1.0.0] /home/akif/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/9a396496a6133f06dc65c457aaa3e3b4/AndroidManifest.xml:27:13-44
+	android:name
+		ADDED from [android.arch.lifecycle:runtime:1.0.0] /home/akif/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/9a396496a6133f06dc65c457aaa3e3b4/AndroidManifest.xml:26:13-58

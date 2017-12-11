@@ -1,0 +1,60 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/akif/Documents/Android/Android Projects/Weather Stream 2017/WeatherStream/app/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-hy-rAM/values-hy-rAM.xml",
+            "map": [
+                {
+                    "source": "/home/akif/.gradle/caches/transforms-1/files-1.1/play-services-base-8.4.0.aar/893d31a6221271c73a516eb78f029952/res/values-hy-rAM/base_strings.xml",
+                    "from": {
+                        "startLines": "24,10,9,8,7,5,6,4,19,18,17,16,3,28,27,26,25,21,20,22,12,11,15,14,13,23,29,30",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "3618,1380,1179,1043,904,451,677,313,2840,2718,2539,2419,170,4338,4206,4036,3913,3139,3008,3414,1655,1517,2194,2054,1858,3524,4506,4603",
+                        "endColumns": "294,136,200,135,138,225,226,137,167,121,178,119,142,167,131,169,122,274,130,109,202,137,224,139,195,93,96,111",
+                        "endOffsets": "3908,1512,1375,1174,1038,672,899,446,3003,2835,2713,2534,308,4501,4333,4201,4031,3409,3134,3519,1853,1650,2414,2189,2049,3613,4598,4710"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,20,21,22,23,24,25,26,27,28,29,30",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,396,533,730,866,1005,1227,1450,1588,1756,1878,2057,2177,2320,2488,2620,2790,3172,3443,3574,3684,3883,4021,4242,4382,4578,4672,4769",
+                        "endColumns": "290,136,196,135,138,221,222,137,167,121,178,119,142,167,131,169,122,270,130,109,198,137,220,139,195,93,96,111",
+                        "endOffsets": "391,528,725,861,1000,1222,1445,1583,1751,1873,2052,2172,2315,2483,2615,2785,2908,3438,3569,3679,3878,4016,4237,4377,4573,4667,4764,4876"
+                    }
+                },
+                {
+                    "source": "/home/akif/.gradle/caches/transforms-1/files-1.1/play-services-location-8.4.0.aar/a96443f14facd8690a2864c54c6c4759/res/values-hy-rAM/location_strings.xml",
+                    "from": {
+                        "startLines": "6,5",
+                        "startColumns": "4,4",
+                        "startOffsets": "327,230",
+                        "endColumns": "110,96",
+                        "endOffsets": "433,322"
+                    },
+                    "to": {
+                        "startLines": "31,32",
+                        "startColumns": "4,4",
+                        "startOffsets": "4881,4992",
+                        "endColumns": "110,96",
+                        "endOffsets": "4987,5084"
+                    }
+                },
+                {
+                    "source": "/home/akif/.gradle/caches/transforms-1/files-1.1/play-services-basement-8.4.0.aar/68a36fbbe0f4fbee55be561e5ad18f16/res/values-hy-rAM/common_strings.xml",
+                    "from": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "170",
+                        "endColumns": "262",
+                        "endOffsets": "428"
+                    },
+                    "to": {
+                        "startLines": "19",
+                        "startColumns": "4",
+                        "startOffsets": "2913",
+                        "endColumns": "258",
+                        "endOffsets": "3167"
+                    }
+                }
+            ]
+        }
+    ]
+}
