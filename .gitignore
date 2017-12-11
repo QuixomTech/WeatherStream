@@ -7,4 +7,5 @@
 /build
 /app/release
 /app/build
-
+app/src/main/res/values/key.xml
+app/fabric.properties
