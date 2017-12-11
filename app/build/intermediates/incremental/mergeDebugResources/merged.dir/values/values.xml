@@ -942,7 +942,7 @@
     <string name="clear_data_dialog_heading">Are you sure want to clear search history?</string>
     <string name="clear_search">Clear search</string>
     <string name="close">Close</string>
-    <string name="com.crashlytics.android.build_id" ns1:ignore="UnusedResources,TypographyDashes" translatable="false">adc13c63-bbaf-4d5d-a837-9e0b7f897f77</string>
+    <string name="com.crashlytics.android.build_id" ns1:ignore="UnusedResources,TypographyDashes" translatable="false">4bf93948-35d0-4489-9137-b2551de52584</string>
     <string name="common_google_play_services_api_unavailable_text"><ns2:g id="app_name">%1$s</ns2:g> requires one or more Google Play services that are not currently available. Please contact the developer for assistance.</string>
     <string msgid="2523291102206661146" name="common_google_play_services_enable_button">Enable Google Play services</string>
     <string msgid="227660514972886228" name="common_google_play_services_enable_text"><ns2:g id="app_name">%1$s</ns2:g> won\'t work unless you enable Google Play services.</string>
