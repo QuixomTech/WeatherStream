@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
 
     var slidingMenuLeft: SlidingMenu? = null
     var slidingMenuRight: SlidingMenu? = null
+
     private var fragmentContainer: FrameLayout? = null
     private var fragmentUtil: FragmentUtil? = null
     lateinit var preferenceUtil: PreferenceUtil
