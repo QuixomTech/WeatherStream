@@ -23,11 +23,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${GoogleAutoCompletePlaceKey}" />
-
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="${FabricApiKeyWS}" />
+            android:value="@string/google_auto_complete_place_key" />
 
         <activity
             android:name=".activity.SplashActivity"

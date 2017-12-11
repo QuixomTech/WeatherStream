@@ -19,7 +19,13 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
--ignorewarnings
+
 -keep class * {
    public private *;
 }
+-ignorewarnings
+#-keep class com.raizlabs.android.dbflow.** { *; }
+#-keep class com.myproject.db.models.** { *; }
+#-keep class * extends com.raizlabs.android.dbflow.config.DatabaseHolder { *; }
+#-keep class com.raizlabs.android.dbflow.config.GeneratedDatabaseHolder
+#-keep class * extends com.raizlabs.android.dbflow.config.BaseDatabaseDefinition { *; }

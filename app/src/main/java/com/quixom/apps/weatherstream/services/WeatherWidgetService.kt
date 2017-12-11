@@ -74,7 +74,7 @@ class WeatherWidgetService : Service() {
             }
         }
         // schedule the task to run starting now and then every half-an-hour...
-        timer.schedule(hourlyTask, 0L, 1800000)
+        timer.schedule(hourlyTask, 0L, 5400000)
 
         return START_STICKY
     }
@@ -139,7 +139,6 @@ class WeatherWidgetService : Service() {
                                     inWeatherDt.save()
                                 }
 
-                                println("Search api called successfully!!!")
                                 callWeatherForecasting(lat, lon)
                             }
                         }
