@@ -8,7 +8,7 @@
 Weather Stream is your pocket weather guide irrespective of your location.
 
 
-###### App available on the Play store you can refer it for how can it work.
+###### App available on the Play store you can refer it for how it's work.
 
 *[![Play Store Badge](https://developer.android.com/images/brand/en_app_rgb_wo_60.png)](https://play.google.com/store/apps/details?id=com.quixom.apps.weatherstream)* 
 
