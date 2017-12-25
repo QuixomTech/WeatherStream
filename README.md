@@ -2,7 +2,7 @@
 
 [![Awesome Kotlin Badge](https://kotlin.link/awesome-kotlin.svg)](https://github.com/KotlinBy/awesome-kotlin)
 [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-Weather%20Stream-green.svg?style=flat )]( https://android-arsenal.com/details/1/6551 )
-[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/vipulasri/Timeline-View/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/QuixomTech/WeatherStream/blob/master/LICENSE)
 
 # Weather Stream
 Weather Stream is your pocket weather guide irrespective of your location.
