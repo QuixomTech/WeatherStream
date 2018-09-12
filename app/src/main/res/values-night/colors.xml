@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#101821</color>
+    <color name="colorPrimaryDark">#111B25</color>
+    <color name="colorAccent">#222a41</color>
+
+    <!-- New theme -->
+    <color name="blue">#192533</color>
+    <color name="solid_blue">#F9FAFA</color>
+    <color name="dark_blue">#F9FAFA</color>
+    <color name="sky_blue">#29ccff</color>
+    <color name="yellow">#ffc107</color>
+    <color name="app_background">#111B25</color>
+    <color name="orange">#f5490f</color>
+    <color name="azure_white">#F9FAFA</color>
+    <color name="light_gray">#141F2B</color>
+    <color name="gray">#141F2B</color>
+    <color name="font_primary">#f9f9f9</color>
+    <color name="font_secondary">#ececec</color>
+    <color name="dark_gray_trans">#92d2d2d2</color>
+
+</resources>

@@ -1,11 +1,13 @@
 package com.quixom.apps.weatherstream
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.content.ActivityNotFoundException
 import android.content.ComponentName
 import android.content.Intent
+import android.graphics.drawable.AnimatedVectorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -27,6 +29,7 @@ import com.quixom.apps.weatherstream.adapters.LocationHistoryAdapter
 import com.quixom.apps.weatherstream.dbconfig.UpgradeData
 import com.quixom.apps.weatherstream.fragments.AboutAppFragment
 import com.quixom.apps.weatherstream.fragments.MainFragment
+import com.quixom.apps.weatherstream.helper.ThemeHelper
 import com.quixom.apps.weatherstream.model.LocationSearchHistory
 import com.quixom.apps.weatherstream.model.WeatherData
 import com.quixom.apps.weatherstream.model.WeatherForecastData
@@ -48,31 +51,27 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
 
     var slidingMenuLeft: SlidingMenu? = null
     var slidingMenuRight: SlidingMenu? = null
-
     private var fragmentContainer: FrameLayout? = null
     private var fragmentUtil: FragmentUtil? = null
     lateinit var preferenceUtil: PreferenceUtil
     lateinit var errorHandler: com.quixom.apps.weatherstream.webservice.ErrorHandler
-    var lists = ArrayList<LocationSearchHistory>()
+    private var lists = ArrayList<LocationSearchHistory>()
 
     @TargetApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         preferenceUtil = PreferenceUtil(this@MainActivity)
-        ThemeSwitcher.onActivityCreateSetTheme(this)
 
-        if (preferenceUtil.getBooleanPref(preferenceUtil.IS_APP_THEME_DAY)) {
-            this@MainActivity.setTheme(R.style.AppTheme)
-        } else {
-            this@MainActivity.setTheme(R.style.NightModeTheme)
-        }
         setContentView(R.layout.activity_main)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val decor = window.decorView
+            if (!ThemeHelper.isNightModeEnabled(baseContext, false))
+                decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
+
         errorHandler = com.quixom.apps.weatherstream.webservice.ErrorHandler(this@MainActivity)
-
         fragmentUtil = FragmentUtil(this@MainActivity)
-
         fragmentContainer = findViewById(R.id.fl_fragment_container)
 
         initSlideMenuLeft()
@@ -112,6 +111,15 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         // Weather data provider
         tvWeatherDataProvider.setOnClickListener(this)
 
+        // Share application
+        tvShareApp.setOnClickListener(this)
+
+        // Feedback
+        tvFeedback.setOnClickListener(this)
+
+        // Try other Apps
+        tvCheckOtherApps.setOnClickListener(this)
+
         /** Launch Main Fragment */
         fragmentUtil!!.clearBackStackFragmets()
         fragmentUtil!!.replaceFragment(MainFragment(), false, false)
@@ -125,11 +133,8 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         if (weatherData == null && intent.extras != null && intent.extras != null) {
             val latitude: Double = intent.extras.getDouble(KeyUtil.LATITUDE_VALUE)
             val longitude: Double = intent.extras.getDouble(KeyUtil.LONGITUDE_VALUE)
-            if (latitude != 0.0 && longitude != 0.0) {
-                callSearchLocationApi(latitude, longitude)
-            } else {
-                WeatherStreamCallbackManager.updateHomeScreenData(1)
-            }
+            if (latitude != 0.0 && longitude != 0.0) callSearchLocationApi(latitude, longitude)
+            else WeatherStreamCallbackManager.updateHomeScreenData(1)
         }
 
 
@@ -141,7 +146,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             for (searchedLC in searchedLocation) {
                 lists.add(LocationSearchHistory(0, searchedLC.cityName, searchedLC.countyName, searchedLC.weatherType, searchedLC.temperature))
             }
-            Collections.reverse(lists)
+            lists.reverse()
             rvMenuLocationList.adapter = LocationHistoryAdapter(preferenceUtil, lists, this@MainActivity)
         } else {
             tvRecentSearch.visibility = View.GONE
@@ -151,14 +156,8 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
 
     override fun onBackPressed() {
         super.onBackPressed()
-
-        if (slidingMenuLeft?.isMenuShowing!!) {
-            slidingMenuLeft?.toggle()
-        }
-
-        if (slidingMenuRight?.isMenuShowing!!) {
-            slidingMenuRight?.toggle()
-        }
+        if (slidingMenuLeft?.isMenuShowing!!) slidingMenuLeft?.toggle()
+        if (slidingMenuRight?.isMenuShowing!!) slidingMenuRight?.toggle()
     }
 
     override fun onDestroy() {
@@ -173,48 +172,31 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         }
     }
 
-    /***
-     * Method for initialise slide menu drawer (Setting)
-     * */
-    fun initSlideMenuLeft() {
-
+    /**** Method for initialise slide menu drawer (Setting) **/
+    private fun initSlideMenuLeft() {
         slidingMenuLeft = SlidingMenu(this)
         slidingMenuLeft?.mode = SlidingMenu.LEFT
-        slidingMenuLeft?.touchModeAbove = SlidingMenu.RIGHT
+        slidingMenuLeft?.touchModeAbove = SlidingMenu.TOUCHMODE_NONE
         slidingMenuLeft?.setShadowWidthRes(R.dimen.shadow_width)
-        slidingMenuLeft?.setShadowDrawable(R.drawable.shadow)
         slidingMenuLeft?.setBehindOffsetRes(R.dimen.slidingmenu_offset)
         slidingMenuLeft?.setFadeDegree(1f)
         slidingMenuLeft?.attachToActivity(this, SlidingMenu.SLIDING_CONTENT)
         slidingMenuLeft?.setMenu(R.layout.leftmenu)
         slidingMenuLeft?.isSlidingEnabled
-
-        if (!preferenceUtil.getBooleanPref(preferenceUtil.IS_APP_THEME_DAY)) {
-            llLeftMenuParent.setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.bottomsheet_tras))
-            rvMenuLocationList.setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.bottomsheet_tras))
-            tvLeftMenuAppName.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.font_white_trans))
-        }
     }
 
-    /***
-     * Method for Open/Close slide menu drawer */
-    fun toggleSlideMenuLeft() {
-        if (slidingMenuRight?.isMenuShowing!!) {
-            slidingMenuRight?.toggle()
-        }
+    /**** Method for Open/Close slide menu drawer */
+    private fun toggleSlideMenuLeft() {
+        if (slidingMenuRight?.isMenuShowing!!) slidingMenuRight?.toggle()
         slidingMenuLeft?.toggle()
     }
 
-    /***
-     * Method for initialise slide menu drawer
-     * */
-    fun initSlideMenuRight() {
-
+    /** Method for initialise slide menu drawer ***/
+    private fun initSlideMenuRight() {
         slidingMenuRight = SlidingMenu(this)
         slidingMenuRight?.mode = SlidingMenu.RIGHT
         slidingMenuRight?.touchModeAbove = SlidingMenu.TOUCHMODE_NONE
         slidingMenuRight?.setShadowWidthRes(R.dimen.shadow_width)
-        slidingMenuRight?.setShadowDrawable(R.drawable.shadow_right)
         slidingMenuRight?.setBehindOffsetRes(R.dimen.slidingmenu_offset)
         slidingMenuRight?.setFadeDegree(0.8f)
         slidingMenuRight?.attachToActivity(this, SlidingMenu.SLIDING_CONTENT)
@@ -222,47 +204,31 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         slidingMenuRight?.isSlidingEnabled
 
         // Set Notification switch status
-        if (preferenceUtil.getBooleanPref(preferenceUtil.IS_NOTIFICATION_ON)) {
-            rbOnNotification.isChecked = true
-        } else {
-            rbOffNotification.isChecked = true
-        }
+        if (preferenceUtil.getBooleanPref(preferenceUtil.IS_NOTIFICATION_ON)) rbOnNotification.isChecked = true
+        else rbOffNotification.isChecked = true
 
         // Set Temperature switch status
-        if (preferenceUtil.getBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS)) {
-            rbCelsius.isChecked = true
-        } else {
-            rbFahrenheit.isChecked = true
-        }
+        if (preferenceUtil.getBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS)) rbCelsius.isChecked = true
+        else rbFahrenheit.isChecked = true
 
         // Set Speed switch status
-        if (preferenceUtil.getBooleanPref(preferenceUtil.IS_SPEED_UNIT_METERS)) {
-            rbMS.isChecked = true
-        } else {
-            rbMPH.isChecked = true
-        }
+        if (preferenceUtil.getBooleanPref(preferenceUtil.IS_SPEED_UNIT_METERS)) rbMS.isChecked = true
+        else rbMPH.isChecked = true
 
-        // Set Theme switch
-        if (preferenceUtil.getBooleanPref(preferenceUtil.IS_APP_THEME_DAY)) {
-            rbDay.isChecked = true
-        } else {
+        // Set Theme switch on/off
+        if (ThemeHelper.isNightModeEnabled(this, false)) {
+            rbDay.isChecked = false
             rbNight.isChecked = true
-            rlSettingMenuParent.setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.bottomsheet_tras))
-            cvUnitFormatSetting.setCardBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.bottomsheet_tras))
-            tvUnitFormatSettingLabel.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.font_white_trans))
-            tvAboutSettingLabel.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.font_white_trans))
-            tvRateUs.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.font_white_trans))
-            tvWeatherDataProvider.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.font_white_trans))
-            tvWeatherStreamSetting.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.font_white_trans))
+        } else {
+            rbDay.isChecked = true
+            rbNight.isChecked = false
         }
     }
 
     /***
      * Method for Open/Close slide setting drawer */
     fun toggleSlideMenuRight() {
-        if (slidingMenuLeft?.isMenuShowing!!) {
-            slidingMenuLeft?.toggle()
-        }
+        if (slidingMenuLeft?.isMenuShowing!!) slidingMenuLeft?.toggle()
         slidingMenuRight?.toggle()
     }
 
@@ -277,12 +243,8 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                 Methods.avoidDoubleClicks(tvLocationSearchText)
                 showGoogleAutoLocationSearch("")
             }
-            rbOnNotification -> {
-                preferenceUtil.setBooleanPref(preferenceUtil.IS_NOTIFICATION_ON, true)
-            }
-            rbOffNotification -> {
-                preferenceUtil.setBooleanPref(preferenceUtil.IS_NOTIFICATION_ON, false)
-            }
+            rbOnNotification -> preferenceUtil.setBooleanPref(preferenceUtil.IS_NOTIFICATION_ON, true)
+            rbOffNotification -> preferenceUtil.setBooleanPref(preferenceUtil.IS_NOTIFICATION_ON, false)
             rbCelsius -> {
                 preferenceUtil.setBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS, true)
                 WeatherStreamCallbackManager.updateHomeScreenData(3)
@@ -307,32 +269,21 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                 preferenceUtil.setBooleanPref(preferenceUtil.IS_AIR_PRESSURE_HPA, false)
                 WeatherStreamCallbackManager.updateHomeScreenData(3)
             }
-            rbDay -> {
-                preferenceUtil.setBooleanPref(preferenceUtil.IS_APP_THEME_DAY, true)
-                ThemeSwitcher.changeToTheme(this, KeyUtil.THEME_DEFAULT)
-            }
-            rbNight -> {
-                preferenceUtil.setBooleanPref(preferenceUtil.IS_APP_THEME_DAY, false)
-                ThemeSwitcher.changeToTheme(this, KeyUtil.THEME_NIGHT)
-            }
+            rbDay, rbNight -> changeNightMode()
             tvAboutSettingLabel -> {
                 toggleSlideMenuRight()
                 fragmentUtil?.addFragment(AboutAppFragment(), true, true)
             }
-            tvRateUs -> {
-                rateUsApp(this@MainActivity)
-            }
-            tvWeatherDataProvider -> {
-                webIntent()
-            }
-            tvClearSearch -> {
-                confirmClearSearchHistory()
-            }
+            tvRateUs -> rateUsApp(this@MainActivity)
+            tvWeatherDataProvider -> webIntent("https://openweathermap.org/")
+            tvShareApp -> Methods.shareIntent(this@MainActivity, "https://play.google.com/store/apps/details?id=com.quixom.apps.weatherstream")
+            tvFeedback -> Methods.feedbackIntent(this@MainActivity)
+            tvCheckOtherApps -> webIntent("https://play.google.com/store/apps/dev?id=5582740361682113089")
+            tvClearSearch -> confirmClearSearchHistory()
         }
     }
 
     override fun onLongClick(p0: View?): Boolean = false
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
@@ -345,21 +296,22 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             }
 
             KeyUtil.PLACE_AUTOCOMPLETE_REQUEST_CODE -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    val place = PlaceAutocomplete.getPlace(this, data)
-                    if (slidingMenuLeft?.isMenuShowing!!) {
-                        slidingMenuLeft?.toggle()
-                    }
-                    Handler().postDelayed({
-                        callSearchLocationApi(place.latLng.latitude, place.latLng.longitude)
-                    }, 300)
+                when (resultCode) {
+                    Activity.RESULT_OK -> {
+                        val place = PlaceAutocomplete.getPlace(this, data)
+                        if (slidingMenuLeft?.isMenuShowing!!) {
+                            slidingMenuLeft?.toggle()
+                        }
+                        Handler().postDelayed({
+                            callSearchLocationApi(place.latLng.latitude, place.latLng.longitude)
+                        }, 300)
 
-                } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
-                    Methods.hideKeyboard(this@MainActivity)
-                    val status = PlaceAutocomplete.getStatus(this, data)
-                } else if (resultCode == Activity.RESULT_CANCELED) {
-                    Methods.hideKeyboard(this@MainActivity)
-                    // The user canceled the operation.
+                    }
+                    PlaceAutocomplete.RESULT_ERROR -> {
+                        Methods.hideKeyboard(this@MainActivity)
+                        PlaceAutocomplete.getStatus(this, data)
+                    }
+                    Activity.RESULT_CANCELED -> Methods.hideKeyboard(this@MainActivity)
                 }
             }
         }
@@ -377,19 +329,16 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         }
     }
 
-    /***
-     * API Method for get the weather information of specific location
-     * */
-    var locationSearchCall: Call<WeatherData>? = null
+    /**** API Method for get the weather information of specific location **/
+    private var locationSearchCall: Call<WeatherData>? = null
 
     fun callSearchLocationApi(lat: Double, lon: Double) = if (isNetworkConnected(this@MainActivity)) {
 
         val hashMap = APIParameters.getParam()
-        hashMap.put(APIParameters.LocationSearch.lat, "" + lat)
-        hashMap.put(APIParameters.LocationSearch.lon, "" + lon)
-        hashMap.put(APIParameters.LocationSearch.type, KeyUtil.TYPES_ACCURATE)
-        hashMap.put(APIParameters.LocationSearch.units, "" + KeyUtil.UNITS_METRIC)
-
+        hashMap[APIParameters.LocationSearch.lat] = "" + lat
+        hashMap[APIParameters.LocationSearch.lon] = "" + lon
+        hashMap[APIParameters.LocationSearch.type] = KeyUtil.TYPES_ACCURATE
+        hashMap[APIParameters.LocationSearch.units] = "" + KeyUtil.UNITS_METRIC
         Methods.isProgressShowMessage(this@MainActivity)
 
         locationSearchCall = NetworkConfig.getWebApis().getWeatherDetail(BuildConfig.KEY_OPEN_WEATHER_MAP_KEY, hashMap)
@@ -400,122 +349,91 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
                 if (call.isCanceled)
                     return
 
-                if (response != null) {
-                    if (response.isSuccessful) {
-                        if (response.body() != null) {
-                            if (response.body()?.cod == 200 && response.body()?.name != null && response.body()?.name != "") {
-                                Methods.hideKeyboard(this@MainActivity)
+                if (response.isSuccessful) {
+                    if (response.body() != null) {
+                        if (response.body()?.cod == 200 && response.body()?.name != null && response.body()?.name != "") {
+                            Methods.hideKeyboard(this@MainActivity)
+                            UpgradeData.clearApplicationData()
+                            val weatherDetail: WeatherData? = response.body()!!
+                            val innerWeatherDetail: Array<WeatherData.Weather>? = response.body()!!.weather
+                            val sysWeatherDetail: WeatherData.Sys = response.body()!!.sys!!
+                            val coordDetail: WeatherData.Coord = response.body()!!.coord!!
+                            val mainWeatherDetail: WeatherData.Main = response.body()!!.main!!
+                            val windWeatherDetail: WeatherData.Wind = response.body()!!.wind!!
+                            val cloudsWeatherDetail: WeatherData.Clouds = response.body()!!.clouds!!
+                            weatherDetail?.save()
+                            coordDetail.id = 0
+                            coordDetail.save()
+                            sysWeatherDetail.sysId = 0
+                            sysWeatherDetail.save()
+                            mainWeatherDetail.id = 0
+                            mainWeatherDetail.save()
+                            windWeatherDetail.id = 0
+                            windWeatherDetail.save()
+                            cloudsWeatherDetail.id = 0
+                            cloudsWeatherDetail.save()
 
-                                UpgradeData.clearApplicationData()
-
-                                val weatherDetail: WeatherData = response.body()!!
-                                val innerWeatherDetail: Array<WeatherData.Weather>? = response.body()!!.weather
-                                val sysWeatherDetail: WeatherData.Sys = response.body()!!.sys!!
-                                val coordDetail: WeatherData.Coord = response.body()!!.coord!!
-                                val mainWeatherDetail: WeatherData.Main = response.body()!!.main!!
-                                val windWeatherDetail: WeatherData.Wind = response.body()!!.wind!!
-                                val cloudsWeatherDetail: WeatherData.Clouds = response.body()!!.clouds!!
-                                weatherDetail.save()
-
-                                coordDetail.id = 0
-                                coordDetail.save()
-
-                                sysWeatherDetail.sysId = 0
-                                sysWeatherDetail.save()
-
-                                mainWeatherDetail.id = 0
-                                mainWeatherDetail.save()
-
-                                windWeatherDetail.id = 0
-                                windWeatherDetail.save()
-
-                                cloudsWeatherDetail.id = 0
-                                cloudsWeatherDetail.save()
-
-                                for (inWeatherDt in innerWeatherDetail!!) {
-                                    inWeatherDt.wId = 0
-                                    inWeatherDt.save()
-                                }
-
-
-                                /*** Send broadcast to update widget's data */
-                                val intent = Intent(this@MainActivity.applicationContext, WeatherStreamAppWidget::class.java)
-                                intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
-                                val ids = AppWidgetManager.getInstance(application).getAppWidgetIds(ComponentName(application, WeatherStreamAppWidget::class.java))
-                                intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
-                                sendBroadcast(intent)
-
-                                WeatherStreamCallbackManager.updateHomeScreenData(1)
-                                /** called here location weather forecasting api */
-                                callWeatherForecasting(lat, lon)
-
-                                /*** Weather notification */
-                                if (preferenceUtil.getBooleanPref(preferenceUtil.IS_NOTIFICATION_ON)) {
-                                    val localNotification = LocalNotification(this@MainActivity)
-                                    var title: String? = null
-                                    if (sysWeatherDetail.country != null) {
-                                        val loc = Locale("", sysWeatherDetail.country)
-                                        title = weatherDetail.name.plus(", ").plus(loc.displayCountry)
-                                    }
-                                    val message: String? = if (preferenceUtil.getBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS)) {
-                                        Math.round(mainWeatherDetail.temp!!.toDouble()).toString().plus(resources.getString(R.string.c_symbol)).plus(" " + innerWeatherDetail[0].description)
-                                    } else {
-                                        Math.round(Methods.convertCelsiusToFahrenheit(mainWeatherDetail.temp?.toFloat()!!)).toString().plus(resources.getString(R.string.f_symbol)).plus(" " + innerWeatherDetail[0].description)
-                                    }
-                                    val time = DateUtil.getDateFromMillis(System.currentTimeMillis(), DateUtil.timeHourFormat, false)
-                                    val weatherType = innerWeatherDetail[0].id
-                                    if (title != null && message != null) {
-                                        localNotification.showCustomLayoutHeadsUpNotification(this@MainActivity, title, message, time,
-                                                WeatherToImage.getWeatherTypeConditionCode(null, null, weatherType.toString()))
-                                    }
-                                }
-
-                                /*** Save searched location and shown it on left side menu */
-                                if (weatherDetail != null) {
-                                    val searchedLocation: List<LocationSearchHistory> = LocationSearchHistory.getSearchedLocationList()
-                                    if (searchedLocation.isNotEmpty()) {
-                                        searchedLocation.filter { it.id == response.body()?.id }.forEach { return }
-                                        setSideMenuSearchEntry(weatherDetail)
-                                    } else {
-                                        setSideMenuSearchEntry(weatherDetail)
-                                    }
-                                }
+                            for (inWeatherDt in innerWeatherDetail!!) {
+                                inWeatherDt.wId = 0
+                                inWeatherDt.save()
                             }
-                        } else {
-                            Methods.showSnackBar(coordinatorLayoutMain, "No Location Found", ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
+
+                            /*** Send broadcast to update widget's data */
+                            val intent = Intent(this@MainActivity.applicationContext, WeatherStreamAppWidget::class.java)
+                            intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+                            val ids = AppWidgetManager.getInstance(application).getAppWidgetIds(ComponentName(application, WeatherStreamAppWidget::class.java))
+                            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+                            sendBroadcast(intent)
+
+                            WeatherStreamCallbackManager.updateHomeScreenData(1)
+                            /** called here location weather forecasting api */
+                            callWeatherForecasting(lat, lon)
+
+                            /*** Weather notification */
+                            if (preferenceUtil.getBooleanPref(preferenceUtil.IS_NOTIFICATION_ON)) {
+                                val localNotification = LocalNotification(this@MainActivity)
+                                var title: String? = null
+                                if (sysWeatherDetail.country != null) {
+                                    val loc = Locale("", sysWeatherDetail.country)
+                                    title = weatherDetail?.name.plus(", ").plus(loc.displayCountry)
+                                }
+                                val message: String? = if (preferenceUtil.getBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS)) {
+                                    Math.round(mainWeatherDetail.temp!!.toDouble()).toString().plus(resources.getString(R.string.c_symbol)).plus(" " + innerWeatherDetail[0].description)
+                                } else Math.round(Methods.convertCelsiusToFahrenheit(mainWeatherDetail.temp?.toFloat()!!)).toString().plus(resources.getString(R.string.f_symbol)).plus(" " + innerWeatherDetail[0].description)
+                                val time = DateUtil.getDateFromMillis(System.currentTimeMillis(), DateUtil.timeHourFormat, false)
+                                val weatherType = innerWeatherDetail[0].id
+                                if (title != null && message != null) localNotification.showCustomLayoutHeadsUpNotification(this@MainActivity, title, message, time, WeatherToImage.getWeatherTypeConditionCode(null, weatherType.toString()))
+                            }
+
+                            /*** Save searched location and shown it on left side menu */
+                            if (weatherDetail != null) {
+                                val searchedLocation: List<LocationSearchHistory> = LocationSearchHistory.getSearchedLocationList()
+                                if (searchedLocation.isNotEmpty()) {
+                                    searchedLocation.filter { it.id == response.body()?.id }.forEach { return }
+                                    setSideMenuSearchEntry(weatherDetail)
+                                } else setSideMenuSearchEntry(weatherDetail)
+                            }
                         }
-                    } else {
-                        Methods.showSnackBar(coordinatorLayoutMain, response.message(), ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
-                    }
-                } else {
-                    Methods.isProgressHide()
-                    Methods.showSnackBar(coordinatorLayoutMain, errorHandler.parseError(response).message(), ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
-                }
+                    } else Methods.showSnackBar(coordinatorLayoutMain, "No Location Found", ContextCompat.getColor(this@MainActivity, R.color.orange), this@MainActivity)
+                } else Methods.showSnackBar(coordinatorLayoutMain, response.message(), ContextCompat.getColor(this@MainActivity, R.color.orange), this@MainActivity)
             }
 
             override fun onFailure(call: Call<WeatherData>?, t: Throwable?) {
-                if (call!!.isCanceled)
-                    Methods.isProgressHide()
+                if (call!!.isCanceled) Methods.isProgressHide()
                 return
-                errorHandler.setExceptionMessage(t)
             }
         })
-    } else {
-        Methods.showSnackBar(coordinatorLayoutMain, resources.getString(R.string.no_internet_connection), ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
-    }
+    } else Methods.showSnackBar(coordinatorLayoutMain, resources.getString(R.string.no_internet_connection), ContextCompat.getColor(this@MainActivity, R.color.orange), this@MainActivity)
 
-    /***
-     * API Method for get the weather information of specific location
-     * */
-    var weatherForecastingCall: Call<WeatherForecastData>? = null
+    /*** API Method for get the weather information of specific location **/
+    private var weatherForecastingCall: Call<WeatherForecastData>? = null
 
     fun callWeatherForecasting(lat: Double, lon: Double) = if (isNetworkConnected(this@MainActivity)) {
-
         val hashMap = APIParameters.getParam()
-        hashMap.put(APIParameters.ForecastingWeather.lat, "" + lat)
-        hashMap.put(APIParameters.ForecastingWeather.lon, "" + lon)
-        hashMap.put(APIParameters.ForecastingWeather.units, "" + KeyUtil.UNITS_METRIC)
-        hashMap.put(APIParameters.ForecastingWeather.type, "" + KeyUtil.TYPES_ACCURATE)
+        hashMap[APIParameters.ForecastingWeather.lat] = "" + lat
+        hashMap[APIParameters.ForecastingWeather.lon] = "" + lon
+        hashMap[APIParameters.ForecastingWeather.units] = "" + KeyUtil.UNITS_METRIC
+        hashMap[APIParameters.ForecastingWeather.type] = "" + KeyUtil.TYPES_ACCURATE
 
         weatherForecastingCall = NetworkConfig.getWebApis().getWeatherForecasting(BuildConfig.KEY_OPEN_WEATHER_MAP_KEY, hashMap)
         weatherForecastingCall!!.enqueue(object : Callback<WeatherForecastData> {
@@ -523,90 +441,71 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             override fun onResponse(call: Call<WeatherForecastData>, response: Response<WeatherForecastData>) {
                 if (call.isCanceled)
                     return
+                if (response.isSuccessful) {
+                    if (response.body() != null) {
+                        if (response.body()?.cod == "200") {
+                            Methods.hideKeyboard(this@MainActivity)
 
-                if (response != null) {
-                    if (response.isSuccessful) {
-                        if (response.body() != null) {
-                            if (response.body()?.cod == "200") {
+                            val weatherForecastData: WeatherForecastData = response.body()!!
+                            weatherForecastData.id = 0
+                            weatherForecastData.save()
 
-                                Methods.hideKeyboard(this@MainActivity)
+                            val forecastingList: Array<WeatherForecastData.ForecastList>? = response.body()?.list!!
+                            if (forecastingList != null && forecastingList.isNotEmpty()) {
+                                Methods.isProgressHide()
+                                for (hourlyWeatherData in forecastingList) {
+                                    hourlyWeatherData.id = 0
+                                    hourlyWeatherData.save()
 
-                                val weatherForecastData: WeatherForecastData = response.body()!!
-                                weatherForecastData.id = 0
-                                weatherForecastData.save()
+                                    val sysWeatherDetail: WeatherData.Sys? = hourlyWeatherData.sys!!
+                                    if (sysWeatherDetail != null) {
+                                        sysWeatherDetail.sysId = 0
+                                        sysWeatherDetail.save()
+                                    }
 
-                                val forecastingList: Array<WeatherForecastData.ForecastList> = response.body()?.list!!
-                                if (forecastingList != null && forecastingList.isNotEmpty()) {
-                                    Methods.isProgressHide()
-                                    for (hourlyWeatherData in forecastingList) {
-                                        hourlyWeatherData.id = 0
-                                        hourlyWeatherData.save()
+                                    val mainWeatherDetail: WeatherData.Main = hourlyWeatherData.main!!
+                                    mainWeatherDetail.id = 0
+                                    mainWeatherDetail.save()
 
-                                        val sysWeatherDetail: WeatherData.Sys = hourlyWeatherData.sys!!
-                                        if (sysWeatherDetail != null) {
-                                            sysWeatherDetail.sysId = 0
-                                            sysWeatherDetail.save()
-                                        }
+                                    val windWeatherDetail: WeatherData.Wind = hourlyWeatherData.wind!!
+                                    windWeatherDetail.id = 0
+                                    windWeatherDetail.save()
 
-                                        val mainWeatherDetail: WeatherData.Main = hourlyWeatherData.main!!
-                                        mainWeatherDetail.id = 0
-                                        mainWeatherDetail.save()
+                                    val cloudsWeatherDetail: WeatherData.Clouds = hourlyWeatherData.clouds!!
+                                    cloudsWeatherDetail.id = 0
+                                    cloudsWeatherDetail.save()
 
-                                        val windWeatherDetail: WeatherData.Wind = hourlyWeatherData.wind!!
-                                        windWeatherDetail.id = 0
-                                        windWeatherDetail.save()
+                                    if (hourlyWeatherData.rain != null) {
+                                        val rainData: WeatherForecastData.Rain = hourlyWeatherData.rain!!
+                                        rainData.id = 0
+                                        rainData.dt = hourlyWeatherData.dt
+                                        rainData.save()
+                                    } else Delete.table(WeatherForecastData.Rain::class.java)
 
-                                        val cloudsWeatherDetail: WeatherData.Clouds = hourlyWeatherData.clouds!!
-                                        cloudsWeatherDetail.id = 0
-                                        cloudsWeatherDetail.save()
-
-                                        if (hourlyWeatherData.rain != null) {
-                                            val rainData: WeatherForecastData.Rain = hourlyWeatherData.rain!!
-                                            rainData.id = 0
-                                            rainData.dt = hourlyWeatherData.dt
-                                            rainData.save()
-                                        } else {
-                                            Delete.table(WeatherForecastData.Rain::class.java)
-                                        }
-
-                                        val innerWeatherDetail: Array<WeatherData.Weather>? = hourlyWeatherData.weather
-                                        if (innerWeatherDetail != null) {
-                                            for (innerWDetail in innerWeatherDetail) {
-                                                innerWDetail.wId = 0
-                                                innerWDetail.save()
-                                            }
+                                    val innerWeatherDetail: Array<WeatherData.Weather>? = hourlyWeatherData.weather
+                                    if (innerWeatherDetail != null) {
+                                        for (innerWDetail in innerWeatherDetail) {
+                                            innerWDetail.wId = 0
+                                            innerWDetail.save()
                                         }
                                     }
-                                    WeatherStreamCallbackManager.updateHomeScreenData(2)
                                 }
-//                                Methods.showSnackBar(coordinatorLayoutMain, response.code().toString(), ContextCompat.getColor(this@MainActivity, R.text_selector_color.fruit_salad), this@MainActivity)
+                                WeatherStreamCallbackManager.updateHomeScreenData(2)
                             }
-                        } else {
-                            Methods.showSnackBar(coordinatorLayoutMain, response.message(), ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
                         }
-                    } else {
-                        Methods.showSnackBar(coordinatorLayoutMain, response.message(), ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
-                    }
-                } else {
-                    Methods.isProgressHide()
-                    Methods.showSnackBar(coordinatorLayoutMain, errorHandler.parseError(response).message(), ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
-                }
+                    } else Methods.showSnackBar(coordinatorLayoutMain, response.message(), ContextCompat.getColor(this@MainActivity, R.color.orange), this@MainActivity)
+                } else Methods.showSnackBar(coordinatorLayoutMain, response.message(), ContextCompat.getColor(this@MainActivity, R.color.orange), this@MainActivity)
             }
 
             override fun onFailure(call: Call<WeatherForecastData>?, t: Throwable?) {
-                if (call!!.isCanceled)
-                    Methods.isProgressHide()
+                if (call!!.isCanceled) Methods.isProgressHide()
                 return
-                errorHandler.setExceptionMessage(t)
             }
         })
-    } else {
-        Methods.showSnackBar(coordinatorLayoutMain, resources.getString(R.string.no_internet_connection), ContextCompat.getColor(this@MainActivity, R.color.brink_pink), this@MainActivity)
-    }
+    } else Methods.showSnackBar(coordinatorLayoutMain, resources.getString(R.string.no_internet_connection), ContextCompat.getColor(this@MainActivity, R.color.orange), this@MainActivity)
 
-    fun setSideMenuSearchEntry(weatherDetail: WeatherData) {
+    fun setSideMenuSearchEntry(weatherDetail: WeatherData?) {
         val locationSearch = LocationSearchHistory()
-
         if (weatherDetail != null) {
             tvRecentSearch.visibility = View.VISIBLE
             tvClearSearch.visibility = View.VISIBLE
@@ -615,14 +514,16 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             tvClearSearch.visibility = View.GONE
         }
 
-        locationSearch.id = weatherDetail.id
-        locationSearch.cityName = weatherDetail.name
-        locationSearch.countyName = weatherDetail.sys?.country
-        locationSearch.temperature = weatherDetail.main?.temp?.toDouble()
-        locationSearch.weatherType = weatherDetail.weather?.get(0)?.id
-        locationSearch.lat = weatherDetail.coord?.lat
-        locationSearch.lon = weatherDetail.coord?.lon
-        locationSearch.save()
+        if (weatherDetail != null) {
+            locationSearch.id = weatherDetail.id
+            locationSearch.cityName = weatherDetail.name
+            locationSearch.countyName = weatherDetail.sys?.country
+            locationSearch.temperature = weatherDetail.main?.temp?.toDouble()
+            locationSearch.weatherType = weatherDetail.weather?.get(0)?.id
+            locationSearch.lat = weatherDetail.coord?.lat
+            locationSearch.lon = weatherDetail.coord?.lon
+            locationSearch.save()
+        }
 
         lists.add(LocationSearchHistory(locationSearch.id, locationSearch.cityName, locationSearch.countyName, locationSearch.weatherType, locationSearch.temperature))
         rvMenuLocationList.adapter = LocationHistoryAdapter(preferenceUtil, lists, this@MainActivity)
@@ -636,14 +537,12 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             for (i in 0 until size) {
                 this.lists.removeAt(0)
             }
-
             rvMenuLocationList?.adapter?.notifyItemRangeRemoved(0, size)
         }
     }
 
-    /***
-     * Confirmation dialog for clear search history
-     * */
+    /**** Confirmation dialog for clear search history **/
+    @SuppressLint("InflateParams")
     private fun confirmClearSearchHistory() {
 
         //Show confirmation dialog for getting confirmation of user
@@ -652,7 +551,7 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         val inflater = this.layoutInflater
         val dialogView = inflater.inflate(R.layout.clear_data_warning_dialog, null)
         dialogBuilder.setView(dialogView)
-        dialogBuilder.setPositiveButton(android.R.string.ok, { dialog, which ->
+        dialogBuilder.setPositiveButton(android.R.string.ok) { dialog, _ ->
             dialog.dismiss()
 
             UpgradeData.clearApplicationData()
@@ -670,18 +569,19 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
             sendBroadcast(intent)
 
-        })
-        dialogBuilder.setNegativeButton(android.R.string.cancel, { dialog, which ->
+        }
+        dialogBuilder.setNegativeButton(android.R.string.cancel) { dialog, _ ->
             dialog.dismiss()
-        })
+        }
         val b = dialogBuilder.create()
         b.show()
+        b.window.setBackgroundDrawableResource(R.color.app_background)
+        b.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this, R.color.font_primary))
+        b.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.font_primary))
     }
 
-    /***
-     * Method for redirect user to App page on Google Play Store
-     * */
-    fun rateUsApp(mActivity: MainActivity) {
+    /**** Method for redirect user to App page on Google Play Store **/
+    private fun rateUsApp(mActivity: MainActivity) {
         val uri = Uri.parse("market://details?id=com.quixom.apps.weatherstream")
         val goToMarket = Intent(Intent.ACTION_VIEW, uri)
         goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or
@@ -694,12 +594,24 @@ class MainActivity : AppCompatActivity(), View.OnLongClickListener, View.OnClick
         }
     }
 
-    /***
-     * Method for open Browser with load predefined website address
-     * */
-    private fun webIntent() {
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://openweathermap.org/"))
+    /**** Method for open Browser with load predefined website address **/
+    private fun webIntent(link: String) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
         startActivity(browserIntent)
+    }
+
+    private fun changeNightMode() {
+        if (ThemeHelper.isNightModeEnabled(this, false))
+            ThemeHelper.setTheme(this, false)
+        else
+            ThemeHelper.setTheme(this, true)
+
+        val intent = this.intent
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+        this.overridePendingTransition(0, 0)
+        this.startActivity(intent)
+        this.finish()
+        this.overridePendingTransition(0, 0)
     }
 }
 

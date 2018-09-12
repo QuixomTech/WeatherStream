@@ -21,25 +21,25 @@ import java.util.*
  * Created by akif on 11/3/17.
  */
 
-class LocationHistoryAdapter(internal var preferenceUtil: PreferenceUtil, internal var appslist: ArrayList<LocationSearchHistory>, internal var sActivity: MainActivity) : RecyclerView.Adapter<LocationHistoryAdapter.LocationVH>() {
+class LocationHistoryAdapter(internal var preferenceUtil: PreferenceUtil, private var appsList: ArrayList<LocationSearchHistory>, internal var sActivity: MainActivity) : RecyclerView.Adapter<LocationHistoryAdapter.LocationVH>() {
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): LocationHistoryAdapter.LocationVH {
         val itemView = LayoutInflater.from(sActivity).inflate(R.layout.row_menu_view, parent, false)
         return LocationVH(itemView)
     }
 
     override fun onBindViewHolder(holder: LocationHistoryAdapter.LocationVH?, position: Int) {
-        holder?.bindData(appslist[position])
-        val locationDataList: LocationSearchHistory = LocationSearchHistory.getLocationInfo(appslist[position].cityName!!, appslist[position].countyName!!)
+        holder?.bindData(appsList[position])
+        val locationDataList: LocationSearchHistory = LocationSearchHistory.getLocationInfo(appsList[position].cityName!!, appsList[position].countyName!!)
 
-        holder?.itemView?.setOnClickListener(View.OnClickListener {
+        holder?.itemView?.setOnClickListener {
             sActivity.slidingMenuLeft?.showContent(true)
             Handler().postDelayed({
                 sActivity.callSearchLocationApi(locationDataList.lat!!, locationDataList.lon!!)
             }, 500)
-        })
+        }
     }
 
-    override fun getItemCount(): Int = appslist.size
+    override fun getItemCount(): Int = appsList.size
 
     inner class LocationVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         @SuppressLint("SetTextI18n")
@@ -58,18 +58,13 @@ class LocationHistoryAdapter(internal var preferenceUtil: PreferenceUtil, intern
             }
 
             if (!preferenceUtil.getBooleanPref(preferenceUtil.IS_APP_THEME_DAY)) {
-                tvCityName.setTextColor(ContextCompat.getColor(sActivity, R.color.font_white_trans))
-                tvCountryName.setTextColor(ContextCompat.getColor(sActivity, R.color.font_white))
+                tvCityName.setTextColor(ContextCompat.getColor(sActivity, R.color.dark_blue))
+                tvCountryName.setTextColor(ContextCompat.getColor(sActivity, R.color.font_secondary))
             }
 
-            if (preferenceUtil.getBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS)) {
-                tvTemperature.text = Math.round(locationSearchData.temperature!!).toString().plus(sActivity.resources.getString(R.string.c_symbol))
-            } else {
-                tvTemperature.text = Math.round(Methods.convertCelsiusToFahrenheit(locationSearchData.temperature?.toFloat()!!)).toString().plus(sActivity.resources.getString(R.string.f_symbol))
-            }
-
-            ivWeatherType.setImageResource(WeatherToImage.getWeatherTypeConditionCode(null, null, locationSearchData.weatherType.toString()))
-
+            if (preferenceUtil.getBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS)) tvTemperature.text = Math.round(locationSearchData.temperature!!).toString().plus(sActivity.resources.getString(R.string.c_symbol))
+            else tvTemperature.text = Math.round(Methods.convertCelsiusToFahrenheit(locationSearchData.temperature?.toFloat()!!)).toString().plus(sActivity.resources.getString(R.string.f_symbol))
+            ivWeatherType.setImageResource(WeatherToImage.getWeatherTypeConditionCode(null, locationSearchData.weatherType.toString()))
         }
     }
 }

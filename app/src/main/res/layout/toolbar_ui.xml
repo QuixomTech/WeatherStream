@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="?attr/actionBarSize"
     android:background="@android:color/transparent"
     android:orientation="horizontal"
     android:weightSum="3">
@@ -13,8 +13,9 @@
         android:layout_weight="0.4"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:padding="5dp"
-        app:srcCompat="@drawable/ic_menu_black_24dp" />
+        android:tint="@color/dark_blue"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="5dp" />
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/backNavigation"
@@ -22,6 +23,7 @@
         android:layout_weight="0.4"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:visibility="gone"
         android:padding="5dp"
         app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
@@ -35,7 +37,7 @@
         android:gravity="center_horizontal"
         android:fontFamily="@font/lato_bold"
         android:maxLines="1"
-        android:textColor="@color/font_white"
+        android:textColor="@color/dark_blue"
         android:textSize="24sp" />
 
     <android.support.v7.widget.AppCompatImageView
@@ -46,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:padding="5dp"
-        android:tint="@color/font_white"
+        android:tint="@color/dark_blue"
         app:srcCompat="@drawable/ic_settings" />
 
 </LinearLayout>

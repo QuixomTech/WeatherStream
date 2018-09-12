@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="80dp"
     android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
+    android:background="@color/app_background"
     android:foreground="?selectableItemBackground"
     android:gravity="center_vertical|center_horizontal"
     android:orientation="vertical"
@@ -27,7 +27,7 @@
         android:contentDescription="@null"
         android:layout_marginTop="5dp"
         android:layout_gravity="center_horizontal"
-        android:tint="@color/summer_sky" />
+        android:tint="@color/dark_blue" />
 
     <TextView
         android:id="@+id/tvMinMaxTempExpand"
@@ -36,7 +36,7 @@
         android:layout_marginTop="5dp"
         android:textSize="12sp"
         android:fontFamily="@font/lato_regular"
-        android:textColor="@color/font_secondary" />
+        android:textColor="@color/font_primary" />
 
     <TextView
         android:id="@+id/tvDayTime"
@@ -49,7 +49,7 @@
         android:layout_marginTop="2dp"
         android:padding="3dp"
         android:background="@drawable/day_status_pendding"
-        android:textColor="@color/font_white"
+        android:textColor="@color/dark_blue"
         tools:ignore="SmallSp" />
 
 </LinearLayout>

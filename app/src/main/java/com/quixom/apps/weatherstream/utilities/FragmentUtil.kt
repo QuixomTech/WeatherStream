@@ -13,8 +13,7 @@ import com.quixom.apps.weatherstream.R
 
 class FragmentUtil(private var mActivity: AppCompatActivity) {
 
-    val currentFragment: Fragment
-        get() {
+    val currentFragment: Fragment get() {
             val fragmentManager = mActivity.supportFragmentManager
             return fragmentManager.findFragmentById(R.id.fl_fragment_container)
         }
@@ -130,7 +129,6 @@ class FragmentUtil(private var mActivity: AppCompatActivity) {
         }
 
     }
-
 
     fun clearBackStackFragments(fragmentManager: FragmentManager) {
         // in my case I get the support fragment manager, it should work with the native one too

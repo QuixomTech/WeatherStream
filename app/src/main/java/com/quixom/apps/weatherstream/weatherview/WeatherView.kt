@@ -27,8 +27,8 @@ class WeatherView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
         lateinit var SNOW_BITMAP: Bitmap
 
         private fun initializeBitmaps(context: Context) {
-            RAIN_BITMAP = BitmapFactory.decodeResource(context.resources, R.drawable.rain)
-            SNOW_BITMAP = BitmapFactory.decodeResource(context.resources, R.drawable.snow)
+//            RAIN_BITMAP = BitmapFactory.decodeResource(context.resources, R.drawable.rain)
+//            SNOW_BITMAP = BitmapFactory.decodeResource(context.resources, R.drawable.snow)
         }
     }
 
@@ -68,7 +68,7 @@ class WeatherView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
     private val confettoInfo = ConfettoInfo(PrecipType.CLEAR)
 
     init {
-        initializeBitmaps(context)
+//        initializeBitmaps(context)
 
         confettiSource = MutableRectSource(0, 0)
         confettiManager = ConfettiManager(context, WeatherConfettoGenerator(confettoInfo), confettiSource, this)

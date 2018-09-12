@@ -41,17 +41,6 @@ class AboutAppFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun initToolbar() {
-        if (!preferenceUtil.getBooleanPref(preferenceUtil.IS_APP_THEME_DAY)) {
-            toolbar?.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.gulf_blue_dark))
-            llParentAboutApp?.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.gulf_blue_dark))
-            svDeveloperInformation?.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.gulf_blue))
-            tvAppNameAbout?.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
-            tvDeveloperInfoTitle?.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
-            tvCall?.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
-            tvAddress?.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
-            tvWebsite?.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
-        }
-
         toggleMenu?.visibility = View.GONE
         ivSetting?.visibility = View.GONE
         backNavigation?.visibility = View.VISIBLE

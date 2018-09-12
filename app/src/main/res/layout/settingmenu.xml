@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rlSettingMenuParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/font_white"
+    android:background="@color/light_gray"
     android:orientation="vertical"
     android:paddingEnd="10dp"
     android:paddingStart="10dp"
@@ -24,226 +23,209 @@
             android:layout_marginTop="20dp"
             android:fontFamily="@font/lato_bold"
             android:text="@string/unit_format"
-            android:textColor="@color/font_secondary"
+            android:textColor="@color/font_primary"
             android:textSize="14sp" />
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cvUnitFormatSetting"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/font_white"
-            app:cardCornerRadius="4dp"
-            app:cardUseCompatPadding="true">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="5dp"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:fontFamily="@font/lato_regular"
+                android:text="@string/temperature_label"
+                android:textColor="@color/dark_blue"
+                android:textSize="12sp" />
+
+            <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/sgTemperatureGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:orientation="horizontal"
+                segmentedgroup:sc_border_width="1dp"
+                segmentedgroup:sc_corner_radius="4dp">
+
+                <RadioButton
+                    android:id="@+id/rbCelsius"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:text="@string/c_symbol"
+                    android:textSize="12sp" />
+
+                <RadioButton
+                    android:id="@+id/rbFahrenheit"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:text="@string/f_symbol"
+                    android:textSize="12sp" />
+
+            </info.hoang8f.android.segmented.SegmentedGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:layout_marginStart="5dp"
-                android:orientation="vertical">
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lato_regular"
+                android:text="@string/speed_label"
+                android:textColor="@color/dark_blue"
+                android:textSize="12sp" />
 
-                <TextView
+            <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/sgSpeedGroup"
+                android:layout_width="200dp"
+                android:layout_height="25dp"
+                android:orientation="horizontal"
+                segmentedgroup:sc_border_width="1dp"
+                segmentedgroup:sc_corner_radius="4dp">
+
+                <RadioButton
+                    android:id="@+id/rbMS"
+                    style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:fontFamily="@font/lato_regular"
-                    android:text="@string/temperature_label"
-                    android:textColor="@color/summer_sky"
+                    android:checked="true"
+                    android:text="@string/ms_speed"
                     android:textSize="12sp" />
 
-                <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/sgTemperatureGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:orientation="horizontal"
-                    segmentedgroup:sc_border_width="1dp"
-                    segmentedgroup:sc_corner_radius="4dp">
-
-                    <RadioButton
-                        android:id="@+id/rbCelsius"
-                        style="@style/RadioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:text="@string/c_symbol"
-                        android:textSize="12sp" />
-
-                    <RadioButton
-                        android:id="@+id/rbFahrenheit"
-                        style="@style/RadioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="2dp"
-                        android:paddingRight="2dp"
-                        android:text="@string/f_symbol"
-                        android:textSize="12sp" />
-
-                </info.hoang8f.android.segmented.SegmentedGroup>
-
-                <TextView
+                <RadioButton
+                    android:id="@+id/rbMPH"
+                    style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/lato_regular"
-                    android:text="@string/speed_label"
-                    android:textColor="@color/brink_pink"
+                    android:text="@string/mph_speed"
                     android:textSize="12sp" />
 
-                <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/sgSpeedGroup"
-                    android:layout_width="200dp"
-                    android:layout_height="25dp"
-                    android:orientation="horizontal"
-                    segmentedgroup:sc_border_width="1dp"
-                    segmentedgroup:sc_checked_text_color="@color/font_white"
-                    segmentedgroup:sc_corner_radius="4dp"
-                    segmentedgroup:sc_tint_color="@color/brink_pink">
+            </info.hoang8f.android.segmented.SegmentedGroup>
 
-                    <RadioButton
-                        android:id="@+id/rbMS"
-                        style="@style/RadioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="@string/ms_speed"
-                        android:textSize="12sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lato_regular"
+                android:text="@string/air_pressure_label"
+                android:textColor="@color/dark_blue"
+                android:textSize="12sp" />
 
-                    <RadioButton
-                        android:id="@+id/rbMPH"
-                        style="@style/RadioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/mph_speed"
-                        android:textSize="12sp" />
+            <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/sgAirPressureGroup"
+                android:layout_width="200dp"
+                android:layout_height="25dp"
+                android:orientation="horizontal"
+                segmentedgroup:sc_border_width="1dp"
+                segmentedgroup:sc_corner_radius="4dp">
 
-                </info.hoang8f.android.segmented.SegmentedGroup>
-
-                <TextView
+                <RadioButton
+                    android:id="@+id/rbHPA"
+                    style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/lato_regular"
-                    android:text="@string/air_pressure_label"
-                    android:textColor="@color/fruit_salad"
+                    android:checked="true"
+                    android:text="@string/hpa_air_pressure"
                     android:textSize="12sp" />
 
-                <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/sgAirPressureGroup"
-                    android:layout_width="200dp"
-                    android:layout_height="25dp"
-                    android:orientation="horizontal"
-                    segmentedgroup:sc_border_width="1dp"
-                    segmentedgroup:sc_checked_text_color="@color/font_white"
-                    segmentedgroup:sc_corner_radius="4dp"
-                    segmentedgroup:sc_tint_color="@color/fruit_salad">
-
-                    <RadioButton
-                        android:id="@+id/rbHPA"
-                        style="@style/RadioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="@string/hpa_air_pressure"
-                        android:textSize="12sp" />
-
-                    <RadioButton
-                        android:id="@+id/rbInHg"
-                        style="@style/RadioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/inhg_air_pressure"
-                        android:textSize="12sp" />
-
-                </info.hoang8f.android.segmented.SegmentedGroup>
-
-                <TextView
+                <RadioButton
+                    android:id="@+id/rbInHg"
+                    style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/lato_regular"
-                    android:text="@string/on_going_notification"
-                    android:textColor="@color/lighting_yellow"
+                    android:text="@string/inhg_air_pressure"
                     android:textSize="12sp" />
 
-                <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/sgNotification"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:orientation="horizontal"
-                    segmentedgroup:sc_border_width="1dp"
-                    segmentedgroup:sc_checked_text_color="@color/font_white"
-                    segmentedgroup:sc_corner_radius="4dp"
-                    segmentedgroup:sc_tint_color="@color/lighting_yellow">
+            </info.hoang8f.android.segmented.SegmentedGroup>
 
-                    <RadioButton
-                        android:id="@+id/rbOnNotification"
-                        style="@style/RadioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="@string/notification_on"
-                        android:textSize="12sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lato_regular"
+                android:text="@string/on_going_notification"
+                android:textColor="@color/dark_blue"
+                android:textSize="12sp" />
 
-                    <RadioButton
-                        android:id="@+id/rbOffNotification"
-                        style="@style/RadioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/notification_off"
-                        android:textSize="12sp" />
+            <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/sgNotification"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:orientation="horizontal"
+                segmentedgroup:sc_border_width="1dp"
+                segmentedgroup:sc_corner_radius="4dp">
 
-                </info.hoang8f.android.segmented.SegmentedGroup>
-
-                <TextView
+                <RadioButton
+                    android:id="@+id/rbOnNotification"
+                    style="@style/RadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/lato_regular"
-                    android:text="@string/theme_label"
-                    android:textColor="@color/persian_green"
+                    android:checked="true"
+                    android:text="@string/notification_on"
                     android:textSize="12sp" />
 
-                <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/sgDistanceGroup"
+                <RadioButton
+                    android:id="@+id/rbOffNotification"
+                    style="@style/RadioButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:orientation="horizontal"
-                    segmentedgroup:sc_border_width="1dp"
-                    segmentedgroup:sc_checked_text_color="@color/font_white"
-                    segmentedgroup:sc_corner_radius="4dp"
-                    segmentedgroup:sc_tint_color="@color/persian_green">
+                    android:layout_height="wrap_content"
+                    android:text="@string/notification_off"
+                    android:textSize="12sp" />
 
-                    <RadioButton
-                        android:id="@+id/rbDay"
-                        style="@style/RadioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="@string/day"
-                        android:textSize="12sp" />
+            </info.hoang8f.android.segmented.SegmentedGroup>
 
-                    <RadioButton
-                        android:id="@+id/rbNight"
-                        style="@style/RadioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/night"
-                        android:textSize="12sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lato_regular"
+                android:text="@string/theme_label"
+                android:textColor="@color/dark_blue"
+                android:textSize="12sp" />
 
-                </info.hoang8f.android.segmented.SegmentedGroup>
+            <info.hoang8f.android.segmented.SegmentedGroup xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/sgDistanceGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:orientation="horizontal"
+                segmentedgroup:sc_border_width="1dp"
+                segmentedgroup:sc_corner_radius="4dp">
 
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+                <RadioButton
+                    android:id="@+id/rbDay"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/day"
+                    android:textSize="12sp" />
+
+                <RadioButton
+                    android:id="@+id/rbNight"
+                    style="@style/RadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/night"
+                    android:textSize="12sp" />
+
+            </info.hoang8f.android.segmented.SegmentedGroup>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tvAboutSettingLabel"
@@ -254,6 +236,8 @@
             android:fontFamily="@font/lato_bold"
             android:padding="5dp"
             android:text="@string/about"
+            android:textAllCaps="true"
+            android:background="?attr/selectableItemBackground"
             android:textColor="@color/text_selector_color"
             android:textSize="14sp" />
 
@@ -263,7 +247,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
+            android:textAllCaps="true"
+
             android:fontFamily="@font/lato_bold"
+            android:background="?attr/selectableItemBackground"
             android:padding="5dp"
             android:text="@string/rate_us"
             android:textColor="@color/text_selector_color"
@@ -275,9 +262,53 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
+            android:textAllCaps="true"
             android:fontFamily="@font/lato_bold"
+            android:background="?attr/selectableItemBackground"
             android:padding="5dp"
             android:text="@string/weather_data_provider"
+            android:textColor="@color/text_selector_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvShareApp"
+            android:layout_width="205dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="true"
+            android:fontFamily="@font/lato_bold"
+            android:background="?attr/selectableItemBackground"
+            android:padding="5dp"
+            android:text="@string/share"
+            android:textColor="@color/text_selector_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvFeedback"
+            android:layout_width="205dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/lato_bold"
+            android:background="?attr/selectableItemBackground"
+            android:textAllCaps="true"
+            android:padding="5dp"
+            android:text="@string/feedback"
+            android:textColor="@color/text_selector_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvCheckOtherApps"
+            android:layout_width="205dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/lato_bold"
+            android:background="?attr/selectableItemBackground"
+            android:textAllCaps="true"
+            android:padding="5dp"
+            android:text="@string/try_other_apps"
             android:textColor="@color/text_selector_color"
             android:textSize="14sp" />
 
@@ -288,7 +319,7 @@
             android:fontFamily="@font/lato_black"
             android:text="@string/app_name"
             android:includeFontPadding="false"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/font_primary"
             android:textSize="20sp" />
@@ -299,7 +330,7 @@
             android:fontFamily="@font/lato_regular"
             android:text="@string/a_quixom_product"
             android:layout_gravity="center_horizontal"
-            android:textColor="@color/font_thirdly"
+            android:textColor="@color/font_secondary"
             android:textSize="10sp"
             tools:ignore="SmallSp" />
     </LinearLayout>

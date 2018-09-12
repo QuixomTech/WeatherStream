@@ -2,18 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/font_white"
+    android:background="@color/app_background"
     android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/rich_blue">
+        android:background="@color/blue">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
+            android:contentDescription="@null"
             android:src="@drawable/ic_info_outline" />
     </FrameLayout>
 
@@ -33,11 +34,12 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:text="@string/direction_desc"
-        android:textColor="@color/font_thirdly" />
+        android:textColor="@color/font_secondary" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
 
         <TableLayout
             android:layout_width="match_parent"
@@ -52,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_bold"
                     android:text="@string/n"
-                    android:textColor="@color/rich_blue"
+                    android:textColor="@color/dark_blue"
                     android:textSize="20sp" />
 
                 <TextView
@@ -73,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_bold"
                     android:text="@string/nne"
-                    android:textColor="@color/rich_blue"
+                    android:textColor="@color/dark_blue"
                     android:textSize="20sp" />
 
                 <TextView
@@ -94,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_bold"
                     android:text="@string/ne"
-                    android:textColor="@color/rich_blue"
+                    android:textColor="@color/dark_blue"
                     android:textSize="20sp" />
 
                 <TextView
@@ -115,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_bold"
                     android:text="@string/ene"
-                    android:textColor="@color/rich_blue"
+                    android:textColor="@color/dark_blue"
                     android:textSize="20sp" />
 
                 <TextView
@@ -136,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_bold"
                     android:text="@string/e"
-                    android:textColor="@color/rich_blue"
+                    android:textColor="@color/dark_blue"
                     android:textSize="20sp" />
 
                 <TextView
@@ -157,7 +159,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_bold"
                     android:text="@string/ese"
-                    android:textColor="@color/rich_blue"
+                    android:textColor="@color/dark_blue"
                     android:textSize="20sp" />
 
                 <TextView
@@ -178,7 +180,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_bold"
                     android:text="@string/se"
-                    android:textColor="@color/rich_blue"
+                    android:textColor="@color/dark_blue"
                     android:textSize="20sp" />
 
                 <TextView
@@ -199,7 +201,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_bold"
                     android:text="@string/sse"
-                    android:textColor="@color/rich_blue"
+                    android:textColor="@color/dark_blue"
                     android:textSize="20sp" />
 
                 <TextView
@@ -220,7 +222,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_bold"
                     android:text="@string/s"
-                    android:textColor="@color/rich_blue"
+                    android:textColor="@color/dark_blue"
                     android:textSize="20sp" />
 
                 <TextView
@@ -241,7 +243,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_bold"
                     android:text="@string/ssw"
-                    android:textColor="@color/rich_blue"
+                    android:textColor="@color/dark_blue"
                     android:textSize="20sp" />
 
                 <TextView
@@ -262,7 +264,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_bold"
                     android:text="@string/sw"
-                    android:textColor="@color/rich_blue"
+                    android:textColor="@color/dark_blue"
                     android:textSize="20sp" />
 
                 <TextView
@@ -283,7 +285,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_bold"
                     android:text="@string/wsw"
-                    android:textColor="@color/rich_blue"
+                    android:textColor="@color/dark_blue"
                     android:textSize="20sp" />
 
                 <TextView
@@ -304,7 +306,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_bold"
                     android:text="@string/w"
-                    android:textColor="@color/rich_blue"
+                    android:textColor="@color/dark_blue"
                     android:textSize="20sp" />
 
                 <TextView
@@ -325,7 +327,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_bold"
                     android:text="@string/wnw"
-                    android:textColor="@color/rich_blue"
+                    android:textColor="@color/dark_blue"
                     android:textSize="20sp" />
 
                 <TextView
@@ -346,7 +348,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_bold"
                     android:text="@string/nw"
-                    android:textColor="@color/rich_blue"
+                    android:textColor="@color/dark_blue"
                     android:textSize="20sp" />
 
                 <TextView
@@ -367,7 +369,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_bold"
                     android:text="@string/nnw"
-                    android:textColor="@color/rich_blue"
+                    android:textColor="@color/dark_blue"
                     android:textSize="20sp" />
 
                 <TextView

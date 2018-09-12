@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/font_white"
+    android:background="@color/app_background"
     android:orientation="vertical">
 
     <FrameLayout
@@ -14,6 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
+            android:contentDescription="@null"
             android:src="@drawable/ic_warning_black_24dp" />
     </FrameLayout>
 
@@ -24,17 +25,17 @@
         android:layout_marginTop="10dp"
         android:fontFamily="@font/lato_bold"
         android:text="@string/attention"
-        android:textColor="@color/font_secondary"
+        android:textColor="@color/font_primary"
         android:textSize="20sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_gravity="start"
         android:layout_marginStart="20sp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/lato_regular"
         android:text="@string/clear_data_dialog_heading"
-        android:textColor="@color/font_thirdly"
-        android:layout_gravity="start"
-        android:textSize="14sp"/>
+        android:textColor="@color/font_secondary"
+        android:textSize="14sp" />
 </LinearLayout>

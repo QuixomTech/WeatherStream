@@ -27,13 +27,14 @@ import java.util.*
 
 
 /**
-* Created by akif on 12/5/17.
-*/
+ * Created by akif on 12/5/17.
+ */
 class WeatherWidgetService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val appWidgetManager: AppWidgetManager = AppWidgetManager.getInstance(this@WeatherWidgetService)
-        val allWidgetIds = intent?.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS)
+        val allWidgetIds = intent?.getIntArrayExtra(AppWidgetManager.
+                EXTRA_APPWIDGET_IDS)
 
         val timer = Timer()
         val hourlyTask = object : TimerTask() {
@@ -59,7 +60,7 @@ class WeatherWidgetService : Service() {
                         remoteViews.setTextViewText(R.id.tvMaxTemperatureWidget, Math.round(mainWeatherData.temp_max?.toDouble()!!).toString().plus("°"))
                         remoteViews.setTextViewText(R.id.tvMinTemperatureWidget, Math.round(mainWeatherData.temp_min?.toDouble()!!).toString().plus("°"))
                         remoteViews.setTextViewText(R.id.tvWeatherMessageWidget, inWeatherData.description)
-                        remoteViews.setImageViewResource(R.id.ivWeatherTypeIconWidget, WeatherToImage.getWeatherTypeConditionCode(null, null, inWeatherData.id?.toString()!!))
+                        remoteViews.setImageViewResource(R.id.ivWeatherTypeIconWidget, WeatherToImage.getWeatherTypeConditionCode(null, inWeatherData.id?.toString()!!))
                     }
 
                     if (allWidgetIds != null) {
@@ -220,7 +221,6 @@ class WeatherWidgetService : Service() {
                                                 innerWDetail.save()
                                             }
                                         }
-                                        println("Forecasting api called successfully!!!")
                                     }
                                 }
                             }
@@ -228,6 +228,7 @@ class WeatherWidgetService : Service() {
                     }
                 }
             }
+
             override fun onFailure(call: Call<WeatherForecastData>?, t: Throwable?) {}
         })
     }

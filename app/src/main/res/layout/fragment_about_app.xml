@@ -4,7 +4,7 @@
     android:id="@+id/llParentAboutApp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_gray"
+    android:background="@color/app_background"
     android:orientation="vertical"
     tools:context="com.quixom.apps.weatherstream.fragments.AboutAppFragment">
 
@@ -18,11 +18,12 @@
         tools:ignore="UnusedAttribute">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
             android:contentDescription="@null"
-            android:src="@mipmap/ic_launcher_foreground" />
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_app_ic" />
 
         <TextView
             android:id="@+id/tvAppNameAbout"
@@ -78,7 +79,7 @@
             android:id="@+id/svDeveloperInformation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/font_white_trans"
+            android:background="@color/app_background"
             android:scrollbars="none">
 
             <LinearLayout
@@ -109,7 +110,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:text="@string/dev_info"
-                    android:textColor="@color/font_thirdly"
+                    android:textColor="@color/font_secondary"
                     android:textSize="14sp"
                     tools:ignore="RtlHardcoded"
                     tools:targetApi="m" />

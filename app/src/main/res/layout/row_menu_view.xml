@@ -15,7 +15,7 @@
         android:layout_gravity="top"
         android:layout_weight="0.2"
         android:contentDescription="@null"
-        android:tint="@color/rich_blue" />
+        android:tint="@color/dark_blue" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -43,8 +43,8 @@
             android:layout_marginStart="10dp"
             android:textAllCaps="true"
             android:fontFamily="@font/lato_regular"
-            android:textColor="@color/voodoo"
-            android:textSize="10sp" />
+            android:textColor="@color/font_primary"
+            android:textSize="12sp" />
     </LinearLayout>
 
     <TextView
@@ -58,6 +58,6 @@
         android:ellipsize="end"
         android:fontFamily="@font/lato_black"
         android:maxEms="1"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/dark_blue"
         android:textSize="22sp" />
 </LinearLayout>

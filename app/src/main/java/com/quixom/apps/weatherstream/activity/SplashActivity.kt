@@ -26,12 +26,12 @@ import com.quixom.apps.weatherstream.utilities.KeyUtil.RC_LOCATION_PERMISSION
 class SplashActivity : AppCompatActivity() {
     var mLocationManager: LocationManager? = null
     var mLocation: Location? = null
-    val SPLASH_TIME_OUT = 1000
+    val SPLASH_TIME_OUT = 1500
 
     /***
      * Refresh the weather location on location changed
      * */
-    var mLocationListener: LocationListener = object : LocationListener {
+    private var mLocationListener: LocationListener = object : LocationListener {
         override fun onLocationChanged(location: Location?) {
 
             //Check if the location is not null
@@ -101,6 +101,7 @@ class SplashActivity : AppCompatActivity() {
      * if not then prompt to enable gps
      * else start fetching the location
      * */
+    @SuppressLint("InflateParams")
     private fun checkGpsEnabledAndPrompt() {
         //Check if the gps is enabled
         val isLocationEnabled = mLocationManager!!.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
@@ -112,16 +113,16 @@ class SplashActivity : AppCompatActivity() {
             val inflater = this.layoutInflater
             val dialogView = inflater.inflate(R.layout.alert_dialog_location, null)
             dialogBuilder.setView(dialogView)
-            dialogBuilder.setPositiveButton(android.R.string.ok, { dialog, which ->
+            dialogBuilder.setPositiveButton(android.R.string.ok) { dialog, _ ->
                 //Start settings to enable location
                 val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                 startActivityForResult(intent, KeyUtil.RC_ENABLE_LOCATION)
                 dialog.dismiss()
-            })
-            dialogBuilder.setNegativeButton(android.R.string.cancel, { dialog, which ->
+            }
+            dialogBuilder.setNegativeButton(android.R.string.cancel) { dialog, _ ->
                 mLocationListener.onProviderDisabled("")
                 dialog.dismiss()
-            })
+            }
             val b = dialogBuilder.create()
             b.show()
         } else {
@@ -138,13 +139,15 @@ class SplashActivity : AppCompatActivity() {
             }
 
             KeyUtil.PLACE_AUTOCOMPLETE_REQUEST_CODE -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    val place = PlaceAutocomplete.getPlace(this, data)
-                } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
-                    Methods.hideKeyboard(this@SplashActivity)
-                    val status = PlaceAutocomplete.getStatus(this, data)
-                } else if (resultCode == Activity.RESULT_CANCELED) {
-                    Methods.hideKeyboard(this@SplashActivity)
+                when (resultCode) {
+                    Activity.RESULT_OK -> {
+                        PlaceAutocomplete.getPlace(this, data)
+                    }
+                    PlaceAutocomplete.RESULT_ERROR -> {
+                        Methods.hideKeyboard(this@SplashActivity)
+                        PlaceAutocomplete.getStatus(this, data)
+                    }
+                    Activity.RESULT_CANCELED -> Methods.hideKeyboard(this@SplashActivity)
                 }
             }
         }
@@ -178,9 +181,7 @@ class SplashActivity : AppCompatActivity() {
         mLocationListener.onLocationChanged(location)
     }
 
-    /***
-     * Check if location permission have been granted by the user
-     * */
+    /**** Check if location permission have been granted by the user**/
     private fun checkAndAskForLocationPermissions(): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

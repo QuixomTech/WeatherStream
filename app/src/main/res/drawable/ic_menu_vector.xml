@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="30dp"
+    android:height="30dp"
+    android:viewportHeight="100"
+    android:viewportWidth="100">
+    <group
+        android:name="rotation"
+        android:pivotX="50"
+        android:pivotY="50">
+        <path
+            android:name="menu"
+            android:pathData="M20 30,L80 30,M20 50,L80 50,M20 70,L80 70"
+            android:strokeColor="@color/dark_blue"
+            android:strokeLineCap="round"
+            android:strokeWidth="6" />
+    </group>
+</vector>

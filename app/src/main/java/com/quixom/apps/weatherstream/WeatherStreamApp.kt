@@ -2,9 +2,11 @@ package com.quixom.apps.weatherstream
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatDelegate
 import com.crashlytics.android.Crashlytics
+import com.quixom.apps.weatherstream.helper.ThemeHelper
 import com.quixom.apps.weatherstream.utilities.PreferenceUtil
 import com.raizlabs.android.dbflow.config.FlowConfig
 import com.raizlabs.android.dbflow.config.FlowManager
@@ -29,6 +31,11 @@ class WeatherStreamApp: Application() {
 
         Fabric.with(this, Crashlytics())
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
+    }
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        ThemeHelper.onAttach(base, false)
     }
 
     override fun onTerminate() {

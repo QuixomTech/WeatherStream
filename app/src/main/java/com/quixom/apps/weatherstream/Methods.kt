@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.speech.RecognizerIntent
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
@@ -104,6 +105,18 @@ class Methods(val mActivity: MainActivity) {
         }
 
         /**
+         * Feedback intent common.
+         *
+         * @param message: message
+         */
+        fun feedbackIntent(activity: Activity) {
+            val testIntent = Intent(Intent.ACTION_VIEW)
+            val data = Uri . parse ("mailto:?subject=" + "Application Feedback" + "&body=" + "Hi Team," + "&to=" + "quixomapps@gmail.com")
+            testIntent.data = data
+            activity.startActivity(testIntent)
+        }
+
+        /**
          * Convert time into millisecond.
          *
          * @param givenDateString: time which need to convert.
@@ -193,13 +206,13 @@ class Methods(val mActivity: MainActivity) {
             val font2 = Typeface.createFromAsset(context.assets, "fonts/Roboto-Medium.ttf")
             val builder = SpannableStringBuilder()
 
-            val dkgraySpannable = SpannableString(first + " ")
-            dkgraySpannable.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.font_white)), 0, first.length, 0)
+            val dkgraySpannable = SpannableString("$first ")
+            dkgraySpannable.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.azure_white)), 0, first.length, 0)
 //            dkgraySpannable.setSpan(CustomTypefaceSpan("", font1), 0, second.length, 0)
             builder.append(dkgraySpannable)
 
             val blackSpannable = SpannableString(second)
-            blackSpannable.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.font_white)), 0, second.length, 0)
+            blackSpannable.setSpan(ForegroundColorSpan(ContextCompat.getColor(context, R.color.azure_white)), 0, second.length, 0)
 //            blackSpannable.setSpan(CustomTypefaceSpan("", font2), 0, second.length, 0)
             builder.append(blackSpannable)
             return builder
@@ -249,7 +262,7 @@ class Methods(val mActivity: MainActivity) {
             val sbView = snackbar.view
             sbView.setBackgroundColor(color)
             val textView = sbView.findViewById<View>(android.support.design.R.id.snackbar_text) as TextView
-            textView.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
+            textView.setTextColor(ContextCompat.getColor(mActivity, R.color.azure_white))
             snackbar.show()
         }
 

@@ -5,7 +5,6 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.util.Log
 import com.quixom.apps.weatherstream.weatherview.WeatherView
 
 
@@ -43,7 +42,6 @@ class WeatherViewSensorEventListener(val context: Context, val weatherView: Weat
             val pitch = Math.toDegrees(orientationAngles[1].toDouble())
             val roll = Math.toDegrees(orientationAngles[2].toDouble())
 
-            Log.i("Sensor", "Pitch: $pitch")
             if ((-85.0..85.0).contains(pitch))
                 weatherView.angle = roll.toInt()
         }

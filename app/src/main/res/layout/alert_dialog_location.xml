@@ -2,18 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/font_white"
+    android:background="@color/azure_white"
     android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/brink_pink">
+        android:background="@color/dark_blue">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
+            android:contentDescription="@null"
             android:src="@drawable/ic_warning_black_24dp" />
     </FrameLayout>
 
@@ -32,8 +33,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
-        android:textColor="@color/font_thirdly"
-        android:textSize="14sp"
-        android:text="@string/gps_alert_message"/>
+        android:text="@string/gps_alert_message"
+        android:textColor="@color/font_secondary"
+        android:textSize="14sp" />
 
 </LinearLayout>

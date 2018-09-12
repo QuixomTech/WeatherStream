@@ -1,59 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF9800</color>
-    <color name="colorPrimaryDark">#F57C00</color>
-    <color name="colorPrimary_tras">#d8ecae52</color>
-    <color name="colorAccent">#FF9800</color>
-    <color name="colorAccent_trans">#00ffffff</color>
-    <color name="transparent_bg">#00ffffff</color>
+    <color name="colorPrimary">#F9F9F9</color>
+    <color name="colorPrimaryDark">#e6e6e6</color>
+    <color name="colorAccent">#222a41</color>
 
-    <!-- Night mode theme -->
-    <color name="gulf_blue_dark">#171c2d</color>
-    <color name="gulf_blue">#222a41</color>
-    <color name="pattens_blue">#D3E2F0</color>
-    <color name="colorPrimary_night_tras">#d820285b</color>
-    <color name="bottomsheet_tras">#27212e</color>
-
-    <!-- Viewpager default indicatext_selector_colorolor -->
-    <color name="fpi_default_indicator_inactive_color">#80FFFFFF</color>
-    <color name="fpi_default_indicator_active_color">#FFFFFF</color>
-    <color name="dark_gray">#D2D2D2</color>
-    <color name="dark_gray_trans">#92d2d2d2</color>
-
-    <!-- ViewPager dummy colors -->
-    <color name="frag1">#1E88E5</color>
-    <color name="frag2">#FDD835</color>
-    <color name="frag3">#8E24AA</color>
-
-    <!-- text_selector_colorolor -->
-    <color name="cornflower_blue">#6C83D9</color>
-    <color name="fire_bush">#E99E3E</color>
-    <color name="persian_green">#0CB298</color>
-    <color name="malibu">#52C0F8</color>
-    <color name="aquamarine">#0E9C80</color>
-    <color name="summer_sky">#48ABEC</color>
-
-    <!-- Ftext_selector_colorolor -->
-    <color name="font_white">#ffffff</color>
-    <color name="font_white_trans">#87ffffff</color>
+    <!-- New theme -->
+    <color name="blue">#4765ff</color>
+    <color name="solid_blue">#0c0b60</color>
+    <color name="dark_blue">#05042e</color>
+    <color name="sky_blue">#29ccff</color>
+    <color name="yellow">#ffc107</color>
+    <color name="app_background">#F9F9F9</color>
+    <color name="orange">#f5490f</color>
+    <color name="azure_white">#F9FAFA</color>
+    <color name="light_gray">#f2f2f2</color>
+    <color name="gray">#d9d9d9</color>
     <color name="font_primary">#37474F</color>
     <color name="font_secondary">#616161</color>
-    <color name="font_thirdly">#757575</color>
+    <color name="dark_gray_trans">#92d2d2d2</color>
 
-    <!-- Search screen -->
-    <color name="colorOverlay">#78ffffff</color>
-    
-    <!-- Setting screen -->
-    <color name="voodoo">#463340</color>
-    <color name="light_gray">#dbefeeee</color>
-    <color name="azure">#F9FAFA</color>
-    <color name="fruit_salad">#4AAC4E</color>
-    <color name="lipstick">#95305B</color>
-    <color name="rich_blue">#5D5A9E</color>
-    <color name="lighting_yellow">#FFA539</color>
-    <color name="orange">#f5490f</color>
-    <color name="brink_pink">#F4697C</color>
-
-    <color name="notification_legacy_background_color">#ff1a1a1a</color>
-    <color name="notification_material_background_dimmed_color">#d4ffffff</color>
 </resources>

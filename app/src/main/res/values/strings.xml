@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Weather Stream</string>
+    <string name="app_name">Weather Forecast</string>
     <string name="app_tag_line">Get weather info with superior accuracy</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -25,13 +25,13 @@
 
     <!-- Side menu text -->
     <string name="location_search">Location Search</string>
-    <string name="speech_prompt">Weather Stream\n Try saying something</string>
+    <string name="speech_prompt">Weather Forecast\n Try saying something</string>
     <string name="speech_not_supported">Speech not supported</string>
     <string name="recent_search">Recent search</string>
     <string name="clear_search">Clear search</string>
 
     <!-- Setting menu screen -->
-    <string name="unit_format">UNIT\u0026FORMAT</string>
+    <string name="unit_format">UNIT \u0026 FORMAT</string>
     <string name="temperature_label">Temperature</string>
     <string name="speed_label">Speed</string>
     <string name="air_pressure_label">Air Pressure</string>
@@ -60,9 +60,12 @@
     <string name="date_dd_mm">DD/MM</string>
     <string name="date_mm_dd">MM/DD</string>
     <string name="advance_setting">ADVANCE SETTING</string>
-    <string name="about">About this app</string>
+    <string name="about">About US</string>
     <string name="rate_us">Rate us</string>
     <string name="weather_data_provider">Weather data provider</string>
+    <string name="share">Share</string>
+    <string name="feedback">Feedback</string>
+    <string name="try_other_apps">Check other apps</string>
 
     <!-- Api Error message -->
     <string name="no_internet_connection">No Internet Connection.</string>
@@ -128,7 +131,7 @@
     <!-- About -->
     <string name="version">Version</string>
     <string name="a_quixom_product">A QUIXOM product</string>
-    <string name="about_app_short_desc">Weather Stream is your pocket weather guide irrespective of your location!</string>
+    <string name="about_app_short_desc">Weather Forecast is your pocket weather guide irrespective of your location!</string>
     <string name="developer_info">Developer Information!</string>
     <string name="dev_info">This app has been developed by Quixom Technology. Quixom is a mobile and web app development company oriented towards design thinking approach to mobile app development. Quixom has delivered apps for its customers all over the globe in sectors like gaming, delivery, ecommerce, IOT and many others. To get a free quote, email your requirements to info@quixom.com</string>
     <string name="company_phone">+91 7567751959</string>
@@ -139,4 +142,7 @@
     <!-- Widgets text -->
     <string name="no_data_found">No Data</string>
 
+    <!--play store-->
+    <string name="app_google_play_store_link">"https://play.google.com/store/apps/details?id="</string>
+    <string name="app_market_link">"market://details?id="</string>
 </resources>

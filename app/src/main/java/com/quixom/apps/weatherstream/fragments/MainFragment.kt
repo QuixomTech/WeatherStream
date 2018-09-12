@@ -1,7 +1,7 @@
 package com.quixom.apps.weatherstream.fragments
 
 import android.annotation.SuppressLint
-import android.content.DialogInterface
+import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
@@ -18,6 +18,7 @@ import com.quixom.apps.weatherstream.R
 import com.quixom.apps.weatherstream.adapters.ForecastItemAdapter
 import com.quixom.apps.weatherstream.model.WeatherData
 import com.quixom.apps.weatherstream.model.WeatherForecastData
+import com.quixom.apps.weatherstream.slidingmenu.SlidingMenu
 import com.quixom.apps.weatherstream.utilities.*
 import com.quixom.apps.weatherstream.widgets.StickySwitch
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -27,23 +28,31 @@ import kotlinx.android.synthetic.main.toolbar_ui.*
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
+import android.view.animation.Animation
+import android.view.animation.RotateAnimation
+
+
 
 /**
- * A simple [BaseFragment] subclass.
+ * A simple [MainFragment] subclass.
  */
 class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelectedChangeListener {
-    lateinit var weatherSensor: WeatherViewSensorEventListener
+    private lateinit var weatherSensor: WeatherViewSensorEventListener
+    var drawable: AnimatedVectorDrawable?=null
+    var drawableBack: AnimatedVectorDrawable?=null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater!!.inflate(R.layout.fragment_main, container, false)
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+            drawable = ContextCompat.getDrawable(context, R.drawable.ic_menu_animatable) as AnimatedVectorDrawable
+            drawableBack = ContextCompat.getDrawable(context, R.drawable.ic_menu_animatable_back) as AnimatedVectorDrawable
+            toggleMenu.setImageDrawable(drawable)
         llNoLocationFound.visibility = View.GONE
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        weatherSensor = WeatherViewSensorEventListener(mActivity, weatherView)
 
         WeatherStreamCallbackManager.addWishCallBack(addWeatherStreamCallBack)
         recyclerViewDaysWeather.setHasFixedSize(true)
@@ -51,39 +60,27 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
         recyclerViewDaysWeather.layoutManager = layoutManager
         val lists: List<WeatherForecastData.ForecastList>? = WeatherForecastData.ForecastList.getForecastList()
         val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
-        if (weatherData != null) {
-            recyclerViewDaysWeather.adapter = ForecastItemAdapter(preferenceUtil, weatherData.name!!, lists!!, mActivity)
-        }
+        if (weatherData != null) recyclerViewDaysWeather.adapter = ForecastItemAdapter(preferenceUtil, weatherData.name!!, lists!!, mActivity)
 
         btnSearchLocation.setOnClickListener(this)
         tvDirectionView.setOnClickListener(this)
         tvDirectionLabel.setOnClickListener(this)
 
-
-        if (!preferenceUtil.getBooleanPref(preferenceUtil.IS_APP_THEME_DAY)) {
-            llNoLocationFound.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.gulf_blue_dark))
-            tvSearchViewHeading.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
-            tvSearchViewMessage.setTextColor(ContextCompat.getColor(mActivity, R.color.font_thirdly))
-
-            toolbar.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.gulf_blue))
-            llTopView.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.gulf_blue))
-            rlMainFragmentParent.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.gulf_blue_dark))
-            recyclerViewDaysWeather.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.gulf_blue_dark))
-            llMiddleView.setCardBackgroundColor(ContextCompat.getColor(mActivity, R.color.cornflower_blue))
-            stickySwitch.sliderBackgroundColor = ContextCompat.getColor(mActivity, R.color.gulf_blue)
-
-            tvRainPrecipitationView.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
-            tvHumidityView.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
-            tvWindView.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
-            tvDirectionView.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
-
-            tvRainPrecipitationLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_primary))
-            tvHumidityLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_primary))
-            tvWindLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_primary))
-            tvDirectionLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_primary))
-        }
-
         setWeatherDetails()
+        mActivity.slidingMenuLeft!!.setOnClosedListener{
+                toggleMenu.setImageDrawable(drawableBack)
+                drawableBack!!.start()
+        }
+        mActivity.slidingMenuLeft!!.setOnOpenedListener{
+            toggleMenu.setImageDrawable(drawable)
+            drawable!!.start()
+        }
+        mActivity.slidingMenuRight!!.setOnOpenedListener {
+            ivSetting.clearAnimation()
+        }
+        mActivity.slidingMenuRight!!.setOnClosedListener {
+            ivSetting.clearAnimation()
+        }
     }
 
     override fun onDestroyView() {
@@ -103,17 +100,13 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
 
             val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
             if (weatherData != null) {
-                val lists: List<WeatherForecastData.ForecastList>? = WeatherForecastData.ForecastList.getForecastList()
-//                recyclerViewDaysWeather.adapter = ForecastItemAdapter(preferenceUtil, weatherData.name!!, lists!!, mActivity)
+                WeatherForecastData.ForecastList.getForecastList()
                 recyclerViewDaysWeather?.adapter?.notifyDataSetChanged()
             }
         } else {
             preferenceUtil.setBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS, false)
             mActivity.rbFahrenheit.isChecked = true
-            if (mActivity.rvMenuLocationList.adapter != null) {
-                mActivity.rvMenuLocationList.adapter.notifyDataSetChanged()
-            }
-
+            if (mActivity.rvMenuLocationList.adapter != null) mActivity.rvMenuLocationList.adapter.notifyDataSetChanged()
             setWeatherDetails()
 
             val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
@@ -126,7 +119,7 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
     }
 
     fun setWeatherData(weatherDataAnim: WeatherDataAnim) {
-        weatherView.setWeatherData(weatherDataAnim)
+//        weatherView.setWeatherData(weatherDataAnim)
     }
 
     override fun onClick(v: View?) {
@@ -138,10 +131,18 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
                     mActivity.slidingMenuRight!!.toggle()
                 }
                 mActivity.slidingMenuLeft?.showMenu(true)
+
             }
             ivSetting -> {
                 Methods.avoidDoubleClicks(ivSetting)
                 mActivity.toggleSlideMenuRight()
+                val rotate = RotateAnimation(
+                        0f, 360f,
+                        Animation.RELATIVE_TO_SELF, 0.5f,
+                        Animation.RELATIVE_TO_SELF, 0.5f)
+                rotate.duration = 500
+                rotate.repeatCount=Animation.INFINITE
+                ivSetting.startAnimation(rotate)
             }
             btnSearchLocation -> {
                 Methods.avoidDoubleClicks(btnSearchLocation)
@@ -151,28 +152,14 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
                 Methods.avoidDoubleClicks(tvDirectionView)
                 showInfoDialog()
             }
-            else -> {
-            }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        weatherSensor.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        weatherSensor.onPause()
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
         if (!hidden && isAdded) {
             val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
-            if (weatherData != null) {
-                initToolbar(weatherData.name!!)
-            }
+            if (weatherData != null) initToolbar(weatherData.name!!)
         }
     }
 
@@ -191,7 +178,6 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
         ivSetting.setOnClickListener(this)
 
         toggleMenu.tag = 0
-
         stickySwitch.onSelectedChangeListener = this
 
         try {
@@ -241,83 +227,72 @@ class MainFragment : BaseFragment(), View.OnClickListener, StickySwitch.OnSelect
             tvWeatherTypeView?.text = inWeatherData.description
             tvDateTime?.text = DateUtil.getDateFromMillis(weatherData.dt, DateUtil.dateDisplayFormat1, true)
             tvHumidityView?.text = mainWeatherData.humidity?.plus("%")
-            if (cloudWeatherData?.all != null) {
-                tvRainPrecipitationView?.text = cloudWeatherData.all.toString().plus("%")
-            }
+            if (cloudWeatherData?.all != null) tvRainPrecipitationView?.text = cloudWeatherData.all.toString().plus("%")
             if (windWeatherData?.speed != null) {
-                val numberFormat: NumberFormat = DecimalFormat("#.0000") as NumberFormat
-                if (preferenceUtil.getBooleanPref(preferenceUtil.IS_SPEED_UNIT_METERS)) {
-                    tvWindView?.text = windWeatherData.speed?.plus(mResources.getString(R.string.ms_speed))
-                } else {
-                    tvWindView?.text = numberFormat.format(Methods.getMiles(windWeatherData.speed?.toFloat()!!)).toString().plus(mResources.getString(R.string.mph_speed))
-                }
+                val numberFormat: NumberFormat = DecimalFormat("#.0000")
+                if (preferenceUtil.getBooleanPref(preferenceUtil.IS_SPEED_UNIT_METERS)) tvWindView?.text = windWeatherData.speed?.plus(mResources.getString(R.string.ms_speed))
+                else tvWindView?.text = numberFormat.format(Methods.getMiles(windWeatherData.speed?.toFloat()!!)).toString().plus(mResources.getString(R.string.mph_speed))
             }
 
-            weatherView.visibility = View.VISIBLE
-            iv_weather_type.setImageResource(WeatherToImage.getWeatherTypeConditionCode(this@MainFragment, weatherView, inWeatherData.id?.toString()!!))
-
-            if (windWeatherData?.deg != null) {
-                tvDirectionView?.text = DegreeToWindDirection.getWindDirection(mActivity, windWeatherData.deg?.toDouble()!!)
-            }
-        } else {
-            llNoLocationFound.visibility = View.VISIBLE
-        }
+            iv_weather_type.setImageResource(WeatherToImage.getWeatherTypeConditionCode(this@MainFragment, inWeatherData.id?.toString()!!))
+            if (windWeatherData?.deg != null) tvDirectionView?.text = DegreeToWindDirection.getWindDirection(mActivity, windWeatherData.deg?.toDouble()!!)
+        } else llNoLocationFound.visibility = View.VISIBLE
     }
 
     private var addWeatherStreamCallBack: WeatherStreamCallback = object : WeatherStreamCallback {
         override fun onSearchLocationAction(type: Int) {
-            if (type == 1) {
-                setWeatherDetails()
-            }
-
-            if (type == 2) {
-                val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
-                if (weatherData != null) {
-                    val lists: List<WeatherForecastData.ForecastList>? = WeatherForecastData.ForecastList.getForecastList()
-                    recyclerViewDaysWeather.adapter = ForecastItemAdapter(preferenceUtil, weatherData.name!!, lists!!, mActivity)
-                    recyclerViewDaysWeather.adapter?.notifyDataSetChanged()
+            when (type) {
+                1 -> setWeatherDetails()
+                2 -> {
+                    val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
+                    if (weatherData != null) {
+                        val lists: List<WeatherForecastData.ForecastList>? = WeatherForecastData.ForecastList.getForecastList()
+                        recyclerViewDaysWeather.adapter = ForecastItemAdapter(preferenceUtil, weatherData.name!!, lists!!, mActivity)
+                        recyclerViewDaysWeather.adapter?.notifyDataSetChanged()
+                    }
                 }
-            }
-
-            if (type == 3) {
-
-                setWeatherDetails()
-
-                val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
-                if (weatherData != null) {
-                    val lists: List<WeatherForecastData.ForecastList>? = WeatherForecastData.ForecastList.getForecastList()
-                    recyclerViewDaysWeather.adapter = ForecastItemAdapter(preferenceUtil, weatherData.name!!, lists!!, mActivity)
-                    recyclerViewDaysWeather?.adapter?.notifyDataSetChanged()
-                }
-            }
-            if (type == 4) {
-                setWeatherDetails()
-
-                val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
-                if (weatherData != null) {
-                    val lists: List<WeatherForecastData.ForecastList>? = WeatherForecastData.ForecastList.getForecastList()
-                    try {
-//                        recyclerViewDaysWeather.adapter = ForecastItemAdapter(preferenceUtil, weatherData.name!!, lists!!, mActivity)
+                3 -> {
+                    setWeatherDetails()
+                    val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
+                    if (weatherData != null) {
+                        val lists: List<WeatherForecastData.ForecastList>? = WeatherForecastData.ForecastList.getForecastList()
+                        recyclerViewDaysWeather.adapter = ForecastItemAdapter(preferenceUtil, weatherData.name!!, lists!!, mActivity)
                         recyclerViewDaysWeather?.adapter?.notifyDataSetChanged()
-                    } catch (e: Exception) {
-                        e.printStackTrace()
+                    }
+                }
+                4 -> {
+                    setWeatherDetails()
+
+                    val weatherData: WeatherData? = WeatherData.getLocationBasedWeatherDetails()
+                    if (weatherData != null) {
+                        WeatherForecastData.ForecastList.getForecastList()
+                        try {
+//                        recyclerViewDaysWeather.adapter = ForecastItemAdapter(preferenceUtil, weatherData.name!!, lists!!, mActivity)
+                            recyclerViewDaysWeather?.adapter?.notifyDataSetChanged()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
                     }
                 }
             }
         }
     }
 
+    @SuppressLint("InflateParams")
     private fun showInfoDialog() {
         val dialogBuilder = AlertDialog.Builder(mActivity)
         val inflater = this.layoutInflater
         val dialogView = inflater.inflate(R.layout.alert_dialog_layout, null)
         dialogBuilder.setView(dialogView)
 
-        dialogBuilder.setNegativeButton(mActivity.resources.getString(R.string.close), DialogInterface.OnClickListener { dialog, whichButton ->
+        dialogBuilder.setNegativeButton(mActivity.resources.getString(R.string.close)) { dialog, _ ->
             dialog.dismiss()
-        })
+        }
         val b = dialogBuilder.create()
         b.show()
+        b.window.setBackgroundDrawableResource(R.color.app_background)
+        b.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(mActivity, R.color.font_primary))
+        b.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(mActivity, R.color.font_primary))
     }
 }
 

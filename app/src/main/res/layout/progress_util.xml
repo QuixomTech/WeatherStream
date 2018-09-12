@@ -14,6 +14,6 @@
         android:id="@+id/rotateLoading"
         android:layout_height="40dp"
         android:layout_width="40dp"
-        app:loading_color="@color/rich_blue"
+        app:loading_color="@color/blue"
         app:loading_width="2dp" />
 </LinearLayout>

@@ -13,13 +13,14 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_ws_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_ws_launcher_round"
+        android:roundIcon="@mipmap/ic_ws_launcher"
         android:supportsRtl="true"
-        android:theme="@style/ThemeOverlay.AppCompat">
+        android:theme="@style/AppTheme">
 
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

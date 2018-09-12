@@ -27,14 +27,14 @@ import java.util.*
 /**
  * Created by akif on 11/3/17.
  */
-class ForecastItemAdapter(private var preferenceUtil: PreferenceUtil, private var cityname: String, private var daysForecastList: List<WeatherForecastData.ForecastList>, mainActivity: MainActivity) : RecyclerView.Adapter<ForecastItemAdapter.ViewHolder>() {
+class ForecastItemAdapter(private var preferenceUtil: PreferenceUtil, private var cityName: String, private var daysForecastList: List<WeatherForecastData.ForecastList>, mainActivity: MainActivity) : RecyclerView.Adapter<ForecastItemAdapter.ViewHolder>() {
 
     private var context: Context? = null
     private var mActivity: MainActivity? = mainActivity
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ForecastItemAdapter.ViewHolder {
         context = parent.context
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.row_forecast_item_view, parent, false), mActivity!!)
+        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.row_forecast_item_view, parent, false))
     }
 
     @SuppressLint("InflateParams")
@@ -44,15 +44,12 @@ class ForecastItemAdapter(private var preferenceUtil: PreferenceUtil, private va
 
         holder.tvDayTime.text = DateUtil.getDateFromMillis(dateValue, DateUtil.dateDisplayFormat3, true).plus(" ").plus(DateUtil.convertTime(dateTime!!))
 
-        if (DateUtil.getCurrentDateTime(dateTime)) {
-            holder.tvDayTime.background = ContextCompat.getDrawable(mActivity, R.drawable.day_status_active)
-        } else {
-            holder.tvDayTime.background = ContextCompat.getDrawable(mActivity, R.drawable.day_status_pendding)
-        }
+        if (DateUtil.getCurrentDateTime(dateTime)) holder.tvDayTime.background = ContextCompat.getDrawable(mActivity, R.drawable.day_status_active)
+        else holder.tvDayTime.background = ContextCompat.getDrawable(mActivity, R.drawable.day_status_pendding)
 
         val innerWeatherList: List<WeatherData.Weather>? = WeatherData.Weather.getInnerWeatherList()
         if (innerWeatherList != null && innerWeatherList.isNotEmpty()) {
-            holder.ivWeatherTypeForecast.setImageResource(WeatherToImage.getWeatherTypeConditionCode(null, null, innerWeatherList[position].id.toString()))
+            holder.ivWeatherTypeForecast.setImageResource(WeatherToImage.getWeatherTypeConditionCode(null, innerWeatherList[position].id.toString()))
         }
         val mainWeatherData: List<WeatherData.Main>? = WeatherData.Main.getMainWeatherList()
         if (mainWeatherData != null) {
@@ -64,21 +61,19 @@ class ForecastItemAdapter(private var preferenceUtil: PreferenceUtil, private va
 
                 if (preferenceUtil.getBooleanPref(preferenceUtil.IS_TEMPERATURE_UNIT_CELCIUS)) {
                     holder.tvAvgTemperature.text = Math.round(avgTemp.toDouble()).toString().plus(mActivity?.resources?.getString(R.string.temp_degree_sign))
-                    holder.tvMinMaxTempExpand.text = Math.round(minTemp.toDouble()).toString().plus(mActivity?.resources?.getString(R.string.temp_degree_sign)).
-                            plus("/").plus(Math.round(maxTemp.toDouble()).toString()).plus(mActivity?.resources?.getString(R.string.temp_degree_sign))
+                    holder.tvMinMaxTempExpand.text = Math.round(minTemp.toDouble()).toString().plus(mActivity?.resources?.getString(R.string.temp_degree_sign)).plus("/").plus(Math.round(maxTemp.toDouble()).toString()).plus(mActivity?.resources?.getString(R.string.temp_degree_sign))
                 } else {
                     holder.tvAvgTemperature.text = Math.round(Methods.convertCelsiusToFahrenheit(avgTemp.toFloat())).toString().plus(mActivity?.resources?.getString(R.string.temp_degree_sign))
-                    holder.tvMinMaxTempExpand.text = Math.round(Methods.convertCelsiusToFahrenheit(minTemp.toFloat())).toString().plus(mActivity?.resources?.getString(R.string.temp_degree_sign)).
-                            plus("/").plus(Math.round(Methods.convertCelsiusToFahrenheit(maxTemp.toFloat())).toString()).plus(mActivity?.resources?.getString(R.string.temp_degree_sign))
+                    holder.tvMinMaxTempExpand.text = Math.round(Methods.convertCelsiusToFahrenheit(minTemp.toFloat())).toString().plus(mActivity?.resources?.getString(R.string.temp_degree_sign)).plus("/").plus(Math.round(Methods.convertCelsiusToFahrenheit(maxTemp.toFloat())).toString()).plus(mActivity?.resources?.getString(R.string.temp_degree_sign))
                 }
             }
         }
 
         if (!preferenceUtil.getBooleanPref(preferenceUtil.IS_APP_THEME_DAY)) {
-            holder.tvAvgTemperature.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
+            holder.tvAvgTemperature.setTextColor(ContextCompat.getColor(mActivity, R.color.azure_white))
         }
 
-        holder.itemView.setOnClickListener(View.OnClickListener {
+        holder.itemView.setOnClickListener {
             Methods.avoidDoubleClicks(holder.itemView)
 
             val mBottomSheetDialog = BottomSheetDialog(context!!)
@@ -118,64 +113,28 @@ class ForecastItemAdapter(private var preferenceUtil: PreferenceUtil, private va
                 val cloudsData: WeatherData.Clouds? = WeatherData.Clouds.getCloudWeatherDetails()
                 val windData: WeatherData.Wind? = WeatherData.Wind.getWindWeatherDetails()
 
-                if (sysWeatherList != null && sysWeatherList.isNotEmpty() && sysWeatherList[position + 1].pod != null) {
-                    tvSystemPodBL.text = sysWeatherList[position + 1].pod
-                }
-
+                if (sysWeatherList != null && sysWeatherList.isNotEmpty() && sysWeatherList[position + 1].pod != null) tvSystemPodBL.text = sysWeatherList[position + 1].pod
                 if (sysWeatherData?.country != null) {
-                    val loc = Locale("", sysWeatherData?.country)
+                    val loc = Locale("", sysWeatherData.country)
                     tvCountryBL.text = loc.displayCountry
                 }
 
-                if (rainData != null && rainData.rainCount != null) {
+                if (rainData?.rainCount != null) {
                     val numberFormat: NumberFormat = DecimalFormat("#.00")
                     tvRainVolumeBL.text = numberFormat.format(rainData.rainCount!!).toString().plus(" mm")
-                } else {
-                    tvRainVolumeBL.text = ("0").plus(" mm")
-                }
+                } else tvRainVolumeBL.text = ("0").plus(" mm")
 
-
-                if (cloudsData != null) {
-                    tvRainPrecipitationBL.text = cloudsData.all.toString().plus("%")
-                }
+                if (cloudsData != null) tvRainPrecipitationBL.text = cloudsData.all.toString().plus("%")
                 val numberFormat: NumberFormat = DecimalFormat("#.0000")
 
                 if (windData != null) {
-                    if (preferenceUtil.getBooleanPref(preferenceUtil.IS_SPEED_UNIT_METERS)) {
-                        tvWindViewBL.text = windData.speed.toString().plus(mActivity?.resources?.getString(R.string.ms_speed))
-                    } else {
-                        tvWindViewBL.text = numberFormat.format(Methods.getMiles(windData.speed?.toFloat()!!)).toString().plus(mActivity!!.resources.getString(R.string.mph_speed))
-                    }
+                    if (preferenceUtil.getBooleanPref(preferenceUtil.IS_SPEED_UNIT_METERS)) tvWindViewBL.text = windData.speed.toString().plus(mActivity?.resources?.getString(R.string.ms_speed))
+                    else tvWindViewBL.text = numberFormat.format(Methods.getMiles(windData.speed?.toFloat()!!)).toString().plus(mActivity!!.resources.getString(R.string.mph_speed))
                 }
 
                 tvDateTimeBL.text = DateUtil.getDateFromMillis(dateValue, DateUtil.dateDisplayFormat3, true).plus(" ").plus(DateUtil.convertTime(dateTime))
 
-                if (!preferenceUtil.getBooleanPref(preferenceUtil.IS_APP_THEME_DAY)) {
-                    tvCityBL.setTextColor(ContextCompat.getColor(mActivity, R.color.fire_bush))
-                    llParentTopView.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.bottomsheet_tras))
-
-                    tvCountryBL.setTextColor(ContextCompat.getColor(mActivity, R.color.malibu))
-
-                    tvHumidityBL.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
-                    tvPressureBL.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
-                    tvSeaLevelBL.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
-                    tvGroundLevelBL.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
-                    tvSystemPodBL.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
-                    tvRainVolumeBL.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
-                    tvRainPrecipitationBL.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
-                    tvWindViewBL.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white))
-
-                    tvHumidityBLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
-                    tvPressureBLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
-                    tvSystemPodBLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
-                    tvRainVolumeBLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
-                    tvRainPrecipitationBLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
-                    tvWindViewBLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
-                    tvGroundLevelBLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
-                    tvSeaLevelBLabel.setTextColor(ContextCompat.getColor(mActivity, R.color.font_white_trans))
-                }
-
-                tvCityBL.text = cityname
+                tvCityBL.text = cityName
                 tvHumidityBL.text = humidity.plus("%")
 
                 val numberFormatHpa: NumberFormat = DecimalFormat("#.00")
@@ -191,12 +150,12 @@ class ForecastItemAdapter(private var preferenceUtil: PreferenceUtil, private va
             }
             mBottomSheetDialog.setContentView(sheetView)
             mBottomSheetDialog.show()
-        })
+        }
     }
 
     override fun getItemCount(): Int = daysForecastList.size
 
-    class ViewHolder(itemView: View, mActivity: MainActivity) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val tvDayTime: TextView = itemView.findViewById(R.id.tvDayTime)
         val tvMinMaxTempExpand: TextView = itemView.findViewById(R.id.tvMinMaxTempExpand)

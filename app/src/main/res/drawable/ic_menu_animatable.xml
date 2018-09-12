@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:drawable="@drawable/ic_menu_vector"
+    tools:targetApi="lollipop">
+    <target
+        android:name="menu"
+        android:animation="@animator/ic_menu_morph"/>
+    <target
+        android:name="rotation"
+        android:animation="@animator/clockwise_rotation"/>
+</animated-vector>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="5dp">
@@ -12,7 +13,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:contentDescription="@null"
-            android:tint="@color/fruit_salad" />
+            android:tint="@color/dark_blue" />
 
         <TextView
             android:id="@+id/text_title"
@@ -45,7 +46,8 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="10dp"
             android:fontFamily="@font/lato_light"
-            android:textColor="@color/font_thirdly"
+            android:textColor="@color/font_secondary"
             android:textAllCaps="true"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            tools:ignore="RelativeOverlap" />
     </RelativeLayout>
