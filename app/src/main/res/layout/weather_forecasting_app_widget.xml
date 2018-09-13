@@ -19,7 +19,7 @@
         android:gravity="center_vertical"
         android:maxLines="2"
         android:textAlignment="center"
-        android:textColor="@color/azure_white"
+        android:textColor="@color/colorAccent"
         android:textSize="12sp" />
 
     <ImageView
@@ -30,7 +30,7 @@
         android:layout_marginStart="10dp"
         android:contentDescription="@null"
         android:src="@drawable/ic_clouds_of_storm"
-        android:tint="@color/azure_white" />
+        android:tint="@color/blue" />
 
     <TextView
         android:id="@+id/tvAvgTemperatureWidget"
@@ -40,7 +40,7 @@
         android:layout_marginStart="4dp"
         android:layout_toEndOf="@id/ivWeatherTypeIconWidget"
         android:includeFontPadding="false"
-        android:textColor="@color/azure_white"
+        android:textColor="@color/colorAccent"
         android:textSize="30sp" />
 
     <TextView
@@ -55,7 +55,7 @@
         android:paddingEnd="4dp"
         android:paddingStart="4dp"
         android:text="@string/c_symbol"
-        android:textColor="@color/azure_white"
+        android:textColor="@color/colorAccent"
         android:textSize="12sp"
         android:id="@+id/textView" />
 
@@ -68,7 +68,7 @@
         android:layout_marginTop="20dp"
         android:includeFontPadding="false"
         android:gravity="center_horizontal"
-        android:textColor="@color/azure_white"
+        android:textColor="@color/colorAccent"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:maxLines="2"
@@ -84,7 +84,7 @@
         android:drawableStart="@drawable/ic_arrow_drop_down_black_24dp"
         android:gravity="center_vertical"
         android:includeFontPadding="false"
-        android:textColor="@color/azure_white"
+        android:textColor="@color/orange"
         android:textSize="12sp" />
 
     <TextView
@@ -97,7 +97,7 @@
         android:drawableStart="@drawable/ic_arrow_drop_up_black_24dp"
         android:gravity="center_vertical"
         android:includeFontPadding="false"
-        android:textColor="@color/azure_white"
+        android:textColor="@color/orange"
         android:textSize="12sp" />
 
     <TextView
@@ -109,7 +109,7 @@
         android:gravity="center"
         android:text="@string/no_data_found"
         android:textAlignment="center"
-        android:textColor="@color/azure_white"
+        android:textColor="@color/colorAccent"
         android:textSize="16sp"
         android:visibility="visible" />
 </RelativeLayout>

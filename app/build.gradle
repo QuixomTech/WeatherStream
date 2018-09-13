@@ -13,21 +13,27 @@ def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    compileSdkVersion 26
+    signingConfigs {
+        release {
+            keyAlias 'quixomTech'
+            keyPassword 'quixom123'
+            storeFile file('/home/quixomtech/Documents/Android/Android Projects/Weather Stream 2017/2.Apk and Keystore/weatherstream.jks')
+            storePassword 'quixom123'
+        }
+    }
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.quixom.apps.weatherstream"
         minSdkVersion 21
-        targetSdkVersion 26
-        versionCode 6
-        versionName "1.5"
-
+        targetSdkVersion 28
+        versionCode 7
+        versionName "1.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
         it.buildConfigField 'String', 'BASE_URL', keystoreProperties['BASE_URL']
         it.buildConfigField 'String', 'KEY_OPEN_WEATHER_MAP_KEY', keystoreProperties['KEY_OPEN_WEATHER_MAP_KEY']
         it.buildConfigField 'String', 'KEY_AUTH', keystoreProperties['KEY_AUTH']
-
         resConfigs "en"
+        signingConfig signingConfigs.release
     }
     buildTypes {
 
@@ -45,6 +51,8 @@ android {
         }
     }
     buildToolsVersion '28.0.2'
+    productFlavors {
+    }
 }
 def dbflow_version = "4.1.2"
 
